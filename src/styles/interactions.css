@@ -1,0 +1,45 @@
+/* style-hover / style-active have no React equivalent, so each distinct
+   pattern in the prototype becomes a class here. Source lines refer to
+   docs/design/portfolio-home.dc.html unless noted. */
+
+/* logo press — line 64 */
+.rc-logo:hover{background:hsl(from var(--color-primary) h calc(s * 1.1) calc(l * 1.15))}
+.rc-logo:active{transform:translate(2px,2px);box-shadow:0 0 0 transparent}
+
+/* nav link, desktop rail and mobile overlay — lines 81, 113 */
+.rc-nav-link:hover{color:var(--color-text);background:var(--color-surface-raised)}
+
+/* mobile filter dropdown option — line 235 */
+.rc-filter-option:hover{background:var(--color-surface-raised)}
+
+/* fact term and the About "my projects" link — lines 316, 331 */
+.rc-fact-term:hover{color:hsl(from var(--color-accent-text) h calc(s * 1.1) calc(l * 1.2));text-decoration-style:solid}
+
+/* footer social link — line 461 */
+.rc-footer-link:hover{color:var(--color-primary)}
+
+/* project card — line 251 */
+.rc-project-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--color-border)}
+.rc-project-card:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+
+/* "Send Another" ghost button — line 426 */
+.rc-ghost-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+
+/* fact popover close button — line 316 */
+.rc-popover-close:hover{background:var(--color-surface-raised)}
+.rc-popover-close:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+
+/* About sprite play/pause button — line 293 */
+.rc-sprite-toggle:hover{background:var(--color-surface-raised)}
+.rc-sprite-toggle:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--color-border)}
+
+/* hero "CLICK TO CONTINUE" — line 200 */
+.rc-hero-cta:hover{color:var(--color-primary)}
+
+/* back / EXPLORE MORE pixel button — project-detail.dc.html lines 116, 162, 176 */
+.rc-pixel-back:hover{background:var(--color-surface-raised)}
+.rc-pixel-back:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+
+/* the detail page's two anchor-as-button overrides — project-detail.dc.html lines 27-28 */
+a.pixel-btn:hover{color:var(--color-text-on-accent)}
+a.pixel-btn--ghost:hover{color:var(--color-text)}

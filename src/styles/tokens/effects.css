@@ -1,0 +1,14 @@
+:root{
+--radius-0:0px; /* every corner in this system is square -- no rounding, ever */
+--border-thin:2px;--border-thick:4px;
+--shadow-pixel-sm:1px 1px 0 var(--pixel-black);
+--shadow-pixel:2px 2px 0 var(--pixel-black);
+--shadow-pixel-lg:4px 4px 0 var(--pixel-black);
+--shadow-pixel-primary:2px 2px 0 var(--pixel-green-1);
+--shadow-pixel-danger:2px 2px 0 var(--pixel-red-3);
+--ease-pixel:steps(3,end); /* @kind other */
+--duration-fast:80ms; /* @kind other */
+--duration-normal:120ms; /* @kind other */
+}
+*{box-sizing:border-box}
+img,canvas.pixel-canvas,.pixel-render{image-rendering:pixelated;image-rendering:crisp-edges}

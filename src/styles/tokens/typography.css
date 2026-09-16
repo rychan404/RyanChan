@@ -1,0 +1,12 @@
+/* Display/heading font: Edit Undo BRK (AEnigma Fonts), supplied by the brand and self-hosted. */
+@font-face{font-family:'Edit Undo BRK';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/editundo.ttf) format('truetype');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-400.woff2) format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/jetbrains-mono-700.woff2) format('woff2');}
+:root{
+--font-display:'Edit Undo BRK','Courier New',monospace;
+--font-body:'JetBrains Mono','Courier New',monospace;
+--text-xs:12px;--text-sm:16px;--text-md:20px;--text-lg:24px;--text-xl:32px;--text-2xl:40px;--text-3xl:56px;--text-4xl:72px;
+--leading-tight:1.25;--leading-normal:1.6;--leading-loose:1.9;
+--tracking-display:0.02em;--tracking-body:0em;
+}

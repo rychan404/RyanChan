@@ -1,0 +1,21 @@
+/* The 18 live keyframes. Copied verbatim from the prototype's <style> block.
+   Five more are defined there and never referenced (pxdrift, pxfloat,
+   pxgrass, pxrecblink, pxsunpulse) — deliberately not ported. */
+@keyframes pxblink{0%,60%{opacity:1}61%,100%{opacity:0}}
+@keyframes pxbob{0%{transform:translateY(0)}100%{transform:translateY(6px)}}
+@keyframes pxsunglow{0%,100%{filter:brightness(1) saturate(1.05) drop-shadow(0 0 0 rgba(255,205,90,0))}50%{filter:brightness(1.4) saturate(1.5) drop-shadow(0 0 34px rgba(255,205,90,.75))}}
+@keyframes pxmoonglow{0%,100%{filter:brightness(1) saturate(1) drop-shadow(0 0 0 rgba(178,204,255,0))}50%{filter:brightness(1.45) saturate(1.25) drop-shadow(0 0 30px rgba(178,204,255,.7))}}
+@keyframes pxstartwinkle{0%,100%{opacity:.5;filter:brightness(.8)}18%{opacity:1;filter:brightness(1.5)}40%{opacity:.55;filter:brightness(.85)}62%{opacity:1;filter:brightness(1.6)}80%{opacity:.65;filter:brightness(1)}}
+@keyframes pxtapeExit{0%{transform:translateY(0)}100%{transform:translateY(100%)}}
+@keyframes pxtapeEnter{0%{transform:translateY(-100%)}100%{transform:translateY(0)}}
+@keyframes pxbirds{0%{transform:translate(0,0)}50%{transform:translate(9px,-6px)}100%{transform:translate(0,0)}}
+@keyframes pxflicker{0%{opacity:.88;transform:scaleY(.99)}100%{opacity:1;transform:scaleY(1.01)}}
+@keyframes pxfireglow{0%,100%{filter:brightness(1) saturate(1) drop-shadow(0 0 0 rgba(255,140,60,0))}50%{filter:brightness(1.45) saturate(1.4) drop-shadow(0 0 28px rgba(255,140,60,.75))}}
+@keyframes pxsmoke{0%{opacity:.45;transform:translateY(1px)}50%{opacity:.65;transform:translateY(-1px)}100%{opacity:.45;transform:translateY(1px)}}
+@keyframes pxrecdotblink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes pxsway{0%{transform:rotate(-0.3deg)}100%{transform:rotate(0.3deg)}}
+@keyframes pxsplash{0%{transform:translateY(0);opacity:.9}50%{transform:translateY(-3px);opacity:1}100%{transform:translateY(0);opacity:.9}}
+@keyframes pxballswing{0%{transform:translate(-30px,10px)}100%{transform:translate(7px,0)}}
+@keyframes pxpersonbob{0%{transform:translateY(0)}100%{transform:translateY(-4px)}}
+@keyframes pxsunslide{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+@keyframes pxwavesway{0%{transform:translateX(-8px)}50%{transform:translateX(8px)}100%{transform:translateX(-8px)}}

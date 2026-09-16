@@ -1,0 +1,73 @@
+:root{
+/* base ramps, extracted from uploads/chalking-fluently-color-palette-1x.png (32-swatch pixel-art ramp strip), dark->light within each ramp */
+--pixel-neutral-1:#1a1b1c;--pixel-neutral-2:#313339;--pixel-neutral-3:#707588;--pixel-neutral-4:#cacae4;--pixel-neutral-5:#ebf5f7;
+--pixel-blue-1:#254a99;--pixel-blue-2:#2568a9;--pixel-blue-3:#4aadde;--pixel-blue-4:#8fe3e3;
+--pixel-teal-1:#194d46;--pixel-teal-2:#1c6f7c;--pixel-teal-3:#46b1a7;--pixel-teal-4:#73c3aa;
+--pixel-green-1:#216c50;--pixel-green-2:#49966a;--pixel-green-3:#81b568;--pixel-green-4:#a9bf6d;
+--pixel-tan-1:#5a4443;--pixel-tan-2:#775e53;--pixel-tan-3:#b07f6a;--pixel-tan-4:#d8aa83;--pixel-tan-5:#e4d788;
+--pixel-red-1:#8f4949;--pixel-red-2:#d15a5f;--pixel-red-3:#e67f97;--pixel-red-4:#f2aece;
+--pixel-violet-1:#563175;--pixel-violet-2:#514076;--pixel-violet-3:#96479e;--pixel-violet-4:#d054bf;--pixel-violet-5:#d97cd9;--pixel-violet-6:#9b88de;
+--pixel-black:#000000;--pixel-white:#ffffff;
+/* semantic */
+--color-bg:var(--pixel-neutral-1);
+--color-bg-alt:var(--pixel-teal-1);
+--color-surface:var(--pixel-neutral-2);
+--color-surface-raised:var(--pixel-neutral-3);
+--color-surface-sunken:var(--pixel-violet-1);
+--color-border:var(--pixel-black);
+--color-border-light:var(--pixel-neutral-3);
+--color-text:var(--pixel-neutral-5);
+--color-text-muted:var(--pixel-neutral-4);
+--color-text-dim:var(--pixel-neutral-3);
+--color-text-on-accent:var(--pixel-black);
+--color-primary:var(--pixel-green-2);
+--color-primary-hover:var(--pixel-green-3);
+--color-primary-active:var(--pixel-green-1);
+--color-secondary:var(--pixel-blue-2);
+--color-secondary-hover:var(--pixel-blue-3);
+--color-secondary-active:var(--pixel-blue-1);
+--color-accent-pink:var(--pixel-violet-5);
+--color-accent-violet:var(--pixel-violet-3);
+--color-warning:var(--pixel-tan-5);
+--color-warning-hover:var(--pixel-tan-4);
+--color-danger:var(--pixel-red-2);
+--color-danger-hover:var(--pixel-red-3);
+--color-danger-active:var(--pixel-red-1);
+--color-success:var(--pixel-green-2);
+--color-link:var(--pixel-blue-3);
+--color-link-hover:var(--pixel-green-3);
+--color-accent-text:var(--color-primary); /* accent when used AS TEXT — remapped in .theme-light for contrast */
+/* light surface set — white / faint-cyan variant of the panel tones */
+--color-bg-light:var(--pixel-white);
+--color-bg-alt-light:var(--pixel-teal-4);
+--color-surface-light:var(--pixel-neutral-5);
+--color-surface-raised-light:var(--pixel-teal-4);
+--color-text-light:var(--pixel-neutral-1);
+--color-text-muted-light:var(--pixel-neutral-2);
+--color-text-dim-light:var(--pixel-neutral-3);
+}
+/* Light theme scope: add class="theme-light" to any container (or <body>) and every
+   component below it re-reads the light surface set. Accents stay identical. */
+.theme-light{
+--color-bg:var(--color-bg-light);
+--color-bg-alt:var(--color-bg-alt-light);
+--color-surface:var(--color-surface-light);
+--color-surface-raised:var(--color-surface-raised-light);
+--color-surface-sunken:var(--pixel-neutral-4);
+--color-text:var(--color-text-light);
+--color-text-muted:var(--color-text-muted-light);
+--color-text-dim:var(--color-text-dim-light);
+--color-link:var(--pixel-violet-2);
+--color-link-hover:var(--pixel-blue-1);
+--color-accent-text:var(--pixel-violet-2);
+--color-border-light:var(--pixel-neutral-3);
+/* hover/active invert on light: step DOWN the ramp (darker) instead of up, so
+   contrast against a white page holds the same way it does on the dark theme */
+--color-primary-hover:var(--pixel-green-1);
+--color-primary-active:var(--pixel-green-3);
+--color-secondary-hover:var(--pixel-blue-1);
+--color-secondary-active:var(--pixel-teal-2);
+--color-danger-hover:var(--pixel-red-1);
+--color-danger-active:var(--pixel-red-1);
+--color-warning-hover:var(--pixel-tan-3);
+}
