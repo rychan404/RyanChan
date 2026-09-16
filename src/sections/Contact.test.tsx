@@ -71,6 +71,13 @@ describe('Contact layout', () => {
     expect(panel.style.height).toBe('340px');
   });
 
+  it('uses correct spacing: gap 48px and marginTop 44px', () => {
+    const { container } = renderContact();
+    const grid = container.querySelector('section#contact div[style*="display: grid"]') as HTMLElement;
+    expect(grid.style.gap).toBe('48px');
+    expect(grid.style.marginTop).toBe('44px');
+  });
+
   it('renders the footer below the section', () => {
     renderContact();
     expect(screen.getByText('© 2026 RYAN CHAN')).toBeInTheDocument();

@@ -70,7 +70,7 @@ export function Contact() {
             display: 'grid',
             gridTemplateColumns: contactGridCols(isMobile),
             gap: '48px',
-            marginTop: '48px',
+            marginTop: '44px',
             alignItems: 'stretch',
           }}
         >
