@@ -1,0 +1,48 @@
+import { useRef } from 'react';
+import { NavRail } from '../layout/NavRail';
+import { About } from '../sections/About';
+import { Contact } from '../sections/Contact';
+import { Hero } from '../sections/Hero';
+import { Projects } from '../sections/Projects';
+import { Skills } from '../sections/Skills';
+import { useIsMobile } from '../hooks/useMediaQuery';
+import { useScrollSpy } from '../hooks/useScrollSpy';
+import { useTheme } from '../hooks/useTheme';
+import { mainStyle } from '../lib/responsive';
+
+export function Home() {
+  const isMobile = useIsMobile();
+  const { themeClass } = useTheme();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { active, jumpTo } = useScrollSpy(rootRef);
+
+  return (
+    <div
+      ref={rootRef}
+      className={themeClass}
+      style={{
+        '--section-pad-x': 'clamp(20px,6vw,160px)',
+        background: 'var(--color-bg)',
+        color: 'var(--color-text)',
+        fontFamily: 'var(--font-body)',
+        minHeight: '100vh',
+        position: 'relative',
+        overflowX: 'hidden',
+      } as React.CSSProperties}
+    >
+      <NavRail route="home" active={active} onNavigate={jumpTo} />
+
+      {/* DOM order is Home, Projects, About, Skills, Contact; each section
+          carries its own CSS `order` so the flex column renders them as
+          Home, About, Projects, Skills, Contact. Both halves of that are
+          load-bearing — see spec section 4.1. */}
+      <main style={mainStyle(isMobile, 'home')}>
+        <Hero onNavigate={() => jumpTo(1)} />
+        <Projects />
+        <About />
+        <Skills />
+        <Contact />
+      </main>
+    </div>
+  );
+}
