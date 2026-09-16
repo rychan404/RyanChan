@@ -150,7 +150,7 @@ export function About() {
             </div>
 
             {/* Stats grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '12px', marginBottom: '40px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))', gap: '12px', marginBottom: '40px' }}>
               {STATS.map((stat, idx) => (
                 <div
                   key={idx}
@@ -225,7 +225,7 @@ export function About() {
           </div>
 
           {/* Right column */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {/* Bio paragraphs */}
             <p
               style={{
@@ -233,7 +233,6 @@ export function About() {
                 lineHeight: '1.75',
                 color: 'var(--color-text)',
                 margin: 0,
-                marginBottom: '20px',
                 textWrap: 'pretty',
               } as CSSProperties}
             >
@@ -263,7 +262,6 @@ export function About() {
                 lineHeight: '1.75',
                 color: 'var(--color-text)',
                 margin: 0,
-                marginBottom: '20px',
                 textWrap: 'pretty',
               } as CSSProperties}
             >

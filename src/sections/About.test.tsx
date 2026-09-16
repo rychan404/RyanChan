@@ -50,13 +50,27 @@ describe('About layout', () => {
     expect(screen.getByText('50K+')).toBeInTheDocument();
     expect(screen.getByText('Views on social media content')).toBeInTheDocument();
     expect(screen.getByText('LINES of Code written')).toBeInTheDocument();
+    // Verify stat grid is 3-up with correct responsive layout
+    let current: HTMLElement | null = screen.getByText('6+');
+    while (current && !current.style.gridTemplateColumns?.includes('minmax(96px')) {
+      current = current.parentElement;
+    }
+    expect(current?.style.gridTemplateColumns).toBe('repeat(auto-fit,minmax(96px,1fr))');
   });
 
   it('renders the three bio paragraphs and the projects link', () => {
-    renderAbout();
+    const { container } = renderAbout();
     expect(screen.getByRole('link', { name: 'my projects' })).toHaveAttribute('href', '#projects');
     expect(document.body.textContent).toContain('Computer science sophomore at the University of Maryland');
     expect(document.body.textContent).toContain('chasing down shots on the tennis court');
+    // Verify all three bio paragraphs have margin: 0 (not overridden by marginBottom)
+    const bioParagraphs = Array.from(container.querySelectorAll('p')).filter(
+      (p) => p.textContent?.includes('Computer science') || p.textContent?.includes('production-grade') || p.textContent?.includes('Everything I create'),
+    ) as HTMLElement[];
+    expect(bioParagraphs).toHaveLength(3);
+    bioParagraphs.forEach((p) => {
+      expect(p.style.margin).toBe('0px');
+    });
   });
 
   it('renders the quest log with two done entries and one in progress', () => {
