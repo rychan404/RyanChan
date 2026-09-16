@@ -7,7 +7,8 @@ import { NAV_LOCK_MS, SECTIONS, activeIndexFor } from '../lib/scrollSpy';
 export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
   const [active, setActive] = useState(0);
   const lockUntil = useRef(0);
-  const raf = useRef<number | null>(null);
+  const rafPending = useRef(false);
+  const rafId = useRef<number | null>(null);
   const sections = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
@@ -19,9 +20,10 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
       .filter((el): el is HTMLElement => el !== null);
 
     const onScroll = () => {
-      if (raf.current !== null) return;
-      raf.current = requestAnimationFrame(() => {
-        raf.current = null;
+      if (rafPending.current) return;
+      rafPending.current = true;
+      rafId.current = requestAnimationFrame(() => {
+        rafPending.current = false;
         if (Date.now() <= lockUntil.current) return;
         const tops = sections.current.map((el) => el.offsetTop);
         setActive(activeIndexFor(tops, window.scrollY, window.innerHeight));
@@ -34,17 +36,12 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
     // detail page land on the right section.
     const hashId = window.location.hash.slice(1);
     const target = hashId ? root.querySelector<HTMLElement>(`#${hashId}`) : null;
-    if (target) {
-      const offsetTop = target.offsetTop;
-      window.scrollTo({ top: offsetTop, behavior: 'auto' });
-      // Manually set scrollY for hash restore since the mock doesn't
-      Object.defineProperty(window, 'scrollY', { value: offsetTop, configurable: true });
-    }
+    if (target) window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
     onScroll();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (raf.current !== null) cancelAnimationFrame(raf.current);
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
     };
   }, [rootRef]);
 

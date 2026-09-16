@@ -41,7 +41,10 @@ beforeEach(() => {
       return i === -1 ? 0 : TOPS[i];
     },
   });
-  window.scrollTo = vi.fn();
+  window.scrollTo = vi.fn((opts?: ScrollToOptions | number) => {
+    const top = typeof opts === 'object' && opts !== null ? (opts.top ?? 0) : 0;
+    Object.defineProperty(window, 'scrollY', { value: top, configurable: true });
+  });
 });
 afterEach(() => {
   vi.useRealTimers();
