@@ -107,20 +107,23 @@ export function About() {
                   transition: 'opacity 140ms steps(3,end)',
                 }}
               />
-              <img
-                src="/assets/about/about-headshot.png"
-                alt="Ryan Chan"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: playing ? 0 : 1,
-                  transition: 'opacity 140ms steps(3,end)',
-                }}
-              />
+              <picture>
+                <source srcSet="/assets/about/about-headshot.webp" type="image/webp" />
+                <img
+                  src="/assets/about/about-headshot.png"
+                  alt="Ryan Chan"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: playing ? 0 : 1,
+                    transition: 'opacity 140ms steps(3,end)',
+                  }}
+                />
+              </picture>
               <button
                 className="rc-sprite-toggle"
                 title="Play the animated sprite"

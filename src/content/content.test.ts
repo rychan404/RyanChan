@@ -47,6 +47,11 @@ describe('FACTS', () => {
     expect(FACTS[1].image).toBe('/assets/about/fact-eggs.png');
   });
 
+  it('pairs the eggs image with its WebP variant', () => {
+    expect(FACTS[1].imageWebp).toBe('/assets/about/fact-eggs.webp');
+    expect(FACTS.filter((f) => f.imageWebp).map((f) => f.id)).toEqual(['eggs']);
+  });
+
   it('carries the prototype\'s captions and slot hints', () => {
     expect(FACTS.map((f) => f.caption)).toEqual([
       "It's an ancient relic!",
