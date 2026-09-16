@@ -15,13 +15,14 @@ import {
   detailHeadingShadow,
   notFoundPad,
   PX_EDGE_SURFACE,
+  PRIMARY_EDGE,
 } from '../lib/responsive';
 
 function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
   return (
     <>
       {/* Image region wrapper */}
-      <div style={{ padding: contentPadTop(isMobile) }}>
+      <div style={{ maxWidth: '860px', margin: '0 auto', width: '100%', padding: contentPadTop(isMobile) }}>
         <div
           style={{
             position: 'relative',
@@ -44,15 +45,18 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               padding: backBtnPad(isMobile),
               display: 'flex',
               alignItems: 'center',
-              gap: isMobile ? '0' : '8px',
-              color: '#000',
+              gap: '8px',
+              color: 'var(--color-text)',
               textDecoration: 'none',
               cursor: 'pointer',
               background: 'var(--color-surface)',
+              fontFamily: 'var(--font-display)',
+              fontSize: '15px',
+              letterSpacing: '.05em',
             }}
           >
             <PixelIcon name="ui/arrow-left-solid" size={16} />
-            {!isMobile && <span style={{ fontSize: '12px', letterSpacing: '.02em' }}>BACK TO PROJECTS</span>}
+            {!isMobile && 'BACK TO PROJECTS'}
           </a>
         </div>
       </div>
@@ -69,7 +73,7 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
         }}
       >
         {/* Title row */}
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
           <h1
             style={{
               fontSize: 'clamp(34px,5vw,58px)',
@@ -81,27 +85,19 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
           >
             {project.title}
           </h1>
-          <div
-            style={{
-              flex: 'none',
-              display: 'flex',
-              gap: '22px',
-              alignItems: 'center',
-              marginTop: '12px',
-            }}
-          >
+          <span style={{ display: 'flex', alignItems: 'center', gap: '22px', flex: 'none' }}>
             <span className={`pixel-badge ${project.statusCls}`}>{project.status}</span>
-            <span style={{ fontSize: '14px', color: 'var(--color-text-muted)' }}>{project.year}</span>
-          </div>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '15px', color: 'var(--color-text-dim)' }}>{project.year}</span>
+          </span>
         </div>
 
         {/* Blurb */}
-        <p style={{ fontSize: '16px', lineHeight: '1.65', color: 'var(--color-text-muted)', margin: 0 }}>
+        <p style={{ fontSize: '19px', lineHeight: '1.7', color: 'var(--color-text)', margin: 0 }}>
           {project.blurb}
         </p>
 
         {/* Tags */}
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {project.tags.map((tag) => (
             <TagChip key={tag} name={tag} />
           ))}
@@ -109,10 +105,10 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
 
         {/* PATCH NOTES */}
         <div>
-          <div style={{ fontSize: '18px', display: 'block', color: 'var(--color-accent-text)', marginBottom: '16px' }}>
+          <div style={{ fontSize: '18px', display: 'block', color: 'var(--color-accent-text)', marginBottom: '12px', fontFamily: 'var(--font-display)', letterSpacing: '.05em' }}>
             PATCH NOTES
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {project.notes.map((n, i) =>
               typeof n === 'string' ? (
                 <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
@@ -127,7 +123,7 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
         </div>
 
         {/* CTA row */}
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px' }}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap' }}>
           <a
             {...(project.ctaUrl
               ? { href: project.ctaUrl, target: '_blank', rel: 'noopener noreferrer' }
@@ -137,16 +133,13 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '8px 16px',
-              border: `4px solid var(--color-border)`,
-              boxShadow: 'var(--shadow-pixel)',
-              background: 'var(--color-primary)',
-              color: '#000',
+              '--color-border': PRIMARY_EDGE,
+              '--shadow-pixel': `2px 2px 0 ${PRIMARY_EDGE}`,
               textDecoration: 'none',
               cursor: 'pointer',
-            }}
+            } as React.CSSProperties}
           >
-            <PixelIcon name="ui/external-link-solid" size={18} color="#000" />
+            <PixelIcon name="ui/external-link-solid" size={18} />
             {project.cta}
           </a>
           <a
@@ -157,7 +150,13 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               alignItems: 'center',
               gap: '8px',
               padding: '16px 24px',
-              color: 'var(--color-text-muted)',
+              fontFamily: 'var(--font-display)',
+              fontSize: '15px',
+              letterSpacing: '.05em',
+              color: 'var(--color-text)',
+              background: 'var(--color-surface)',
+              border: '4px solid #000',
+              boxShadow: '3px 3px 0 #000',
               textDecoration: 'none',
               cursor: 'pointer',
             }}
@@ -175,7 +174,7 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
   return (
     <div
       style={{
-        padding: notFoundPad(isMobile),
+        padding: `0 ${notFoundPad(isMobile)}`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -187,6 +186,7 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
       <h1
         style={{
           fontSize: 'clamp(32px,5vw,52px)',
+          color: '#A9BF6D',
           textShadow: detailHeadingShadow(isMobile),
           margin: '0',
           textAlign: 'center',
@@ -199,12 +199,19 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
       </p>
       <a
         href="/#projects"
+        className="rc-pixel-back"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: '8px',
           padding: '8px 14px',
-          color: 'var(--color-text-muted)',
+          fontFamily: 'var(--font-display)',
+          fontSize: '15px',
+          letterSpacing: '.05em',
+          color: 'var(--color-text)',
+          background: 'var(--color-surface)',
+          border: '4px solid #000',
+          boxShadow: '3px 3px 0 #000',
           textDecoration: 'none',
           cursor: 'pointer',
           marginTop: '8px',

@@ -93,6 +93,25 @@ describe('ProjectDetail — found', () => {
     expect(clicked).toBe(true);   // preventDefault, so no navigation
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Loopline');
   });
+
+  it('applies PRIMARY_EDGE custom properties to the CTA button', () => {
+    renderAt('/projects/loopline');
+    const cta = screen.getByRole('link', { name: /View Source/ }) as HTMLElement;
+    // Check that custom properties are set (they exist in the element's style)
+    expect(cta.style.getPropertyValue('--color-border')).toBeTruthy();
+    expect(cta.style.getPropertyValue('--shadow-pixel')).toBeTruthy();
+  });
+
+  it('constrains the image region wrapper to max-width 860px and centers it', () => {
+    const { container } = renderAt('/projects/loopline');
+    // Find the wrapper by locating the image-region first, then its parent
+    const imageRegion = container.querySelector('div[style*="min(40vw,380px)"]') as HTMLElement;
+    const wrapper = imageRegion?.parentElement as HTMLElement;
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper.style.maxWidth).toBe('860px');
+    expect(wrapper.style.margin).toBe('0px auto');
+    expect(wrapper.style.width).toBe('100%');
+  });
 });
 
 describe('ProjectDetail — not found', () => {
@@ -102,6 +121,13 @@ describe('ProjectDetail — not found', () => {
     expect(screen.getByText("That project doesn't exist.")).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /BACK TO PROJECTS/ }))
       .toHaveAttribute('href', '/#projects');
+  });
+
+  it('colors the not-found heading with the same accent color as the found title', () => {
+    renderAt('/projects/does-not-exist');
+    const heading = screen.getByRole('heading', { level: 1 }) as HTMLElement;
+    // The color is set to #A9BF6D in the style, which browsers compute to rgb(169, 191, 109)
+    expect(heading.style.color).toBe('rgb(169, 191, 109)');
   });
 
   it('still renders the nav and footer', () => {
