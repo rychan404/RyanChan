@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
-import { logoBorderW, logoFontSize, navStyle, type Route } from '../lib/responsive';
+import { PRIMARY_EDGE, logoBorderW, logoFontSize, navStyle, type Route } from '../lib/responsive';
 
 const LINKS = [
   { id: 'home', label: 'HOME', icon: 'ui/home-solid' },
@@ -11,9 +11,6 @@ const LINKS = [
   { id: 'skills', label: 'SKILLS', icon: 'ui/bolt-solid' },
   { id: 'contact', label: 'CONTACT', icon: 'ui/envelope-solid' },
 ] as const;
-
-const PRIMARY_EDGE =
-  'hsl(from var(--color-primary) calc(h + 36) calc(s * 1.15) calc(l * 0.3))';
 
 type Props = {
   route: Route;

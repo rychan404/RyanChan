@@ -7,6 +7,11 @@ export type Route = 'home' | 'detail';
 export const PX_EDGE_SURFACE =
   'var(--px-edge, hsl(from var(--color-surface) calc(h + 36) calc(s * 1.15) calc(l * 0.3)))';
 
+/** The primary-coloured edge for the nav logo and contact form button.
+ *  Kept as one constant so a typo cannot desync multiple call sites. */
+export const PRIMARY_EDGE =
+  'hsl(from var(--color-primary) calc(h + 36) calc(s * 1.15) calc(l * 0.3))';
+
 const SHADOW9 = (n: number, drop: number) =>
   [
     `-${n}px -${n}px 0 #216C50`, `${n}px -${n}px 0 #216C50`,
