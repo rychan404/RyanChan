@@ -44,10 +44,24 @@ export function Contact() {
     >
       <DitherFade ink="var(--color-surface)" />
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2 style={{ textShadow: sectionHeadingShadow(isMobile), marginBottom: '4px' }}>
+        <h2
+          style={{
+            fontSize: 'clamp(40px,6vw,76px)',
+            color: '#A9BF6D',
+            textShadow: sectionHeadingShadow(isMobile),
+          }}
+        >
           Contact Me
         </h2>
-        <p style={{ marginBottom: '44px', fontSize: '14px', color: 'var(--color-text-muted)' }}>
+        <p
+          style={{
+            fontSize: '19px',
+            lineHeight: '1.7',
+            maxWidth: '62ch',
+            color: 'var(--color-text-muted)',
+            margin: '20px 0 0',
+          }}
+        >
           Feel free to reach out about the work I do!
         </p>
 
@@ -56,7 +70,7 @@ export function Contact() {
             display: 'grid',
             gridTemplateColumns: contactGridCols(isMobile),
             gap: '48px',
-            marginTop: '44px',
+            marginTop: '48px',
             alignItems: 'stretch',
           }}
         >
@@ -257,9 +271,9 @@ export function Contact() {
             <BeachScene />
           </div>
         </div>
-
-        <Footer marginTop="80px" />
       </div>
+
+      <Footer marginTop="80px" />
     </section>
   );
 }

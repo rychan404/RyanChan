@@ -43,7 +43,12 @@ describe('Contact layout', () => {
 
   it('renders the heading, subtitle and the three labelled fields', () => {
     renderContact();
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Contact Me');
+    const heading = screen.getByRole('heading', { level: 2 });
+    expect(heading).toHaveTextContent('Contact Me');
+    // Verify heading has the large green heading style matching other sections
+    expect(heading.style.fontSize).toMatch(/clamp/);
+    // Browser normalizes #A9BF6D to rgb(169, 191, 109)
+    expect(heading.style.color).toMatch(/rgb\(169,\s*191,\s*109\)|#A9BF6D/);
     expect(screen.getByText('Feel free to reach out about the work I do!')).toBeInTheDocument();
     expect(screen.getByLabelText('Name')).toHaveClass('pixel-input');
     expect(screen.getByLabelText('Email')).toHaveAttribute('type', 'email');
@@ -69,6 +74,17 @@ describe('Contact layout', () => {
   it('renders the footer below the section', () => {
     renderContact();
     expect(screen.getByText('© 2026 RYAN CHAN')).toBeInTheDocument();
+  });
+
+  it('positions the footer as a direct sibling of the padding wrapper, not nested inside', () => {
+    const { container } = renderContact();
+    const section = container.querySelector('#contact') as HTMLElement;
+    const footerDiv = Array.from(section.children).find(
+      (child) => (child as HTMLElement).style.background === 'var(--color-surface)' &&
+                   (child as HTMLElement).style.marginTop === '80px'
+    ) as HTMLElement;
+    expect(footerDiv).toBeTruthy();
+    expect(footerDiv.parentElement).toBe(section);
   });
 });
 
