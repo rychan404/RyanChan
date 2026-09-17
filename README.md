@@ -32,7 +32,6 @@ links just unfurl without a card image.
 | `npm run preview` | serve `dist/` |
 | `npm test` | unit tests (Vitest) |
 | `npm run typecheck` | TypeScript only |
-| `npm run fidelity` | port-time screenshot diff against the prototype (temporary; see the plan's Task 23) |
 | `node scripts/fetch-assets.mjs` | re-vendor the CDN icons and fonts |
 | `npm run optimize:images` | re-encode the two oversized About images |
 
