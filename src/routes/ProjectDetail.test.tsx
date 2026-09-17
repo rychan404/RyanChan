@@ -27,6 +27,11 @@ const renderAt = (path: string) =>
 beforeEach(() => { localStorage.clear(); vi.unstubAllGlobals(); setViewport(false); });
 
 describe('ProjectDetail — found', () => {
+  it('sets the document title', () => {
+    renderAt('/projects/loopline');
+    expect(document.title).toBe('Loopline — Ryan Chan');
+  });
+
   it('renders the title, status, year and blurb', () => {
     renderAt('/projects/loopline');
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Loopline');

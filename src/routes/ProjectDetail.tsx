@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavRail } from '../layout/NavRail';
 import { Footer } from '../layout/Footer';
@@ -229,6 +230,12 @@ export function ProjectDetail(): JSX.Element {
   const project = findProject(id);
   const isMobile = useIsMobile();
   const { themeClass } = useTheme();
+
+  useEffect(() => {
+    const previous = document.title;
+    document.title = project ? `${project.title} — Ryan Chan` : 'Not found — Ryan Chan';
+    return () => { document.title = previous; };
+  }, [project]);
 
   return (
     <div
