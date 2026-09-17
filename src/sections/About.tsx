@@ -287,7 +287,6 @@ export function About() {
             {/* Quest log panel */}
             <div
               style={{
-                marginTop: '40px',
                 background: 'var(--color-surface)',
                 border: '3px solid var(--color-border)',
                 boxShadow: '4px 4px 0 var(--color-border)',

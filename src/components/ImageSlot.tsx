@@ -45,7 +45,7 @@ export function ImageSlot({ placeholder, src, srcWebp, alt = '', style }: Props)
   }
 
   return (
-    <div style={{ ...HOST, background: 'rgba(127,127,127,.08)', ...style }}>
+    <div data-slot-placeholder="true" style={{ ...HOST, background: 'rgba(127,127,127,.08)', ...style }}>
       <div
         style={{
           position: 'absolute',
