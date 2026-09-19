@@ -106,7 +106,7 @@ describe('ProjectCard', () => {
     const card = screen.getByRole('heading', { name: 'Tilebreaker' }).closest('.pixel-card') as HTMLElement;
     const region = card.firstElementChild as HTMLElement;
     expect(region.style.height).toBe('190px');
-    expect(region.style.borderBottom).toContain('4px solid');
+    expect(region.style.borderBottom).toContain('var(--border-thick) solid');
   });
 
   it('routes to the project when clicked', async () => {

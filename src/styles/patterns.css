@@ -1,0 +1,22 @@
+/* Shared site patterns — see STYLEGUIDE.md. Values here are tokens only; a pattern
+   that appears in more than one place lives here, not in copied inline style objects. */
+
+/* Section <h2> and the paragraph under it. The text-shadow is keyed on isMobile, so it stays inline. */
+.rc-section-title{font-size:var(--fs-section-title);color:var(--color-heading)}
+.rc-section-lede{font-size:var(--fs-19);line-height:1.7;max-width:62ch;color:var(--color-text-muted);margin:20px 0 0}
+
+/* About — FUN FACTS / QUEST LOG panels */
+.rc-panel{background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);padding:24px}
+.rc-panel-heading{font-family:var(--font-display);font-size:var(--fs-18);letter-spacing:.05em;color:var(--color-text-dim);margin:0 0 16px 0}
+.rc-panel-lines{display:flex;flex-direction:column;gap:12px}
+.rc-panel-line{display:flex;gap:12px;align-items:flex-start}
+.rc-panel-line > p{margin:0;font-size:var(--fs-17);line-height:1.6;color:var(--color-text-muted)}
+
+/* About — stat cards. Padding varies per card, so it stays inline. */
+.rc-stat{background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);text-align:center}
+.rc-stat-value{font-family:var(--font-display);font-size:var(--fs-34);color:var(--color-primary)}
+.rc-stat-label{font-family:var(--font-display);font-size:var(--fs-13);letter-spacing:.04em;color:var(--color-text-dim);margin-top:4px}
+
+/* About — photo frame and its play/pause button */
+.rc-photo-frame{position:relative;aspect-ratio:1 / 1;margin-bottom:40px;background:var(--color-surface);border:var(--border-thick) solid var(--edge-on-bg-alt);box-shadow:var(--shadow-card) var(--edge-on-bg-alt)}
+.rc-photo-toggle{position:absolute;bottom:10px;right:10px;z-index:2;display:flex;align-items:center;justify-content:center;background:var(--color-surface);border:var(--border-mid) solid var(--color-border);box-shadow:var(--shadow-control) var(--color-border);padding:8px;cursor:pointer}

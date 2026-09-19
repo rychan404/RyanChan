@@ -104,7 +104,6 @@ describe('ProjectDetail — found', () => {
     const cta = screen.getByRole('link', { name: /View Source/ }) as HTMLElement;
     // Check that custom properties are set (they exist in the element's style)
     expect(cta.style.getPropertyValue('--color-border')).toBeTruthy();
-    expect(cta.style.getPropertyValue('--shadow-pixel')).toBeTruthy();
   });
 
   it('constrains the image region wrapper to max-width 860px and centers it', () => {
@@ -131,8 +130,7 @@ describe('ProjectDetail — not found', () => {
   it('colors the not-found heading with the same accent color as the found title', () => {
     renderAt('/projects/does-not-exist');
     const heading = screen.getByRole('heading', { level: 1 }) as HTMLElement;
-    // The color is set to #A9BF6D in the style, which browsers compute to rgb(169, 191, 109)
-    expect(heading.style.color).toBe('rgb(169, 191, 109)');
+    expect(heading.style.color).toBe('var(--color-heading)');
   });
 
   it('still renders the nav and footer', () => {

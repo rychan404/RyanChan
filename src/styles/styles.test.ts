@@ -57,7 +57,7 @@ describe('global.css', () => {
   const css = read('./global.css');
 
   it('keeps the light-theme edge and tag-tint overrides', () => {
-    expect(css).toContain('.theme-light{--px-edge:#1a1b1c;--tag-tint-pct:35%;--tag-border-pct:30%}');
+    expect(css).toContain('.theme-light{--px-edge:var(--pixel-neutral-1);--tag-tint-pct:35%;--tag-border-pct:30%}');
     expect(css).toContain(':root{--tag-tint-pct:60%;--tag-border-pct:45%}');
   });
 

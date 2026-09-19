@@ -5,20 +5,20 @@ export type Route = 'home' | 'detail';
 /** The --px-edge fallback the prototype repeats on every surface-coloured
  *  border. Kept as one constant so a typo cannot desync two call sites. */
 export const PX_EDGE_SURFACE =
-  'var(--px-edge, hsl(from var(--color-surface) calc(h + 36) calc(s * 1.15) calc(l * 0.3)))';
+  'var(--edge-on-surface)';
 
 /** The primary-coloured edge for the nav logo and contact form button.
  *  Kept as one constant so a typo cannot desync multiple call sites. */
 export const PRIMARY_EDGE =
-  'hsl(from var(--color-primary) calc(h + 36) calc(s * 1.15) calc(l * 0.3))';
+  'var(--edge-primary)';
 
 const SHADOW9 = (n: number, drop: number) =>
   [
-    `-${n}px -${n}px 0 #216C50`, `${n}px -${n}px 0 #216C50`,
-    `-${n}px ${n}px 0 #216C50`, `${n}px ${n}px 0 #216C50`,
-    `-${n}px 0 0 #216C50`, `${n}px 0 0 #216C50`,
-    `0 -${n}px 0 #216C50`, `0 ${n}px 0 #216C50`,
-    `${drop}px ${drop}px 0 #216C50`,
+    `-${n}px -${n}px 0 var(--color-heading-shadow)`, `${n}px -${n}px 0 var(--color-heading-shadow)`,
+    `-${n}px ${n}px 0 var(--color-heading-shadow)`, `${n}px ${n}px 0 var(--color-heading-shadow)`,
+    `-${n}px 0 0 var(--color-heading-shadow)`, `${n}px 0 0 var(--color-heading-shadow)`,
+    `0 -${n}px 0 var(--color-heading-shadow)`, `0 ${n}px 0 var(--color-heading-shadow)`,
+    `${drop}px ${drop}px 0 var(--color-heading-shadow)`,
   ].join(',');
 
 export function navStyle(isMobile: boolean, route: Route): CSSProperties {
@@ -28,7 +28,7 @@ export function navStyle(isMobile: boolean, route: Route): CSSProperties {
       width: '100%', height: '64px',
       background: 'var(--color-surface)',
       borderRight: 'none',
-      borderBottom: `4px solid ${PX_EDGE_SURFACE}`,
+      borderBottom: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
       display: 'flex', flexDirection: 'row',
       alignItems: 'center', justifyContent: 'space-between',
       padding: '0 16px', zIndex: 60,
@@ -40,7 +40,7 @@ export function navStyle(isMobile: boolean, route: Route): CSSProperties {
     // The home rail can overflow on a short viewport; the detail rail cannot,
     // and the prototype does not give it these two declarations.
     ...(route === 'home' ? { overflowY: 'auto' as const, scrollbarWidth: 'none' as const } : {}),
-    borderRight: `4px solid ${PX_EDGE_SURFACE}`,
+    borderRight: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     padding: '16px 0 12px', zIndex: 60,
   };
@@ -64,8 +64,8 @@ export const heroShift = (isMobile: boolean) =>
   isMobile ? 'translateY(-40px)' : 'translateY(-110px)';
 
 export const footerPad = (isMobile: boolean) => (isMobile ? '24px 20px' : '24px 56px');
-export const logoFontSize = (isMobile: boolean) => (isMobile ? '20px' : '28px');
-export const logoBorderW = (isMobile: boolean) => (isMobile ? '3px' : '4px');
+export const logoFontSize = (isMobile: boolean) => (isMobile ? 'var(--fs-20)' : 'var(--fs-28)');
+export const logoBorderW = (isMobile: boolean) => (isMobile ? 'var(--border-mid)' : 'var(--border-thick)');
 
 export const projGridCols = (isMobile: boolean) =>
   isMobile ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))';

@@ -122,9 +122,9 @@ describe('NavRail on mobile', () => {
     renderNav({ route: 'home', active: 2 });
     await userEvent.click(screen.getByLabelText('Toggle menu'));
     expect(screen.getByRole('link', { name: 'PROJECTS' }).style.borderLeft)
-      .toBe('4px solid var(--color-primary)');
+      .toBe('var(--border-thick) solid var(--color-primary)');
     expect(screen.getByRole('link', { name: 'HOME' }).style.borderLeft)
-      .toBe('4px solid transparent');
+      .toBe('var(--border-thick) solid transparent');
   });
 
   it('closes the overlay when a row is clicked', async () => {

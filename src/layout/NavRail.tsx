@@ -47,7 +47,7 @@ export function NavRail({ route, active, onNavigate }: Props) {
             border: `${logoW} solid ${PRIMARY_EDGE}`,
             background: 'var(--color-primary)',
             padding: logoW,
-            boxShadow: `2px 2px 0 ${PRIMARY_EDGE}`,
+            boxShadow: `var(--shadow-control) ${PRIMARY_EDGE}`,
             transition: 'transform 100ms steps(2,end)',
           }}
         >
@@ -135,7 +135,7 @@ export function NavRail({ route, active, onNavigate }: Props) {
                   <span
                     style={{
                       fontFamily: 'var(--font-display)',
-                      fontSize: '13px',
+                      fontSize: 'var(--fs-13)',
                       letterSpacing: '.04em',
                     }}
                   >
@@ -157,7 +157,7 @@ export function NavRail({ route, active, onNavigate }: Props) {
               <PixelIcon name={themeIcon} size={24} color="var(--color-text-muted)" />
               <span
                 style={{
-                  fontFamily: 'var(--font-display)', fontSize: '12px',
+                  fontFamily: 'var(--font-display)', fontSize: 'var(--fs-12)',
                   letterSpacing: '.04em', color: 'var(--color-text-dim)',
                 }}
               >
@@ -186,14 +186,14 @@ export function NavRail({ route, active, onNavigate }: Props) {
               style={{
                 display: 'flex', alignItems: 'center', gap: '16px', height: '64px',
                 padding: '0 24px', color: 'var(--color-text-muted)',
-                borderBottom: '2px solid var(--color-border-light)',
-                borderLeft: `4px solid ${active === i ? 'var(--color-primary)' : 'transparent'}`,
+                borderBottom: 'var(--border-thin) solid var(--color-border-light)',
+                borderLeft: `var(--border-thick) solid ${active === i ? 'var(--color-primary)' : 'transparent'}`,
               }}
             >
               <PixelIcon name={link.icon} size={24} />
               <span
                 style={{
-                  fontFamily: 'var(--font-display)', fontSize: '16px',
+                  fontFamily: 'var(--font-display)', fontSize: 'var(--fs-16)',
                   letterSpacing: '.04em',
                 }}
               >

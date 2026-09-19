@@ -1,6 +1,5 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { FACTS, type FactId } from '../content/facts';
-import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useSpriteSheet } from '../hooks/useSpriteSheet';
 import { aboutGridCols, sectionHeadingShadow } from '../lib/responsive';
@@ -14,9 +13,6 @@ const STATS = [
   { value: '50K+', label: 'LINES of Code written', padding: '16px 12px' },
 ];
 
-const STAT_EDGE =
-  'var(--px-edge, hsl(from var(--color-bg) calc(h + 36) calc(s * 1.15) calc(l * 0.3)))';
-
 const QUEST_LOG = [
   { text: 'Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
   { text: 'Videographer for UMD JASA & Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
@@ -24,7 +20,6 @@ const QUEST_LOG = [
 ];
 
 export function About() {
-  const { isDark } = useTheme();
   const isMobile = useIsMobile();
   const { panelRef, spriteRef, playing, toggle } = useSpriteSheet();
 
@@ -57,16 +52,10 @@ export function About() {
         order: 1,
       }}
     >
-      <DitherFade ink={isDark ? '#0d2323' : '#194D46'} />
+      <DitherFade ink="var(--dither-ink-about)" />
 
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2
-          style={{
-            fontSize: 'clamp(40px,6vw,76px)',
-            color: '#A9BF6D',
-            textShadow: sectionHeadingShadow(isMobile),
-          }}
-        >
+        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
           About
         </h2>
 
@@ -82,17 +71,7 @@ export function About() {
           {/* Left column */}
           <div>
             {/* Sprite panel */}
-            <div
-              ref={panelRef}
-              style={{
-                position: 'relative',
-                aspectRatio: '1 / 1',
-                marginBottom: '40px',
-                background: 'var(--color-surface)',
-                border: '3px solid var(--color-border)',
-                boxShadow: '6px 6px 0 var(--color-border)',
-              }}
-            >
+            <div ref={panelRef} className="rc-photo-frame">
               <div
                 ref={spriteRef}
                 role="img"
@@ -128,24 +107,9 @@ export function About() {
                 />
               </picture>
               <button
-                className="rc-sprite-toggle"
+                className="rc-sprite-toggle rc-photo-toggle"
                 title="Play the animated sprite"
                 onClick={toggle}
-                style={{
-                  position: 'absolute',
-                  bottom: '8px',
-                  right: '8px',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'var(--color-surface)',
-                  border: '2px solid var(--color-border)',
-                  boxShadow: '2px 2px 0 var(--color-border)',
-                  cursor: 'pointer',
-                  padding: 0,
-                }}
               >
                 <PixelIcon
                   name={playing ? 'ui/pause-solid' : 'ui/play-solid'}
@@ -158,30 +122,9 @@ export function About() {
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))', gap: '12px', marginBottom: '40px' }}>
               {STATS.map((stat, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: stat.padding,
-                    background: 'var(--color-bg)',
-                    border: `4px solid ${STAT_EDGE}`,
-                    boxShadow: `4px 4px 0 ${STAT_EDGE}`,
-                    textAlign: 'center',
-                  }}
-                >
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '34px', color: 'var(--color-accent-text)' }}>
-                    {stat.value}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '13px',
-                      letterSpacing: '.04em',
-                      color: 'var(--color-text-muted)',
-                      marginTop: '4px',
-                    }}
-                  >
-                    {stat.label}
-                  </div>
+                <div key={idx} className="rc-stat" style={{ padding: stat.padding }}>
+                  <div className="rc-stat-value">{stat.value}</div>
+                  <div className="rc-stat-label">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -189,35 +132,21 @@ export function About() {
             {/* Fun facts panel */}
             <div
               ref={factsRef}
-              style={{
-                background: 'var(--color-surface)',
-                border: '3px solid var(--color-border)',
-                boxShadow: '4px 4px 0 var(--color-border)',
-                padding: '12px',
-              }}
+              className="rc-panel"
             >
-              <h3
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  letterSpacing: '.08em',
-                  color: '#A9BF6D',
-                  textTransform: 'uppercase',
-                  margin: '0 0 12px 0',
-                }}
-              >
+              <h3 className="rc-panel-heading">
                 FUN FACTS
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="rc-panel-lines">
                 {FACTS.map((fact) => (
-                  <div key={fact.id} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div key={fact.id} className="rc-panel-line">
                     <PixelIcon
                       name={fact.icon}
                       size={20}
                       color="var(--color-primary)"
                       style={{ marginTop: '2px', flexShrink: 0 }}
                     />
-                    <p style={{ margin: 0, fontSize: '14px', lineHeight: '1.5', color: 'var(--color-text)' }}>
+                    <p>
                       <FactPopover
                         fact={fact}
                         open={openFact === fact.id}
@@ -236,7 +165,7 @@ export function About() {
             {/* Bio paragraphs */}
             <p
               style={{
-                fontSize: '20px',
+                fontSize: 'var(--fs-20)',
                 lineHeight: '1.75',
                 color: 'var(--color-text)',
                 margin: 0,
@@ -265,7 +194,7 @@ export function About() {
 
             <p
               style={{
-                fontSize: '18px',
+                fontSize: 'var(--fs-18)',
                 lineHeight: '1.75',
                 color: 'var(--color-text)',
                 margin: 0,
@@ -278,7 +207,7 @@ export function About() {
 
             <p
               style={{
-                fontSize: '18px',
+                fontSize: 'var(--fs-18)',
                 lineHeight: '1.75',
                 color: 'var(--color-text)',
                 margin: 0,
@@ -289,36 +218,20 @@ export function About() {
             </p>
 
             {/* Quest log panel */}
-            <div
-              style={{
-                background: 'var(--color-surface)',
-                border: '3px solid var(--color-border)',
-                boxShadow: '4px 4px 0 var(--color-border)',
-                padding: '12px',
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  letterSpacing: '.08em',
-                  color: '#A9BF6D',
-                  textTransform: 'uppercase',
-                  margin: '0 0 12px 0',
-                }}
-              >
+            <div className="rc-panel">
+              <h3 className="rc-panel-heading">
                 QUEST LOG
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="rc-panel-lines">
                 {QUEST_LOG.map((entry, idx) => (
-                  <div key={idx} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div key={idx} className="rc-panel-line">
                     <PixelIcon
                       name={entry.icon}
                       size={20}
                       color={entry.color}
                       style={{ marginTop: '2px', flexShrink: 0 }}
                     />
-                    <p style={{ margin: 0, fontSize: '14px', lineHeight: '1.5', color: 'var(--color-text)' }}>
+                    <p>
                       {entry.text}
                     </p>
                   </div>

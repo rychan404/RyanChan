@@ -1,6 +1,17 @@
 :root{
 --radius-0:0px; /* every corner in this system is square -- no rounding, ever */
---border-thin:2px;--border-thick:4px;
+--border-thin:2px;--border-mid:3px;--border-thick:4px;--border-tag:5px;
+/* site shadow offsets — see STYLEGUIDE.md. A pressed element slides by its lift and drops the shadow. */
+--lift-control:3px;--lift-card:4px;
+--shadow-control:var(--lift-control) var(--lift-control) 0;
+--shadow-card:var(--lift-card) var(--lift-card) 0;
+/* hover: the card rises by --lift-hover and its shadow grows by the same amount, so the
+   shadow's outer corner stays put and the card reads as lifting, not jumping */
+--lift-hover:2px;
+--shadow-card-hover:calc(var(--lift-card) + var(--lift-hover)) calc(var(--lift-card) + var(--lift-hover)) 0;
+--raise-card:translate(calc(var(--lift-hover) * -1),calc(var(--lift-hover) * -1));
+--press-control:translate(var(--lift-control),var(--lift-control));
+--press-card:translate(var(--lift-card),var(--lift-card));
 --shadow-pixel-sm:1px 1px 0 var(--pixel-black);
 --shadow-pixel:2px 2px 0 var(--pixel-black);
 --shadow-pixel-lg:4px 4px 0 var(--pixel-black);

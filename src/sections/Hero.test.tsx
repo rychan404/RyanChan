@@ -39,10 +39,10 @@ describe('Hero', () => {
   it('sizes and shadows the name exactly as the prototype', () => {
     renderHero();
     const h1 = screen.getByRole('heading', { level: 1 });
-    expect(h1.style.fontSize).toBe('clamp(56px,10vw,152px)');
+    expect(h1.style.fontSize).toBe('var(--fs-hero-name)');
     expect(h1.style.lineHeight).toBe('0.9');
     expect(h1.style.wordSpacing).toBe('-0.25em');
-    expect(h1.style.color).toBe('rgb(169, 191, 109)');   // #A9BF6D
+    expect(h1.style.color).toBe('var(--color-heading)');
     expect(h1.style.textShadow.split(',')).toHaveLength(9);
   });
 
@@ -97,6 +97,6 @@ describe('Hero on mobile', () => {
     expect((container.querySelector('#home') as HTMLElement).style.padding)
       .toBe('56px 20px 72px');
     expect(screen.getByRole('heading', { level: 1 }).style.textShadow)
-      .toContain('-3px -3px 0 #216C50');
+      .toContain('-3px -3px 0 var(--color-heading-shadow)');
   });
 });

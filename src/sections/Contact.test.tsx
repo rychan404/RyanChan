@@ -46,9 +46,7 @@ describe('Contact layout', () => {
     const heading = screen.getByRole('heading', { level: 2 });
     expect(heading).toHaveTextContent('Contact Me');
     // Verify heading has the large green heading style matching other sections
-    expect(heading.style.fontSize).toMatch(/clamp/);
-    // Browser normalizes #A9BF6D to rgb(169, 191, 109)
-    expect(heading.style.color).toMatch(/rgb\(169,\s*191,\s*109\)|#A9BF6D/);
+    expect(heading).toHaveClass('rc-section-title');
     expect(screen.getByText('Feel free to reach out about the work I do!')).toBeInTheDocument();
     expect(screen.getByLabelText('Name')).toHaveClass('pixel-input');
     expect(screen.getByLabelText('Email')).toHaveAttribute('type', 'email');

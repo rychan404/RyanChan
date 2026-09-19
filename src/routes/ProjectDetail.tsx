@@ -30,7 +30,7 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
             height: 'min(40vw,380px)',
             minHeight: '220px',
             background: 'var(--color-bg-alt)',
-            border: `4px solid ${PX_EDGE_SURFACE}`,
+            border: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
           }}
         >
           <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
@@ -41,8 +41,8 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               position: 'absolute',
               left: '16px',
               top: '16px',
-              border: '4px solid #000',
-              boxShadow: '3px 3px 0 #000',
+              border: 'var(--border-thick) solid var(--color-ink)',
+              boxShadow: 'var(--shadow-control) var(--color-ink)',
               padding: backBtnPad(isMobile),
               display: 'flex',
               alignItems: 'center',
@@ -52,7 +52,7 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               cursor: 'pointer',
               background: 'var(--color-surface)',
               fontFamily: 'var(--font-display)',
-              fontSize: '15px',
+              fontSize: 'var(--fs-15)',
               letterSpacing: '.05em',
             }}
           >
@@ -77,9 +77,9 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
           <h1
             style={{
-              fontSize: 'clamp(34px,5vw,58px)',
+              fontSize: 'var(--fs-detail-title)',
               letterSpacing: '.02em',
-              color: '#A9BF6D',
+              color: 'var(--color-heading)',
               textShadow: detailHeadingShadow(isMobile),
               margin: '4px 0 0',
             }}
@@ -88,12 +88,12 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
           </h1>
           <span style={{ display: 'flex', alignItems: 'center', gap: '22px', flex: 'none' }}>
             <span className={`pixel-badge ${project.statusCls}`}>{project.status}</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: '15px', color: 'var(--color-text-dim)' }}>{project.year}</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--fs-15)', color: 'var(--color-text-dim)' }}>{project.year}</span>
           </span>
         </div>
 
         {/* Blurb */}
-        <p style={{ fontSize: '19px', lineHeight: '1.7', color: 'var(--color-text)', margin: 0 }}>
+        <p style={{ fontSize: 'var(--fs-19)', lineHeight: '1.7', color: 'var(--color-text)', margin: 0 }}>
           {project.blurb}
         </p>
 
@@ -106,7 +106,7 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
 
         {/* PATCH NOTES */}
         <div>
-          <div style={{ fontSize: '18px', display: 'block', color: 'var(--color-accent-text)', marginBottom: '12px', fontFamily: 'var(--font-display)', letterSpacing: '.05em' }}>
+          <div style={{ fontSize: 'var(--fs-18)', display: 'block', color: 'var(--color-accent-text)', marginBottom: '12px', fontFamily: 'var(--font-display)', letterSpacing: '.05em' }}>
             PATCH NOTES
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -114,10 +114,10 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               typeof n === 'string' ? (
                 <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <i style={{ width: '10px', height: '10px', background: 'var(--color-primary)', marginTop: '8px', flexShrink: 0 }} />
-                  <span style={{ fontSize: '16px', lineHeight: '1.65', color: 'var(--color-text-muted)' }}>{n}</span>
+                  <span style={{ fontSize: 'var(--fs-16)', lineHeight: '1.65', color: 'var(--color-text-muted)' }}>{n}</span>
                 </div>
               ) : (
-                <p key={i} style={{ fontSize: '16px', lineHeight: '1.75', color: 'var(--color-text-muted)', margin: 0 }}>{n.p}</p>
+                <p key={i} style={{ fontSize: 'var(--fs-16)', lineHeight: '1.75', color: 'var(--color-text-muted)', margin: 0 }}>{n.p}</p>
               ),
             )}
           </div>
@@ -135,7 +135,6 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               alignItems: 'center',
               gap: '8px',
               '--color-border': PRIMARY_EDGE,
-              '--shadow-pixel': `2px 2px 0 ${PRIMARY_EDGE}`,
               textDecoration: 'none',
               cursor: 'pointer',
             } as React.CSSProperties}
@@ -152,12 +151,12 @@ function Found({ project, isMobile }: { project: Project; isMobile: boolean }) {
               gap: '8px',
               padding: '16px 24px',
               fontFamily: 'var(--font-display)',
-              fontSize: '15px',
+              fontSize: 'var(--fs-15)',
               letterSpacing: '.05em',
               color: 'var(--color-text)',
               background: 'var(--color-surface)',
-              border: '4px solid #000',
-              boxShadow: '3px 3px 0 #000',
+              border: 'var(--border-thick) solid var(--color-ink)',
+              boxShadow: 'var(--shadow-control) var(--color-ink)',
               textDecoration: 'none',
               cursor: 'pointer',
             }}
@@ -186,8 +185,8 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
     >
       <h1
         style={{
-          fontSize: 'clamp(32px,5vw,52px)',
-          color: '#A9BF6D',
+          fontSize: 'var(--fs-notfound-title)',
+          color: 'var(--color-heading)',
           textShadow: detailHeadingShadow(isMobile),
           margin: '0',
           textAlign: 'center',
@@ -195,7 +194,7 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
       >
         Not Found
       </h1>
-      <p style={{ fontSize: '18px', color: 'var(--color-text-muted)', margin: 0, textAlign: 'center' }}>
+      <p style={{ fontSize: 'var(--fs-18)', color: 'var(--color-text-muted)', margin: 0, textAlign: 'center' }}>
         That project doesn't exist.
       </p>
       <a
@@ -207,12 +206,12 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
           gap: '8px',
           padding: '8px 14px',
           fontFamily: 'var(--font-display)',
-          fontSize: '15px',
+          fontSize: 'var(--fs-15)',
           letterSpacing: '.05em',
           color: 'var(--color-text)',
           background: 'var(--color-surface)',
-          border: '4px solid #000',
-          boxShadow: '3px 3px 0 #000',
+          border: 'var(--border-thick) solid var(--color-ink)',
+          boxShadow: 'var(--shadow-control) var(--color-ink)',
           textDecoration: 'none',
           cursor: 'pointer',
           marginTop: '8px',

@@ -13,7 +13,7 @@ describe('navStyle', () => {
     expect(s.width).toBe('88px');
     expect(s.flexDirection).toBe('column');
     expect(s.zIndex).toBe(60);
-    expect(s.borderRight).toContain('4px solid');
+    expect(s.borderRight).toContain('var(--border-thick) solid');
   });
 
   it('is a 64px fixed top bar on mobile', () => {
@@ -21,7 +21,7 @@ describe('navStyle', () => {
     expect(s.height).toBe('64px');
     expect(s.flexDirection).toBe('row');
     expect(s.borderRight).toBe('none');
-    expect(s.borderBottom).toContain('4px solid');
+    expect(s.borderBottom).toContain('var(--border-thick) solid');
   });
 
   it('scrolls only on the home route, where the rail can overflow', () => {
@@ -66,21 +66,21 @@ describe('the hero and heading measurements', () => {
 
   it('uses a 9-part text-shadow at 6px desktop / 3px mobile for the name', () => {
     expect(heroNameShadow(false).split(',')).toHaveLength(9);
-    expect(heroNameShadow(false)).toContain('-6px -6px 0 #216C50');
-    expect(heroNameShadow(false)).toContain('10px 10px 0 #216C50');
-    expect(heroNameShadow(true)).toContain('-3px -3px 0 #216C50');
-    expect(heroNameShadow(true)).toContain('5px 5px 0 #216C50');
+    expect(heroNameShadow(false)).toContain('-6px -6px 0 var(--color-heading-shadow)');
+    expect(heroNameShadow(false)).toContain('10px 10px 0 var(--color-heading-shadow)');
+    expect(heroNameShadow(true)).toContain('-3px -3px 0 var(--color-heading-shadow)');
+    expect(heroNameShadow(true)).toContain('5px 5px 0 var(--color-heading-shadow)');
   });
 
   it('uses 4px desktop / 2px mobile for section headings', () => {
-    expect(sectionHeadingShadow(false)).toContain('-4px -4px 0 #216C50');
-    expect(sectionHeadingShadow(false)).toContain('6px 6px 0 #216C50');
-    expect(sectionHeadingShadow(true)).toContain('3px 3px 0 #216C50');
+    expect(sectionHeadingShadow(false)).toContain('-4px -4px 0 var(--color-heading-shadow)');
+    expect(sectionHeadingShadow(false)).toContain('6px 6px 0 var(--color-heading-shadow)');
+    expect(sectionHeadingShadow(true)).toContain('3px 3px 0 var(--color-heading-shadow)');
   });
 
   it('uses 3px desktop / 2px mobile on the detail page heading', () => {
-    expect(detailHeadingShadow(false)).toContain('-3px -3px 0 #216C50');
-    expect(detailHeadingShadow(false)).toContain('5px 5px 0 #216C50');
+    expect(detailHeadingShadow(false)).toContain('-3px -3px 0 var(--color-heading-shadow)');
+    expect(detailHeadingShadow(false)).toContain('5px 5px 0 var(--color-heading-shadow)');
     expect(detailHeadingShadow(true)).toEqual(sectionHeadingShadow(true));
   });
 });
@@ -113,10 +113,10 @@ describe('the remaining paddings', () => {
   it('matches the prototype', () => {
     expect(footerPad(false)).toBe('24px 56px');
     expect(footerPad(true)).toBe('24px 20px');
-    expect(logoFontSize(false)).toBe('28px');
-    expect(logoFontSize(true)).toBe('20px');
-    expect(logoBorderW(false)).toBe('4px');
-    expect(logoBorderW(true)).toBe('3px');
+    expect(logoFontSize(false)).toBe('var(--fs-28)');
+    expect(logoFontSize(true)).toBe('var(--fs-20)');
+    expect(logoBorderW(false)).toBe('var(--border-thick)');
+    expect(logoBorderW(true)).toBe('var(--border-mid)');
     expect(contentPadTop(false)).toBe('40px 56px 0');
     expect(contentPadTop(true)).toBe('24px 20px 0');
     expect(contentPadBody(false)).toBe('40px 56px 96px');

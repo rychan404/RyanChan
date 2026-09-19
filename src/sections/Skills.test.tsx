@@ -40,7 +40,7 @@ describe('Skills', () => {
     const { container } = renderSkills();
     const chips = Array.from(container.querySelectorAll('.pixel-tag')) as HTMLElement[];
     expect(chips).toHaveLength(16);          // 5 + 8 + 3
-    expect(chips[0].style.fontSize).toBe('16px');
+    expect(chips[0].style.fontSize).toBe('var(--fs-16)');
     expect(chips[0].style.padding).toBe('10px 18px');
   });
 

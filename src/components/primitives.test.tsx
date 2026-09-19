@@ -40,7 +40,7 @@ describe('TagChip', () => {
     const chip = container.firstElementChild as HTMLElement;
     expect(chip).toHaveClass('pixel-tag');
     expect(chip).toHaveTextContent('Docker');
-    expect(chip.style.borderBottom).toBe('5px solid rgb(36, 150, 237)');
+    expect(chip.style.borderBottom).toBe('var(--border-tag) solid #2496ED');
     const icon = chip.querySelector('span[style*="mask-image"]') as HTMLElement;
     expect(icon.style.maskImage).toBe('url(/icons/tags/docker.svg)');
     expect(icon.style.width).toBe('13px');
@@ -50,14 +50,14 @@ describe('TagChip', () => {
     const { container } = render(<TagChip name="Origami" />);
     const chip = container.firstElementChild as HTMLElement;
     expect(chip).toHaveTextContent('Origami');
-    expect(chip.style.borderBottom).toBe('5px solid currentcolor');
+    expect(chip.style.borderBottom).toBe('var(--border-tag) solid currentColor');
     expect(chip.querySelector('span[style*="mask-image"]')).toBeNull();
   });
 
   it('uses the larger skills geometry at size="lg"', () => {
     const { container } = render(<TagChip name="React" size="lg" />);
     const chip = container.firstElementChild as HTMLElement;
-    expect(chip.style.fontSize).toBe('16px');
+    expect(chip.style.fontSize).toBe('var(--fs-16)');
     expect(chip.style.padding).toBe('10px 18px');
     expect(chip.style.gap).toBe('9px');
     const icon = chip.querySelector('span[style*="mask-image"]') as HTMLElement;

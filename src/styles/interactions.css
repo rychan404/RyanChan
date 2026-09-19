@@ -4,7 +4,7 @@
 
 /* logo press — line 64 */
 .rc-logo:hover{background:hsl(from var(--color-primary) h calc(s * 1.1) calc(l * 1.15))}
-.rc-logo:active{transform:translate(2px,2px);box-shadow:0 0 0 transparent}
+.rc-logo:active{transform:var(--press-control);box-shadow:0 0 0 transparent}
 
 /* nav link, desktop rail and mobile overlay — lines 81, 113 */
 .rc-nav-link:hover{color:var(--color-text);background:var(--color-surface-raised)}
@@ -19,26 +19,26 @@
 .rc-footer-link:hover{color:var(--color-primary)}
 
 /* project card — line 251 */
-.rc-project-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--color-border)}
-.rc-project-card:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+.rc-project-card:hover{transform:var(--raise-card);box-shadow:var(--shadow-card-hover) var(--color-border)}
+.rc-project-card:active{transform:var(--press-card);box-shadow:0 0 0 var(--color-border)}
 
 /* "Send Another" ghost button — line 426 */
-.rc-ghost-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+.rc-ghost-btn:active{transform:var(--press-control);box-shadow:0 0 0 var(--color-border)}
 
 /* fact popover close button — line 316 */
 .rc-popover-close:hover{background:var(--color-surface-raised)}
-.rc-popover-close:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--color-border)}
+.rc-popover-close:active{transform:var(--press-control);box-shadow:0 0 0 var(--color-border)}
 
 /* About sprite play/pause button — line 293 */
 .rc-sprite-toggle:hover{background:var(--color-surface-raised)}
-.rc-sprite-toggle:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--color-border)}
+.rc-sprite-toggle:active{transform:var(--press-control);box-shadow:0 0 0 var(--color-border)}
 
 /* hero "CLICK TO CONTINUE" — line 200 */
 .rc-hero-cta:hover{color:var(--color-primary)}
 
 /* back / EXPLORE MORE pixel button — project-detail.dc.html lines 116, 162, 176 */
 .rc-pixel-back:hover{background:var(--color-surface-raised)}
-.rc-pixel-back:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.rc-pixel-back:active{transform:var(--press-control);box-shadow:0 0 0 var(--color-ink)}
 
 /* the detail page's two anchor-as-button overrides — project-detail.dc.html lines 27-28 */
 a.pixel-btn:hover{color:var(--color-text-on-accent)}

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -31,15 +32,15 @@ describe('About layout', () => {
     expect(section.style.padding).toBe('0px 0px 112px 0px');
   });
 
-  it('inks its dither fade per theme', () => {
+  it('inks its dither fade from the per-theme token', () => {
     const { container } = renderAbout();
     expect((container.querySelector('.dither-fade') as HTMLElement).style.getPropertyValue('--dither-ink'))
-      .toBe('#0d2323');
-
-    localStorage.setItem('rc-theme', 'light');
-    const light = renderAbout();
-    expect((light.container.querySelector('.dither-fade') as HTMLElement).style.getPropertyValue('--dither-ink'))
-      .toBe('#194D46');
+      .toBe('var(--dither-ink-about)');
+    // #0d2323 on dark, #194D46 (--pixel-teal-1) on light
+    const css = readFileSync('src/styles/tokens/colors.css', 'utf8');
+    expect(css).toContain('--dither-ink-about:#0d2323;');
+    expect(css).toContain('.theme-light{--dither-ink-about:var(--pixel-teal-1)}');
+    expect(css).toContain('--pixel-teal-1:#194d46;');
   });
 
   it('renders the heading and the three stats', () => {

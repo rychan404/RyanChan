@@ -37,6 +37,10 @@
 --color-link:var(--pixel-blue-3);
 --color-link-hover:var(--pixel-green-3);
 --color-accent-text:var(--color-primary); /* accent when used AS TEXT — remapped in .theme-light for contrast */
+/* site tokens — see STYLEGUIDE.md */
+--color-heading:var(--pixel-green-4);
+--color-heading-shadow:var(--pixel-green-1);
+--color-ink:var(--pixel-black);
 /* light surface set — white / faint-cyan variant of the panel tones */
 --color-bg-light:var(--pixel-white);
 --color-bg-alt-light:var(--pixel-teal-4);
@@ -71,3 +75,14 @@
 --color-danger-active:var(--pixel-red-1);
 --color-warning-hover:var(--pixel-tan-3);
 }
+
+/* Derived tokens resolve var() on the element that declares them. The theme class sits
+   on the app root <div>, not <html>, so each is redeclared under .theme-light. */
+:root,.theme-light{
+--edge-on-bg:var(--px-edge, hsl(from var(--color-bg) calc(h + 36) calc(s * 1.15) calc(l * 0.3)));
+--edge-on-surface:var(--px-edge, hsl(from var(--color-surface) calc(h + 36) calc(s * 1.15) calc(l * 0.3)));
+--edge-on-bg-alt:var(--px-edge, hsl(from var(--color-bg-alt) calc(h + 36) calc(s * 1.15) calc(l * 0.3)));
+--edge-primary:hsl(from var(--color-primary) calc(h + 36) calc(s * 1.15) calc(l * 0.3));
+--dither-ink-about:#0d2323;
+}
+.theme-light{--dither-ink-about:var(--pixel-teal-1)}

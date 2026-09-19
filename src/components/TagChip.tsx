@@ -18,8 +18,8 @@ export function TagChip({ name, size = 'sm' }: Props) {
         alignItems: 'center',
         gap: lg ? '9px' : '6px',
         border: 'none',
-        borderBottom: `5px solid ${tagColor(name)}`,
-        ...(lg ? { fontSize: '16px', padding: '10px 18px' } : {}),
+        borderBottom: `var(--border-tag) solid ${tagColor(name)}`,
+        ...(lg ? { fontSize: 'var(--fs-16)', padding: '10px 18px' } : {}),
       }}
     >
       {icon && (

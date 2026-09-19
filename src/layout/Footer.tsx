@@ -21,7 +21,7 @@ export function Footer({ marginTop }: { marginTop: '80px' | 'auto' }) {
           padding: footerPad(isMobile),
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           gap: '16px', flexWrap: 'wrap',
-          fontFamily: 'var(--font-display)', fontSize: '15px',
+          fontFamily: 'var(--font-display)', fontSize: 'var(--fs-15)',
           letterSpacing: '.05em', color: 'var(--color-text-dim)',
         }}
       >

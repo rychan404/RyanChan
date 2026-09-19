@@ -13,7 +13,7 @@ const FILTERS: Filter[] = ['all', 'code', 'video', 'misc'];
 const DROPDOWN_ITEM = {
   textAlign: 'left' as const, padding: '12px 24px', background: 'none',
   border: 'none', cursor: 'pointer', fontFamily: 'var(--font-display)',
-  fontSize: '16px', textTransform: 'uppercase' as const, letterSpacing: '.5px',
+  fontSize: 'var(--fs-16)', textTransform: 'uppercase' as const, letterSpacing: '.5px',
   color: 'var(--color-text)',
 };
 
@@ -35,21 +35,10 @@ export function Projects() {
     >
       <DitherFade ink="var(--color-surface)" />
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2
-          style={{
-            fontSize: 'clamp(40px,6vw,76px)',
-            color: '#A9BF6D',
-            textShadow: sectionHeadingShadow(isMobile),
-          }}
-        >
+        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
           Projects
         </h2>
-        <p
-          style={{
-            fontSize: '19px', lineHeight: '1.7', maxWidth: '62ch',
-            color: 'var(--color-text-muted)', margin: '20px 0 0',
-          }}
-        >
+        <p className="rc-section-lede">
           Things I love to tinker with<br />
         </p>
 
@@ -61,10 +50,10 @@ export function Projects() {
               style={{
                 width: '100%', display: 'flex', alignItems: 'center',
                 justifyContent: 'space-between', gap: '12px',
-                fontFamily: 'var(--font-display)', fontSize: '16px',
+                fontFamily: 'var(--font-display)', fontSize: 'var(--fs-16)',
                 textTransform: 'uppercase', letterSpacing: '.5px',
                 color: 'var(--color-text)', background: 'var(--color-surface)',
-                border: '4px solid var(--color-border)', padding: '12px 24px',
+                border: 'var(--border-thick) solid var(--color-border)', padding: '12px 24px',
                 cursor: 'pointer', lineHeight: '1.2',
               }}
             >
@@ -76,8 +65,8 @@ export function Projects() {
                 style={{
                   position: 'absolute', left: 0, right: 0, top: 'calc(100% + 6px)',
                   background: 'var(--color-surface)',
-                  border: '4px solid var(--color-border)',
-                  boxShadow: '4px 4px 0 var(--color-border)',
+                  border: 'var(--border-thick) solid var(--color-border)',
+                  boxShadow: 'var(--shadow-card) var(--color-border)',
                   zIndex: 20, display: 'flex', flexDirection: 'column',
                 }}
               >

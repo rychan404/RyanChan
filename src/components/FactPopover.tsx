@@ -34,8 +34,8 @@ export function FactPopover({ fact, open, onToggle, onClose }: Props) {
             style={{
               position: 'absolute', top: '100%', right: 0, marginTop: '8px',
               width: '220px', zIndex: 20, background: 'var(--color-surface)',
-              border: '3px solid var(--color-border)',
-              boxShadow: '4px 4px 0 var(--color-border)', padding: '8px',
+              border: 'var(--border-mid) solid var(--color-border)',
+              boxShadow: 'var(--shadow-card) var(--color-border)', padding: '8px',
             }}
           >
             <span style={{ position: 'relative', display: 'block', width: '100%', height: '120px' }}>
@@ -52,7 +52,7 @@ export function FactPopover({ fact, open, onToggle, onClose }: Props) {
                 gap: '8px', marginTop: '6px',
               }}
             >
-              <span style={{ fontSize: '12px', color: 'var(--color-text-dim)', flex: 1, minWidth: 0 }}>
+              <span style={{ fontSize: 'var(--fs-12)', color: 'var(--color-text-dim)', flex: 1, minWidth: 0 }}>
                 {fact.caption}
               </span>
               <button
@@ -64,10 +64,10 @@ export function FactPopover({ fact, open, onToggle, onClose }: Props) {
                   flexShrink: 0, width: '22px', height: '22px', display: 'flex',
                   alignItems: 'center', justifyContent: 'center',
                   background: 'var(--color-surface)',
-                  border: '2px solid var(--color-border)',
-                  boxShadow: '2px 2px 0 var(--color-border)',
+                  border: 'var(--border-thin) solid var(--color-border)',
+                  boxShadow: 'var(--shadow-control) var(--color-border)',
                   cursor: 'pointer', padding: 0,
-                  fontFamily: 'var(--font-display)', fontSize: '20px',
+                  fontFamily: 'var(--font-display)', fontSize: 'var(--fs-20)',
                   color: 'var(--color-text)',
                 }}
               >
