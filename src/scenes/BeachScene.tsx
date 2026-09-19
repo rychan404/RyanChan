@@ -1,4 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
+import { prefersReducedMotion } from '../lib/motion';
+import { useScenePause } from '../hooks/useScenePause';
 import { useTheme } from '../hooks/useTheme';
 
 const LAYER: CSSProperties = {
@@ -42,6 +44,25 @@ export function BeachScene() {
   const dark = groupStyle(false);
   const ryanRef = useRef<HTMLImageElement>(null);
   const frame = useRef(0);
+  // A root of its own, so the same off-screen pause the hero uses has something
+  // to hang the class on. Absolute + inset 0 inside Contact's already-relative
+  // box, so the layers sit exactly where they did as loose children.
+  const sceneRef = useScenePause<HTMLDivElement>();
+
+  // Frames 2-11 are never in the markup -- they only exist as assignments to
+  // .src below, so without this the first pass through the cycle fetches one
+  // frame every 250ms and Ryan pops in and out while it does. Warming them as
+  // detached Images costs 10 requests of a few KB each and buys a clean first
+  // loop. (The About walk cycle avoids the problem outright by being a single
+  // 68-frame strip; the same could be done here, but not without redoing the
+  // cover-fit maths that keeps Ryan aligned with the duck and the waves.)
+  useEffect(() => {
+    for (const src of RYAN_FRAMES.slice(1)) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    }
+  }, []);
 
   // Frame advance is imperative, and only while the scene is on screen. Routing
   // it through state re-rendered all 13 layers four times a second for the life
@@ -50,6 +71,9 @@ export function BeachScene() {
   useEffect(() => {
     const el = ryanRef.current;
     if (!el) return;
+    // Reduced motion: Ryan holds frame 1. The CSS half of the rule cannot
+    // reach a setInterval, so it is checked here too.
+    if (prefersReducedMotion()) return;
 
     let id: ReturnType<typeof setInterval> | null = null;
     const start = () => {
@@ -86,23 +110,30 @@ export function BeachScene() {
   }, []);
 
   return (
-    <>
+    <div
+      ref={sceneRef}
+      aria-hidden="true"
+      className="rc-scene"
+      style={{ position: 'absolute', inset: 0 }}
+    >
       {/* 1  skies — tape transition, same as the hero */}
-      <div aria-hidden="true" style={{ ...GROUP, ...light }}>
-        <img src="/assets/contact/sky-day.png" style={LAYER} alt="" />
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...light }}>
+        <img decoding="async" src="/assets/contact/sky-day.png" style={LAYER} alt="" />
       </div>
-      <div aria-hidden="true" style={{ ...GROUP, ...dark }}>
-        <img src="/assets/contact/sky-night.png" style={LAYER} alt="" />
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...dark }}>
+        <img decoding="async" src="/assets/contact/sky-night.png" style={LAYER} alt="" />
       </div>
 
       {/* 2  both suns, always mounted, cross-faded by opacity */}
       <div aria-hidden="true" style={CLIPPED}>
         <img
+          decoding="async"
           src="/assets/contact/sun-day.png"
           alt=""
           style={{ ...LAYER, ...SUNSLIDE, opacity: isDark ? 0 : 1, transition: 'opacity 1.2s ease' }}
         />
         <img
+          decoding="async"
           src="/assets/contact/sun-night.png"
           alt=""
           style={{ ...LAYER, ...SUNSLIDE, opacity: isDark ? 1 : 0, transition: 'opacity 1.2s ease' }}
@@ -110,13 +141,14 @@ export function BeachScene() {
       </div>
 
       {/* 3  back clouds — the wrapper slides, the image drifts */}
-      <div aria-hidden="true" style={{ ...CLIPPED, ...light }}>
-        <img src="/assets/contact/clouds-back.png" alt="" style={{ ...CLOUD, ...SUNSLIDE }} />
+      <div aria-hidden="true" className="rc-tape" style={{ ...CLIPPED, ...light }}>
+        <img decoding="async" src="/assets/contact/clouds-back.png" alt="" style={{ ...CLOUD, ...SUNSLIDE }} />
       </div>
 
       {/* 4-5  duck and Ryan */}
       <img
         aria-hidden="true"
+        decoding="async"
         src="/assets/contact/duck.png"
         alt=""
         style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
@@ -124,19 +156,21 @@ export function BeachScene() {
       <img
         ref={ryanRef}
         aria-hidden="true"
+        decoding="async"
         src={RYAN_FRAMES[0]}
         alt=""
         style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />
 
       {/* 6  front clouds */}
-      <div aria-hidden="true" style={{ ...CLIPPED, ...light }}>
-        <img src="/assets/contact/clouds-front.png" alt="" style={{ ...CLOUD, ...SUNSLIDE }} />
+      <div aria-hidden="true" className="rc-tape" style={{ ...CLIPPED, ...light }}>
+        <img decoding="async" src="/assets/contact/clouds-front.png" alt="" style={{ ...CLOUD, ...SUNSLIDE }} />
       </div>
 
       {/* 7  birds */}
-      <div aria-hidden="true" style={{ ...GROUP, ...light }}>
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...light }}>
         <img
+          decoding="async"
           src="/assets/contact/birds.png"
           alt=""
           style={{ ...LAYER, animation: 'pxbirds 5s ease-in-out infinite' }}
@@ -146,16 +180,18 @@ export function BeachScene() {
       {/* 8-9  waves */}
       <img
         aria-hidden="true"
+        decoding="async"
         src="/assets/contact/waves-back.png"
         alt=""
         style={{ ...WAVE, animation: 'pxwavesway 6s ease-in-out infinite reverse' }}
       />
       <img
         aria-hidden="true"
+        decoding="async"
         src="/assets/contact/waves-front.png"
         alt=""
         style={{ ...WAVE, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />
-    </>
+    </div>
   );
 }

@@ -113,3 +113,69 @@ describe('BeachScene Ryan frames', () => {
     expect(ryan()).toBe('/assets/contact/ryan-wave-01.png');
   });
 });
+
+describe('BeachScene off-screen pause', () => {
+  it('wraps the layers in a scene root for useScenePause', () => {
+    const { container } = renderScene();
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.className).toBe('rc-scene');
+    expect(root.style.position).toBe('absolute');
+    expect(root.style.inset).toBe('0');
+  });
+
+  it('exempts the tape groups, whose forwards animation must finish', () => {
+    const { container } = renderScene();
+    expect(Array.from(container.querySelectorAll('.rc-tape'))
+      .map((el) => el.querySelector('img')?.getAttribute('src'))).toEqual([
+      '/assets/contact/sky-day.png',
+      '/assets/contact/sky-night.png',
+      '/assets/contact/clouds-back.png',
+      '/assets/contact/clouds-front.png',
+      '/assets/contact/birds.png',
+    ]);
+  });
+
+  it('decodes every layer off the main thread', () => {
+    const { container } = renderScene();
+    for (const img of Array.from(container.querySelectorAll('img'))) {
+      expect(img).toHaveAttribute('decoding', 'async');
+    }
+  });
+});
+
+describe('BeachScene frame preload', () => {
+  it('warms frames 2-11, which never appear in the markup', () => {
+    const loaded: string[] = [];
+    class FakeImage { decoding = ''; set src(v: string) { loaded.push(v); } }
+    vi.stubGlobal('Image', FakeImage);
+    try {
+      renderScene();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(loaded).toEqual([
+      '/assets/contact/ryan-wave-02.png', '/assets/contact/ryan-wave-03.png',
+      '/assets/contact/ryan-wave-04.png', '/assets/contact/ryan-wave-05.png',
+      '/assets/contact/ryan-wave-06.png', '/assets/contact/ryan-wave-07.png',
+      '/assets/contact/ryan-wave-08.png', '/assets/contact/ryan-wave-09.png',
+      '/assets/contact/ryan-wave-10.png', '/assets/contact/ryan-wave-11.png',
+    ]);
+  });
+});
+
+describe('BeachScene reduced motion', () => {
+  it('holds frame 1 instead of running the cycle', () => {
+    vi.stubGlobal('matchMedia', (q: string) => ({
+      matches: q === '(prefers-reduced-motion: reduce)',
+      media: q, addEventListener() {}, removeEventListener() {},
+    }));
+    try {
+      const { container } = renderScene();
+      act(() => { vi.advanceTimersByTime(250 * 5); });
+      expect((container.querySelectorAll('img')[6] as HTMLImageElement).getAttribute('src'))
+        .toBe('/assets/contact/ryan-wave-01.png');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+});

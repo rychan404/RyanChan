@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { useScenePause } from '../hooks/useScenePause';
 import { useTheme } from '../hooks/useTheme';
 
 /** Every scene layer is a full-bleed cover image. There is no z-index in this
@@ -51,21 +52,21 @@ const BACKDROPS_AND_TENNIS = (
     <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/grass.png)" }} />
 
     {/* 10-13  tennis */}
-    <img aria-hidden="true" src="/assets/hero/tennis-net.png" style={LAYER} />
-    <img aria-hidden="true" src="/assets/hero/tennis-player-1.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate' }} />
-    <img aria-hidden="true" src="/assets/hero/tennis-player-2.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate-reverse' }} />
-    <img aria-hidden="true" src="/assets/hero/tennis-ball.png" style={{ ...LAYER, animation: 'pxballswing 1s steps(8,end) infinite alternate' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tennis-net.png" style={LAYER} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tennis-player-1.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tennis-player-2.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate-reverse' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tennis-ball.png" style={{ ...LAYER, animation: 'pxballswing 1s steps(8,end) infinite alternate' }} />
 
-    <img aria-hidden="true" src="/assets/hero/campfire.png" style={LAYER} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/campfire.png" style={LAYER} />
   </>
 );
 
 /** Between the flame group and the smoke group. Static. */
 const CAMPFIRE_BODY = (
   <>
-    <img aria-hidden="true" src="/assets/hero/campfire-logs.png" style={LAYER} />
-    <img aria-hidden="true" src="/assets/hero/campfire-person-2.png" style={{ ...LAYER, animation: 'pxpersonbob 2s steps(4,end) infinite alternate' }} />
-    <img aria-hidden="true" src="/assets/hero/campfire-person-1.png" style={LAYER} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/campfire-logs.png" style={LAYER} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/campfire-person-2.png" style={{ ...LAYER, animation: 'pxpersonbob 2s steps(4,end) infinite alternate' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/campfire-person-1.png" style={LAYER} />
   </>
 );
 
@@ -73,28 +74,31 @@ const CAMPFIRE_BODY = (
 const FOREGROUND = (
   <>
     {/* 20-24  trees, each with its own duration and direction */}
-    <img aria-hidden="true" src="/assets/hero/tree-5-z2.png" style={{ ...FROM_BASE, animation: sway('3.6s') }} />
-    <img aria-hidden="true" src="/assets/hero/tree-4-z3.png" style={{ ...FROM_BASE, animation: sway('4.2s', true) }} />
-    <img aria-hidden="true" src="/assets/hero/tree-3-z3.png" style={{ ...FROM_BASE, animation: sway('3.8s') }} />
-    <img aria-hidden="true" src="/assets/hero/tree-2-z1.png" style={{ ...FROM_BASE, animation: sway('4s', true) }} />
-    <img aria-hidden="true" src="/assets/hero/tree-1-z1.png" style={{ ...FROM_BASE, animation: sway('3.4s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tree-5-z2.png" style={{ ...FROM_BASE, animation: sway('3.6s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tree-4-z3.png" style={{ ...FROM_BASE, animation: sway('4.2s', true) }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tree-3-z3.png" style={{ ...FROM_BASE, animation: sway('3.8s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tree-2-z1.png" style={{ ...FROM_BASE, animation: sway('4s', true) }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/tree-1-z1.png" style={{ ...FROM_BASE, animation: sway('3.4s') }} />
 
     {/* 25-27  swing and desk, pivoting from the top */}
-    <img aria-hidden="true" src="/assets/hero/swing.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
-    <img aria-hidden="true" src="/assets/hero/computer-person.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
-    <img aria-hidden="true" src="/assets/hero/computer.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/swing.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/computer-person.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/computer.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
 
     {/* 28-32  waterfall and camera, framed at 20% 50% */}
-    <img aria-hidden="true" src="/assets/hero/waterfall-ocean.png" style={FRAMED} />
-    <img aria-hidden="true" src="/assets/hero/waterfall-splash.png" style={{ ...FRAMED, animation: 'pxsplash 1.2s steps(4,end) infinite' }} />
-    <img aria-hidden="true" src="/assets/hero/camera.png" style={FRAMED} />
-    <img aria-hidden="true" src="/assets/hero/camera-record-off.png" style={FRAMED} />
-    <img aria-hidden="true" src="/assets/hero/camera-record-on.png" style={{ ...FRAMED, animation: 'pxrecdotblink 1s steps(1,end) infinite' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/waterfall-ocean.png" style={FRAMED} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/waterfall-splash.png" style={{ ...FRAMED, animation: 'pxsplash 1.2s steps(4,end) infinite' }} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/camera.png" style={FRAMED} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/camera-record-off.png" style={FRAMED} />
+    <img aria-hidden="true" decoding="async" src="/assets/hero/camera-record-on.png" style={{ ...FRAMED, animation: 'pxrecdotblink 1s steps(1,end) infinite' }} />
   </>
 );
 
 export function HeroScene() {
   const { groupStyle, fadeStyle, moonGlowStyle, isDark } = useTheme();
+  // Parks every animation below while the hero is off screen. The four
+  // drop-shadow keyframes here are the expensive ones -- see useScenePause.
+  const sceneRef = useScenePause<HTMLDivElement>();
   const light = groupStyle(true);
   const dark = groupStyle(false);
   // The vignette, fire and smoke all track "is it night", by opacity only.
@@ -102,25 +106,27 @@ export function HeroScene() {
 
   return (
     <div
+      ref={sceneRef}
       aria-hidden="true"
+      className="rc-scene"
       style={{ position: 'absolute', inset: 0, overflow: 'hidden', imageRendering: 'pixelated' }}
     >
       {/* 1-3  day sky, birds, sun — tape group */}
-      <div aria-hidden="true" style={{ ...GROUP, ...light }}>
-        <img aria-hidden="true" src="/assets/hero/sky-day.png" style={LAYER} />
-        <img aria-hidden="true" src="/assets/hero/birds.png" style={{ ...LAYER, animation: 'pxbirds 6s steps(4,end) infinite alternate' }} />
-        <img aria-hidden="true" src="/assets/hero/sun.png" style={{ ...LAYER, animation: 'pxsunglow 8s steps(8,end) infinite' }} />
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...light }}>
+        <img aria-hidden="true" decoding="async" src="/assets/hero/sky-day.png" style={LAYER} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/birds.png" style={{ ...LAYER, animation: 'pxbirds 6s steps(4,end) infinite alternate' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/sun.png" style={{ ...LAYER, animation: 'pxsunglow 8s steps(8,end) infinite' }} />
       </div>
 
       {/* 4  night sky — tape group */}
-      <div aria-hidden="true" style={{ ...GROUP, ...dark }}>
-        <img aria-hidden="true" src="/assets/hero/sky-night.png" style={LAYER} />
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...dark }}>
+        <img aria-hidden="true" decoding="async" src="/assets/hero/sky-night.png" style={LAYER} />
       </div>
 
       {/* 5-6  stars and moon — tape group */}
-      <div aria-hidden="true" style={{ ...GROUP, ...dark }}>
-        <img aria-hidden="true" src="/assets/hero/stars.png" style={{ ...LAYER, animation: 'pxstartwinkle 8.5s steps(9,end) infinite' }} />
-        <img aria-hidden="true" src="/assets/hero/moon.png" style={{ ...LAYER, animation: 'pxmoonglow 9s steps(8,end) infinite' }} />
+      <div aria-hidden="true" className="rc-tape" style={{ ...GROUP, ...dark }}>
+        <img aria-hidden="true" decoding="async" src="/assets/hero/stars.png" style={{ ...LAYER, animation: 'pxstartwinkle 8.5s steps(9,end) infinite' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/moon.png" style={{ ...LAYER, animation: 'pxmoonglow 9s steps(8,end) infinite' }} />
       </div>
 
       {BACKDROPS_AND_TENNIS}
@@ -129,11 +135,11 @@ export function HeroScene() {
           cross-fade by opacity and must never be conditionally unmounted,
           or their animations restart on every theme toggle. */}
       <div aria-hidden="true" style={{ ...GROUP, ...nightFade }}>
-        <img aria-hidden="true" src="/assets/hero/campfire-flames.png" style={{ ...LAYER, animation: 'pxflicker 0.9s steps(3,end) infinite alternate, pxfireglow 6s steps(8,end) infinite' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/campfire-flames.png" style={{ ...LAYER, animation: 'pxflicker 0.9s steps(3,end) infinite alternate, pxfireglow 6s steps(8,end) infinite' }} />
       </div>
       {CAMPFIRE_BODY}
       <div aria-hidden="true" style={{ ...GROUP, ...nightFade }}>
-        <img aria-hidden="true" src="/assets/hero/campfire-smoke.png" style={{ ...LAYER, animation: 'pxsmoke 5s steps(5,end) infinite' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/campfire-smoke.png" style={{ ...LAYER, animation: 'pxsmoke 5s steps(5,end) infinite' }} />
       </div>
 
       {FOREGROUND}
@@ -143,8 +149,8 @@ export function HeroScene() {
 
       {/* 34  moon glow — persistent, opacity only, screen-blended */}
       <div aria-hidden="true" style={{ ...GROUP, mixBlendMode: 'screen', ...moonGlowStyle }}>
-        <img aria-hidden="true" src="/assets/hero/stars.png" style={{ ...LAYER, animation: 'pxstartwinkle 8.5s steps(9,end) infinite' }} />
-        <img aria-hidden="true" src="/assets/hero/moon.png" style={{ ...LAYER, animation: 'pxmoonglow 9s steps(8,end) infinite' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/stars.png" style={{ ...LAYER, animation: 'pxstartwinkle 8.5s steps(9,end) infinite' }} />
+        <img aria-hidden="true" decoding="async" src="/assets/hero/moon.png" style={{ ...LAYER, animation: 'pxmoonglow 9s steps(8,end) infinite' }} />
       </div>
     </div>
   );

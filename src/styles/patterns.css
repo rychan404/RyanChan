@@ -20,3 +20,9 @@
 /* About — photo frame and its play/pause button */
 .rc-photo-frame{position:relative;aspect-ratio:1 / 1;margin-bottom:40px;background:var(--color-surface);border:var(--border-thick) solid var(--edge-on-bg-alt);box-shadow:var(--shadow-card) var(--edge-on-bg-alt)}
 .rc-photo-toggle{position:absolute;bottom:10px;right:10px;z-index:2;display:flex;align-items:center;justify-content:center;background:var(--color-surface);border:var(--border-mid) solid var(--color-border);box-shadow:var(--shadow-control) var(--color-border);padding:8px;cursor:pointer}
+
+/* Scenes — the off-screen pause, set by useScenePause.
+   animation-play-state is not inherited, so the descendant selector is not
+   optional, and !important is what lets one class beat the `animation`
+   shorthand that every scene layer carries inline. */
+.rc-scene-paused,.rc-scene-paused *{animation-play-state:paused!important}

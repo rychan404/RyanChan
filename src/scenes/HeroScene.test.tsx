@@ -173,3 +173,27 @@ describe('HeroScene persistent layers', () => {
     expect(nightGroup.style.transform).toBe('translateY(0)');
   });
 });
+
+describe('HeroScene off-screen pause', () => {
+  it('marks the scene root so useScenePause has something to pause', () => {
+    const { container } = renderScene();
+    expect(container.querySelector('.rc-scene')).toBe(container.firstElementChild);
+  });
+
+  it('exempts the three tape groups, whose forwards animation must finish', () => {
+    const { container } = renderScene();
+    const tape = Array.from(container.querySelectorAll('.rc-tape'));
+    expect(tape.map((el) => el.querySelector('img')?.getAttribute('src'))).toEqual([
+      '/assets/hero/sky-day.png',
+      '/assets/hero/sky-night.png',
+      '/assets/hero/stars.png',
+    ]);
+  });
+
+  it('decodes every layer off the main thread', () => {
+    const { container } = renderScene();
+    for (const img of Array.from(container.querySelectorAll('img'))) {
+      expect(img).toHaveAttribute('decoding', 'async');
+    }
+  });
+});

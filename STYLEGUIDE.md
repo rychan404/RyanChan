@@ -114,6 +114,8 @@ changing one of those moves the resting shadow and the press together.
 | `.rc-panel`, `.rc-panel-heading`, `.rc-panel-lines`, `.rc-panel-line` | About's FUN FACTS / QUEST LOG boxes |
 | `.rc-stat`, `.rc-stat-value`, `.rc-stat-label` | About stat cards |
 | `.rc-photo-frame`, `.rc-photo-toggle` | About photo and its play button |
+| `.rc-scene`, `.rc-scene-paused` | scene root, and the class `useScenePause` toggles to park its animations off screen |
+| `.rc-tape` | a theme-tape group. Marks a `forwards` animation that must reach 100%, so `prefers-reduced-motion` leaves it alone |
 
 Hover and press states live in `interactions.css`, keyed on the `rc-*` classes.
 

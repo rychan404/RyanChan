@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from '../lib/motion';
 import { FPS, N, spriteFrameStyle } from '../lib/sprite';
 
 /** Drives the About walk cycle. Frame advance is imperative — writing
@@ -54,9 +55,12 @@ export function useSpriteSheet() {
   }, [playing, paint]);
 
   // Auto-play the cycle exactly once when the panel scrolls into view.
+  // Not under reduced motion: the toggle button still works, so the cycle
+  // stays reachable, it just no longer starts on its own.
   useEffect(() => {
     const el = panelRef.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
+    if (prefersReducedMotion()) return;
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
