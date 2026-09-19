@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, memo } from 'react';
 import { HeroScene } from '../scenes/HeroScene';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { heroNameShadow, heroPad, heroShift } from '../lib/responsive';
@@ -12,7 +12,7 @@ const EYEBROW_BASE = {
   textShadow: '-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow)',
 };
 
-export function Hero({ onNavigate }: { onNavigate: () => void }) {
+function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
   const isMobile = useIsMobile();
 
   return (
@@ -95,3 +95,8 @@ export function Hero({ onNavigate }: { onNavigate: () => void }) {
     </section>
   );
 }
+
+// Memoized so a theme toggle, which re-renders Home for its themeClass,
+// does not cascade through every section. The scenes subscribe to the theme
+// context directly, so they still update.
+export const Hero = memo(HeroImpl);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { ProjectCard } from '../components/ProjectCard';
 import {
@@ -17,7 +17,7 @@ const DROPDOWN_ITEM = {
   color: 'var(--color-text)',
 };
 
-export function Projects() {
+function ProjectsImpl() {
   const isMobile = useIsMobile();
   const [filter, setFilter] = useState<Filter>(DEFAULT_FILTER);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -101,3 +101,8 @@ export function Projects() {
     </section>
   );
 }
+
+// Memoized so a theme toggle, which re-renders Home for its themeClass,
+// does not cascade through every section. The scenes subscribe to the theme
+// context directly, so they still update.
+export const Projects = memo(ProjectsImpl);

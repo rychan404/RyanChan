@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { TagChip } from '../components/TagChip';
 import { SKILL_GROUPS } from '../content/skills';
@@ -8,7 +9,7 @@ import { sectionHeadingShadow } from '../lib/responsive';
 const CARD_EDGE =
   'var(--edge-on-surface)';
 
-export function Skills() {
+function SkillsImpl() {
   const isMobile = useIsMobile();
 
   return (
@@ -59,3 +60,8 @@ export function Skills() {
     </section>
   );
 }
+
+// Memoized so a theme toggle, which re-renders Home for its themeClass,
+// does not cascade through every section. The scenes subscribe to the theme
+// context directly, so they still update.
+export const Skills = memo(SkillsImpl);

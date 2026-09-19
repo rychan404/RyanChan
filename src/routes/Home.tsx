@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { NavRail } from '../layout/NavRail';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
@@ -15,6 +15,8 @@ export function Home() {
   const { themeClass } = useTheme();
   const rootRef = useRef<HTMLDivElement>(null);
   const { active, jumpTo } = useScrollSpy(rootRef);
+  // Stable, or Hero's memo is defeated by a fresh arrow on every render.
+  const toAbout = useCallback(() => jumpTo(1), [jumpTo]);
 
   return (
     <div
@@ -37,7 +39,7 @@ export function Home() {
           Home, About, Projects, Skills, Contact. Both halves of that are
           load-bearing — see spec section 4.1. */}
       <main style={mainStyle(isMobile, 'home')}>
-        <Hero onNavigate={() => jumpTo(1)} />
+        <Hero onNavigate={toAbout} />
         <Projects />
         <About />
         <Skills />

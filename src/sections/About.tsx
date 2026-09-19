@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { FACTS, type FactId } from '../content/facts';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { useSpriteSheet } from '../hooks/useSpriteSheet';
@@ -19,7 +19,7 @@ const QUEST_LOG = [
   { text: 'On the internship grind...', icon: 'ui/clock-solid', color: 'var(--color-warning)' },
 ];
 
-export function About() {
+function AboutImpl() {
   const isMobile = useIsMobile();
   const { panelRef, spriteRef, playing, toggle } = useSpriteSheet();
 
@@ -245,3 +245,8 @@ export function About() {
     </section>
   );
 }
+
+// Memoized so a theme toggle, which re-renders Home for its themeClass,
+// does not cascade through every section. The scenes subscribe to the theme
+// context directly, so they still update.
+export const About = memo(AboutImpl);

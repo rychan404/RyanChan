@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import { useTheme } from '../hooks/useTheme';
 
 const LAYER: CSSProperties = {
@@ -40,11 +40,49 @@ export function BeachScene() {
   const { groupStyle, isDark } = useTheme();
   const light = groupStyle(true);
   const dark = groupStyle(false);
-  const [frame, setFrame] = useState(0);
+  const ryanRef = useRef<HTMLImageElement>(null);
+  const frame = useRef(0);
 
+  // Frame advance is imperative, and only while the scene is on screen. Routing
+  // it through state re-rendered all 13 layers four times a second for the life
+  // of the page -- the same reason useSpriteSheet drives the walk cycle by ref.
+  // The <img> itself never unmounts, so the phase lock above is untouched.
   useEffect(() => {
-    const id = setInterval(() => setFrame((f) => (f + 1) % RYAN_FRAMES.length), 250);
-    return () => clearInterval(id);
+    const el = ryanRef.current;
+    if (!el) return;
+
+    let id: ReturnType<typeof setInterval> | null = null;
+    const start = () => {
+      if (id !== null) return;
+      id = setInterval(() => {
+        frame.current = (frame.current + 1) % RYAN_FRAMES.length;
+        el.src = RYAN_FRAMES[frame.current];
+      }, 250);
+    };
+    const stop = () => {
+      if (id === null) return;
+      clearInterval(id);
+      id = null;
+    };
+
+    // Start unconditionally, then let the observer PAUSE it off screen. The
+    // other way round -- start only once the observer reports a hit -- leaves the
+    // scene frozen anywhere IntersectionObserver never reports, so the failure
+    // mode here is the old always-on behaviour rather than a dead animation.
+    start();
+    if (typeof IntersectionObserver === 'undefined') return stop;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) (entry.isIntersecting ? start : stop)();
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      stop();
+    };
   }, []);
 
   return (
@@ -84,8 +122,9 @@ export function BeachScene() {
         style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />
       <img
+        ref={ryanRef}
         aria-hidden="true"
-        src={RYAN_FRAMES[frame]}
+        src={RYAN_FRAMES[0]}
         alt=""
         style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />

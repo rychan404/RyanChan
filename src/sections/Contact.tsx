@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { DitherFade } from '../layout/DitherFade';
 import { Footer } from '../layout/Footer';
 import { BeachScene } from '../scenes/BeachScene';
@@ -10,7 +10,7 @@ import { contactGridCols, contactSceneHeight, sectionHeadingShadow } from '../li
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 
-export function Contact() {
+function ContactImpl() {
   const isMobile = useIsMobile();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -259,3 +259,8 @@ export function Contact() {
     </section>
   );
 }
+
+// Memoized so a theme toggle, which re-renders Home for its themeClass,
+// does not cascade through every section. The scenes subscribe to the theme
+// context directly, so they still update.
+export const Contact = memo(ContactImpl);

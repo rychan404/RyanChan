@@ -10,6 +10,11 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
   const rafPending = useRef(false);
   const rafId = useRef<number | null>(null);
   const sections = useRef<HTMLElement[]>([]);
+  // Section offsets, measured lazily. Reading offsetTop forces the browser to
+  // flush layout, so doing it every scroll frame cost a reflow per frame; it
+  // only actually changes when the page reflows, which the observers below catch.
+  const tops = useRef<number[]>([]);
+  const topsStale = useRef(true);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -18,6 +23,7 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
     sections.current = SECTIONS
       .map((id) => root.querySelector<HTMLElement>(`#${id}`))
       .filter((el): el is HTMLElement => el !== null);
+    topsStale.current = true;
 
     const onScroll = () => {
       if (rafPending.current) return;
@@ -25,12 +31,26 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
       rafId.current = requestAnimationFrame(() => {
         rafPending.current = false;
         if (Date.now() <= lockUntil.current) return;
-        const tops = sections.current.map((el) => el.offsetTop);
-        setActive(activeIndexFor(tops, window.scrollY, window.innerHeight));
+        if (topsStale.current) {
+          tops.current = sections.current.map((el) => el.offsetTop);
+          topsStale.current = false;
+        }
+        setActive(activeIndexFor(tops.current, window.scrollY, window.innerHeight));
       });
     };
 
+    // Anything that can move a section: a viewport resize, and — via the
+    // observer on the root — images finishing, fonts swapping, a filter
+    // changing the project grid's height.
+    const invalidate = () => {
+      topsStale.current = true;
+      onScroll();
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', invalidate);
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(invalidate) : null;
+    ro?.observe(root);
 
     // Hash restore on mount: this is what makes "back to projects" from the
     // detail page land on the right section.
@@ -41,6 +61,8 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', invalidate);
+      ro?.disconnect();
       if (rafId.current !== null) cancelAnimationFrame(rafId.current);
     };
   }, [rootRef]);

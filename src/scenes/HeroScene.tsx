@@ -40,6 +40,59 @@ const VIGNETTE =
   'rgba(10,8,6,.45) 28%, rgba(8,7,6,.65) 44%, rgba(6,10,14,.8) 62%, ' +
   'rgba(6,10,14,.88) 100%)';
 
+/** Layers 7-13 plus the campfire base: no theme value reaches any of them, so
+ *  they are built once. They sit between the sky groups and the flame group --
+ *  document order is paint order, so this constant may not move. */
+const BACKDROPS_AND_TENNIS = (
+  <>
+    {/* 7-9  backdrops */}
+    <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/mountains-back.png)" }} />
+    <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/mountains-front.png)" }} />
+    <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/grass.png)" }} />
+
+    {/* 10-13  tennis */}
+    <img aria-hidden="true" src="/assets/hero/tennis-net.png" style={LAYER} />
+    <img aria-hidden="true" src="/assets/hero/tennis-player-1.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate' }} />
+    <img aria-hidden="true" src="/assets/hero/tennis-player-2.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate-reverse' }} />
+    <img aria-hidden="true" src="/assets/hero/tennis-ball.png" style={{ ...LAYER, animation: 'pxballswing 1s steps(8,end) infinite alternate' }} />
+
+    <img aria-hidden="true" src="/assets/hero/campfire.png" style={LAYER} />
+  </>
+);
+
+/** Between the flame group and the smoke group. Static. */
+const CAMPFIRE_BODY = (
+  <>
+    <img aria-hidden="true" src="/assets/hero/campfire-logs.png" style={LAYER} />
+    <img aria-hidden="true" src="/assets/hero/campfire-person-2.png" style={{ ...LAYER, animation: 'pxpersonbob 2s steps(4,end) infinite alternate' }} />
+    <img aria-hidden="true" src="/assets/hero/campfire-person-1.png" style={LAYER} />
+  </>
+);
+
+/** Layers 20-32: trees, swing, desk, waterfall and camera. All static. */
+const FOREGROUND = (
+  <>
+    {/* 20-24  trees, each with its own duration and direction */}
+    <img aria-hidden="true" src="/assets/hero/tree-5-z2.png" style={{ ...FROM_BASE, animation: sway('3.6s') }} />
+    <img aria-hidden="true" src="/assets/hero/tree-4-z3.png" style={{ ...FROM_BASE, animation: sway('4.2s', true) }} />
+    <img aria-hidden="true" src="/assets/hero/tree-3-z3.png" style={{ ...FROM_BASE, animation: sway('3.8s') }} />
+    <img aria-hidden="true" src="/assets/hero/tree-2-z1.png" style={{ ...FROM_BASE, animation: sway('4s', true) }} />
+    <img aria-hidden="true" src="/assets/hero/tree-1-z1.png" style={{ ...FROM_BASE, animation: sway('3.4s') }} />
+
+    {/* 25-27  swing and desk, pivoting from the top */}
+    <img aria-hidden="true" src="/assets/hero/swing.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+    <img aria-hidden="true" src="/assets/hero/computer-person.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+    <img aria-hidden="true" src="/assets/hero/computer.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
+
+    {/* 28-32  waterfall and camera, framed at 20% 50% */}
+    <img aria-hidden="true" src="/assets/hero/waterfall-ocean.png" style={FRAMED} />
+    <img aria-hidden="true" src="/assets/hero/waterfall-splash.png" style={{ ...FRAMED, animation: 'pxsplash 1.2s steps(4,end) infinite' }} />
+    <img aria-hidden="true" src="/assets/hero/camera.png" style={FRAMED} />
+    <img aria-hidden="true" src="/assets/hero/camera-record-off.png" style={FRAMED} />
+    <img aria-hidden="true" src="/assets/hero/camera-record-on.png" style={{ ...FRAMED, animation: 'pxrecdotblink 1s steps(1,end) infinite' }} />
+  </>
+);
+
 export function HeroScene() {
   const { groupStyle, fadeStyle, moonGlowStyle, isDark } = useTheme();
   const light = groupStyle(true);
@@ -70,49 +123,20 @@ export function HeroScene() {
         <img aria-hidden="true" src="/assets/hero/moon.png" style={{ ...LAYER, animation: 'pxmoonglow 9s steps(8,end) infinite' }} />
       </div>
 
-      {/* 7-9  backdrops */}
-      <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/mountains-back.png)" }} />
-      <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/mountains-front.png)" }} />
-      <div aria-hidden="true" style={{ ...BG, backgroundImage: "url(/assets/hero/grass.png)" }} />
-
-      {/* 10-13  tennis */}
-      <img aria-hidden="true" src="/assets/hero/tennis-net.png" style={LAYER} />
-      <img aria-hidden="true" src="/assets/hero/tennis-player-1.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate' }} />
-      <img aria-hidden="true" src="/assets/hero/tennis-player-2.png" style={{ ...LAYER, animation: 'pxpersonbob 1.6s steps(4,end) infinite alternate-reverse' }} />
-      <img aria-hidden="true" src="/assets/hero/tennis-ball.png" style={{ ...LAYER, animation: 'pxballswing 1s steps(8,end) infinite alternate' }} />
+      {BACKDROPS_AND_TENNIS}
 
       {/* 14-19  campfire. The flame and smoke groups are PERSISTENT: they
           cross-fade by opacity and must never be conditionally unmounted,
           or their animations restart on every theme toggle. */}
-      <img aria-hidden="true" src="/assets/hero/campfire.png" style={LAYER} />
       <div aria-hidden="true" style={{ ...GROUP, ...nightFade }}>
         <img aria-hidden="true" src="/assets/hero/campfire-flames.png" style={{ ...LAYER, animation: 'pxflicker 0.9s steps(3,end) infinite alternate, pxfireglow 6s steps(8,end) infinite' }} />
       </div>
-      <img aria-hidden="true" src="/assets/hero/campfire-logs.png" style={LAYER} />
-      <img aria-hidden="true" src="/assets/hero/campfire-person-2.png" style={{ ...LAYER, animation: 'pxpersonbob 2s steps(4,end) infinite alternate' }} />
-      <img aria-hidden="true" src="/assets/hero/campfire-person-1.png" style={LAYER} />
+      {CAMPFIRE_BODY}
       <div aria-hidden="true" style={{ ...GROUP, ...nightFade }}>
         <img aria-hidden="true" src="/assets/hero/campfire-smoke.png" style={{ ...LAYER, animation: 'pxsmoke 5s steps(5,end) infinite' }} />
       </div>
 
-      {/* 20-24  trees, each with its own duration and direction */}
-      <img aria-hidden="true" src="/assets/hero/tree-5-z2.png" style={{ ...FROM_BASE, animation: sway('3.6s') }} />
-      <img aria-hidden="true" src="/assets/hero/tree-4-z3.png" style={{ ...FROM_BASE, animation: sway('4.2s', true) }} />
-      <img aria-hidden="true" src="/assets/hero/tree-3-z3.png" style={{ ...FROM_BASE, animation: sway('3.8s') }} />
-      <img aria-hidden="true" src="/assets/hero/tree-2-z1.png" style={{ ...FROM_BASE, animation: sway('4s', true) }} />
-      <img aria-hidden="true" src="/assets/hero/tree-1-z1.png" style={{ ...FROM_BASE, animation: sway('3.4s') }} />
-
-      {/* 25-27  swing and desk, pivoting from the top */}
-      <img aria-hidden="true" src="/assets/hero/swing.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
-      <img aria-hidden="true" src="/assets/hero/computer-person.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
-      <img aria-hidden="true" src="/assets/hero/computer.png" style={{ ...FROM_TOP, animation: sway('3.6s') }} />
-
-      {/* 28-32  waterfall and camera, framed at 20% 50% */}
-      <img aria-hidden="true" src="/assets/hero/waterfall-ocean.png" style={FRAMED} />
-      <img aria-hidden="true" src="/assets/hero/waterfall-splash.png" style={{ ...FRAMED, animation: 'pxsplash 1.2s steps(4,end) infinite' }} />
-      <img aria-hidden="true" src="/assets/hero/camera.png" style={FRAMED} />
-      <img aria-hidden="true" src="/assets/hero/camera-record-off.png" style={FRAMED} />
-      <img aria-hidden="true" src="/assets/hero/camera-record-on.png" style={{ ...FRAMED, animation: 'pxrecdotblink 1s steps(1,end) infinite' }} />
+      {FOREGROUND}
 
       {/* 33  vignette — persistent, opacity only */}
       <div aria-hidden="true" style={{ ...GROUP, background: VIGNETTE, ...nightFade }} />
