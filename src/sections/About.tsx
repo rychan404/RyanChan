@@ -85,6 +85,7 @@ export function About() {
                   backgroundImage: 'url(/assets/about/about-sprite.png)',
                   backgroundSize: 'cover',
                   backgroundPosition: '0 0',
+                  imageRendering: 'pixelated',
                   opacity: playing ? 1 : 0,
                   transition: 'opacity 140ms steps(3,end)',
                 }}
