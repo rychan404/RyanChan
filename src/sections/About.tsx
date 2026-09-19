@@ -14,6 +14,9 @@ const STATS = [
   { value: '50K+', label: 'LINES of Code written', padding: '16px 12px' },
 ];
 
+const STAT_EDGE =
+  'var(--px-edge, hsl(from var(--color-bg) calc(h + 36) calc(s * 1.15) calc(l * 0.3)))';
+
 const QUEST_LOG = [
   { text: 'Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
   { text: 'Videographer for UMD JASA & Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
@@ -159,21 +162,22 @@ export function About() {
                   key={idx}
                   style={{
                     padding: stat.padding,
-                    background: 'var(--color-surface)',
-                    border: '2px solid var(--color-border)',
-                    boxShadow: '3px 3px 0 var(--color-border)',
+                    background: 'var(--color-bg)',
+                    border: `4px solid ${STAT_EDGE}`,
+                    boxShadow: `4px 4px 0 ${STAT_EDGE}`,
+                    textAlign: 'center',
                   }}
                 >
-                  <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#A9BF6D', margin: 0 }}>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '34px', color: 'var(--color-accent-text)' }}>
                     {stat.value}
                   </div>
                   <div
                     style={{
-                      fontSize: '12px',
-                      color: 'var(--color-text-dim)',
-                      margin: '4px 0 0 0',
-                      textTransform: 'uppercase',
-                      lineHeight: '1.4',
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '13px',
+                      letterSpacing: '.04em',
+                      color: 'var(--color-text-muted)',
+                      marginTop: '4px',
                     }}
                   >
                     {stat.label}
