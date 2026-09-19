@@ -63,7 +63,12 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', invalidate);
       ro?.disconnect();
+      // Cancelling the frame means its callback never clears the latch, so
+      // clear it here: StrictMode tears the effect down mid-frame, and a
+      // latch left set makes every scroll after the remount a no-op.
       if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+      rafPending.current = false;
     };
   }, [rootRef]);
 

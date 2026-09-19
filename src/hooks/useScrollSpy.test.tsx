@@ -1,6 +1,6 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useRef } from 'react';
+import { StrictMode, useRef } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SECTIONS } from '../lib/scrollSpy';
 import { useScrollSpy } from './useScrollSpy';
@@ -85,6 +85,25 @@ describe('useScrollSpy', () => {
     render(<Harness />);
     await user.click(screen.getByRole('button'));   // jumpTo(3)
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('keeps tracking after a remount cancels an in-flight frame', () => {
+    // The synchronous rAF stub hides the real ordering: StrictMode mounts,
+    // schedules a frame, then tears the effect down before the frame runs.
+    const frames: Array<FrameRequestCallback | null> = [];
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => frames.push(cb));
+    vi.stubGlobal('cancelAnimationFrame', (id: number) => { frames[id - 1] = null; });
+    const flush = () => act(() => {
+      const due = frames.splice(0, frames.length);
+      due.forEach((cb) => cb?.(0));
+    });
+
+    render(<StrictMode><Harness /></StrictMode>);
+    flush();
+
+    act(() => setScroll(2300));
+    flush();
+    expect(screen.getByTestId('active')).toHaveTextContent('2');
   });
 
   it('restores the hash target on mount', () => {
