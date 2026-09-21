@@ -17,11 +17,11 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     name: 'BUILD',
     icon: 'ui/cog-solid',
-    skills: ['React', 'FastAPI', 'Tailwind CSS', 'MongoDB', 'PostgresSQL', 'Docker', 'AWS', 'Pandas'],
+    skills: ['React', 'FastAPI', 'Tailwind CSS', 'MongoDB', 'PostgreSQL', 'Docker', 'AWS', 'Pandas'],
   },
   {
     name: 'POST',
     icon: 'ui/video-camera-solid',
-    skills: ['Davinci Resolve', 'Audacity', 'Figma'],
+    skills: ['DaVinci Resolve', 'Audacity', 'Figma'],
   },
 ];

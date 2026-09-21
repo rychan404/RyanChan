@@ -115,6 +115,7 @@ changing one of those moves the resting shadow and the press together.
 | `.rc-stat`, `.rc-stat-value`, `.rc-stat-label` | About stat cards |
 | `.rc-photo-frame`, `.rc-photo-toggle` | About photo and its play button |
 | `.rc-scene`, `.rc-scene-paused` | scene root, and the class `useScenePause` toggles to park its animations off screen |
+| `.rc-slot-empty`, `.rc-slot-dither`, `.rc-slot-hint` | an image slot with no image yet: dither, pixel glyph, and a dev-only hint |
 | `.rc-tape` | a theme-tape group. Marks a `forwards` animation that must reach 100%, so `prefers-reduced-motion` leaves it alone |
 
 Hover and press states live in `interactions.css`, keyed on the `rc-*` classes.
@@ -142,7 +143,6 @@ The test skips these, each for a reason:
 
 - `src/scenes/**`, `keyframes.css`: pixel-art scene lighting, not UI.
 - `src/content/tags.ts`: each technology's own brand colour for its tag underline.
-- `src/components/ImageSlot.tsx`: a deliberately neutral placeholder for missing images.
 
 ## Decision log
 
@@ -160,3 +160,4 @@ decides each case.
 | 2026-09-19 | **Shadows: two sizes site-wide** (owner). Controls 3px, cards/panels/frames 4px. Image frames match cards, so the contact art and the contact form now match; this replaces the mock's 2px cards and 6px frames. |
 | 2026-09-19 | Contact art frame: border and shadow use `--edge-on-surface`, matching the contact form beside it (owner). The mock and the old live site used the teal `--color-bg-alt`. |
 | 2026-09-19 | Contact form: labels use the 14px `.pixel-label` size; the message box uses JetBrains Mono like the other fields (mock). |
+| 2026-09-20 | Empty image slots: a 12% dither in `--color-text-dim` and a pixel picture glyph, drawn with tokens (owner). The mock's "Drop a … screenshot" caption is an owner note, so it renders in development only; it was showing to visitors in a system font. |

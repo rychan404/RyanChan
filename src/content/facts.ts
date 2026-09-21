@@ -1,7 +1,7 @@
 /** The three About fun facts. Each is one sentence with an inline clickable
  *  term that opens a popover, so the sentence is stored split three ways
  *  (docs/design/portfolio-home.dc.html:316,321,326). */
-export type FactId = 'barns' | 'eggs' | 'tennis';
+export type FactId = 'barns' | 'eggs' | 'sing';
 
 export type Fact = {
   id: FactId;
@@ -38,12 +38,12 @@ export const FACTS: Fact[] = [
     imageWebp: '/assets/about/fact-eggs.webp',
   },
   {
-    id: 'tennis',
+    id: 'sing',
     icon: 'ui/music-solid',
     before: 'Would drop everything to ',
     term: 'sing',
     after: ' my heart out to pop songs on the radio',
     caption: 'Riptide by Vance Joy!',
-    slotHint: 'Drop a tennis photo',
+    slotHint: 'Drop a singing photo',
   },
 ];

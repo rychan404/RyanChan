@@ -47,7 +47,7 @@ describe('Skills', () => {
   it('puts the right skills in the right card', () => {
     const { container } = renderSkills();
     const cards = Array.from(container.querySelectorAll('.pixel-card')) as HTMLElement[];
-    expect(within(cards[2]).getByText('Davinci Resolve')).toBeInTheDocument();
+    expect(within(cards[2]).getByText('DaVinci Resolve')).toBeInTheDocument();
     expect(within(cards[2]).queryByText('Python')).toBeNull();
   });
 

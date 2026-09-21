@@ -26,3 +26,10 @@
    optional, and !important is what lets one class beat the `animation`
    shorthand that every scene layer carries inline. */
 .rc-scene-paused,.rc-scene-paused *{animation-play-state:paused!important}
+
+/* Empty image slot — a project card, detail hero or fact popover with no image yet.
+   The hint under the glyph renders in development only (see ImageSlot). */
+.rc-slot-empty{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;text-align:center}
+.rc-slot-dither{position:absolute;inset:0;--dither-ink:var(--color-text-dim);opacity:.35}
+.rc-slot-empty > .pixel-icon{position:relative}
+.rc-slot-hint{position:relative;max-width:90%;font-family:var(--font-body);font-size:var(--fs-12);color:var(--color-text-dim)}

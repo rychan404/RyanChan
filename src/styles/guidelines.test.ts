@@ -10,7 +10,6 @@ const SRC = fileURLToPath(new URL('..', import.meta.url));
 const EXEMPT: Record<string, string> = {
   'scenes/': 'pixel-art scene lighting, not UI chrome',
   'content/tags.ts': 'third-party brand colours per technology',
-  'components/ImageSlot.tsx': 'deliberately neutral dev placeholder',
 };
 
 const RULES: [name: string, re: RegExp][] = [

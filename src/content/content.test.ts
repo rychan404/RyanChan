@@ -32,7 +32,7 @@ describe('SKILL_GROUPS', () => {
 
 describe('FACTS', () => {
   it('has the three facts in order', () => {
-    expect(FACTS.map((f) => f.id)).toEqual(['barns', 'eggs', 'tennis']);
+    expect(FACTS.map((f) => f.id)).toEqual(['barns', 'eggs', 'sing']);
   });
 
   it('reassembles each sentence exactly as the prototype renders it', () => {
@@ -61,7 +61,7 @@ describe('FACTS', () => {
     expect(FACTS.map((f) => f.slotHint)).toEqual([
       'Drop a hometown photo',
       'Drop an egg photo',
-      'Drop a tennis photo',
+      'Drop a singing photo',
     ]);
   });
 });

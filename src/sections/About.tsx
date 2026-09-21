@@ -13,6 +13,14 @@ const STATS = [
   { value: '50K+', label: 'LINES of Code written', padding: '16px 12px' },
 ];
 
+const BIO = {
+  fontSize: 'var(--fs-18)',
+  lineHeight: '1.75',
+  color: 'var(--color-text)',
+  margin: 0,
+  textWrap: 'pretty',
+} as CSSProperties;
+
 const QUEST_LOG = [
   { text: 'Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
   { text: 'Videographer for UMD JASA & Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
@@ -163,21 +171,14 @@ function AboutImpl() {
 
           {/* Right column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {/* Bio paragraphs */}
-            <p
-              style={{
-                fontSize: 'var(--fs-20)',
-                lineHeight: '1.75',
-                color: 'var(--color-text)',
-                margin: 0,
-                textWrap: 'pretty',
-              } as CSSProperties}
-            >
+            {/* Bio paragraphs: a larger lead, then two at body size */}
+            <p style={{ ...BIO, fontSize: 'var(--fs-20)' }}>
               Computer science sophomore at the University of Maryland, passionate about software engineering
               and creative media. I'm also an avid videographer and filmmaker, constantly exploring the intersection of code and creativity.
-              <br />
-              <br />
-              You can find me{' '}
+            </p>
+
+            <p style={BIO}>
+              You can find{' '}
               <a
                 href="#projects"
                 className="rc-fact-term"
@@ -190,31 +191,12 @@ function AboutImpl() {
               >
                 my projects
               </a>
-              {' '}showcasing everything from web apps to{' '}
+              {' '}showcasing everything from web apps to production-grade video content. Beyond the computer screen,
+              I'm constantly chasing down shots on the tennis court, whether it's hitting aces in matches or creating
+              dynamic video reels.
             </p>
 
-            <p
-              style={{
-                fontSize: 'var(--fs-18)',
-                lineHeight: '1.75',
-                color: 'var(--color-text)',
-                margin: 0,
-                textWrap: 'pretty',
-              } as CSSProperties}
-            >
-              production-grade video content. Beyond the computer screen, I'm constantly chasing down shots on
-              the tennis court, whether it's hitting aces in matches or creating dynamic video reels.
-            </p>
-
-            <p
-              style={{
-                fontSize: 'var(--fs-18)',
-                lineHeight: '1.75',
-                color: 'var(--color-text)',
-                margin: 0,
-                textWrap: 'pretty',
-              } as CSSProperties}
-            >
+            <p style={BIO}>
               Everything I create is driven by one goal: to bring ideas to life through thoughtful design and solid engineering.
             </p>
 

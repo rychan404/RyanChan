@@ -66,10 +66,21 @@ describe('TagChip', () => {
 });
 
 describe('ImageSlot', () => {
-  it('shows the placeholder caption when there is no image', () => {
+  it('shows the placeholder caption in development when there is no image', () => {
     render(<ImageSlot placeholder="Drop a gameplay screenshot" />);
     expect(screen.getByText('Drop a gameplay screenshot')).toBeInTheDocument();
     expect(screen.queryByRole('img')).toBeNull();
+  });
+
+  it('keeps the placeholder caption out of production builds', () => {
+    vi.stubEnv('DEV', false);
+    try {
+      const { container } = render(<ImageSlot placeholder="Drop a gameplay screenshot" />);
+      expect(screen.queryByText('Drop a gameplay screenshot')).toBeNull();
+      expect(container.querySelector('.rc-slot-empty .pixel-icon')).not.toBeNull();
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 
   it('shows the image and hides the placeholder when there is one', () => {
