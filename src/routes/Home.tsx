@@ -21,7 +21,7 @@ export function Home({ projects }: { projects: Project[] }) {
       ref={rootRef}
       className={themeClass}
       style={{
-        '--section-pad-x': 'clamp(20px,6vw,160px)',
+        '--section-pad-x': 'max(clamp(20px,6vw,160px),calc((100% - var(--container-max)) / 2))',
         background: 'var(--color-bg)',
         color: 'var(--color-text)',
         fontFamily: 'var(--font-body)',

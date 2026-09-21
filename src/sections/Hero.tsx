@@ -69,8 +69,7 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
           style={{
             margin: '20px auto 0', zIndex: 3, display: 'flex', alignItems: 'center',
             justifyContent: 'center', gap: '12px', fontFamily: 'var(--font-display)',
-            fontSize: 'var(--fs-16)', letterSpacing: '.08em', color: 'var(--color-text-muted)',
-            cursor: 'pointer', transition: 'color .1s var(--ease-pixel)',
+            fontSize: 'var(--fs-16)', letterSpacing: '.08em', cursor: 'pointer',
           }}
         >
           <span style={{ animation: 'pxbob 1.1s steps(2,end) infinite alternate' }}>▼</span>

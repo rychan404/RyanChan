@@ -52,7 +52,7 @@ describe('Home', () => {
   it('sets the section padding variable and the page chrome on the root', () => {
     const { container } = renderHome();
     const root = container.firstElementChild as HTMLElement;
-    expect(root.style.getPropertyValue('--section-pad-x')).toBe('clamp(20px,6vw,160px)');
+    expect(root.style.getPropertyValue('--section-pad-x')).toBe('max(clamp(20px,6vw,160px),calc((100% - var(--container-max)) / 2))');
     expect(root.style.background).toBe('var(--color-bg)');
     expect(root.style.overflowX).toBe('hidden');
     expect(root.style.minHeight).toBe('100vh');

@@ -3,7 +3,7 @@
 
 /* Section <h2> and the paragraph under it. The text-shadow is keyed on isMobile, so it stays inline. */
 .rc-section-title{font-size:var(--fs-section-title);color:var(--color-heading)}
-.rc-section-lede{font-size:var(--fs-19);line-height:1.7;max-width:62ch;color:var(--color-text-muted);margin:20px 0 0}
+.rc-section-lede{font-size:var(--fs-17);line-height:1.7;max-width:62ch;color:var(--color-text-muted);margin:20px 0 0}
 
 /* About — FUN FACTS / QUEST LOG panels */
 .rc-panel{background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);padding:24px}
@@ -52,11 +52,12 @@
    instead of rendering desktop and correcting after hydration. */
 .rc-nav{position:fixed;left:0;top:0;bottom:0;width:88px;background:var(--color-surface);border-right:var(--border-thick) solid var(--edge-on-surface);display:flex;flex-direction:column;align-items:center;padding:16px 0 12px;z-index:60}
 .rc-nav--home{overflow-y:auto;scrollbar-width:none}
-.rc-logo{--logo-w:var(--border-thick);--logo-fs:var(--fs-28);border:var(--logo-w) solid var(--edge-primary);padding:var(--logo-w)}
+.rc-logo{--logo-w:var(--border-thick);--logo-fs:var(--fs-28);border:var(--logo-w) solid var(--edge-primary);padding:var(--logo-w);background:var(--color-primary);box-shadow:var(--shadow-control) var(--edge-primary);transition:transform 100ms steps(2,end),background-color .1s var(--ease-pixel)}
 .rc-logo > img{height:calc(var(--logo-fs) * 2)}
 .rc-main{display:flex;flex-direction:column;margin-left:88px}
 .px-hero{padding:96px 56px 120px}
 .px-hero-content{transform:translateY(-110px)}
+.rc-hero-cta{color:var(--color-text-muted);transition:color .1s var(--ease-pixel)}
 .rc-hero-eyebrow{margin:0 0 -8px}
 .rc-hero-name{text-shadow:-6px -6px 0 var(--color-heading-shadow),6px -6px 0 var(--color-heading-shadow),-6px 6px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow),-6px 0 0 var(--color-heading-shadow),6px 0 0 var(--color-heading-shadow),0 -6px 0 var(--color-heading-shadow),0 6px 0 var(--color-heading-shadow),10px 10px 0 var(--color-heading-shadow)}
 .rc-section-title{text-shadow:-4px -4px 0 var(--color-heading-shadow),4px -4px 0 var(--color-heading-shadow),-4px 4px 0 var(--color-heading-shadow),4px 4px 0 var(--color-heading-shadow),-4px 0 0 var(--color-heading-shadow),4px 0 0 var(--color-heading-shadow),0 -4px 0 var(--color-heading-shadow),0 4px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow)}

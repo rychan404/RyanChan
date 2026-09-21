@@ -12,7 +12,7 @@ const STATS = [
 ];
 
 const BIO = {
-  fontSize: 'var(--fs-18)',
+  fontSize: 'var(--fs-17)',
   lineHeight: '1.75',
   color: 'var(--color-text)',
   margin: 0,
@@ -165,8 +165,8 @@ function AboutImpl() {
 
           {/* Right column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {/* Bio paragraphs: a larger lead, then two at body size */}
-            <p style={{ ...BIO, fontSize: 'var(--fs-20)' }}>
+            {/* Bio paragraphs, at body size */}
+            <p style={BIO}>
               Computer science sophomore at the University of Maryland, passionate about software engineering
               and creative media. I'm also an avid videographer and filmmaker, constantly exploring the intersection of code and creativity.
             </p>

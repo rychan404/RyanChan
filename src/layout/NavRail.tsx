@@ -41,9 +41,6 @@ export function NavRail({ route, active, onNavigate }: Props) {
           className="rc-logo"
           style={{
             display: 'flex', alignItems: 'center', cursor: 'pointer',
-            background: 'var(--color-primary)',
-            boxShadow: `var(--shadow-control) var(--edge-primary)`,
-            transition: 'transform 100ms steps(2,end)',
           }}
         >
           <img
