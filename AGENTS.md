@@ -16,7 +16,7 @@ CSS framework, no state library, no backend. Ported from the Claude Design hando
 | `src/components/`, `src/layout/` | cards, chips, popovers; NavRail and Footer |
 | `src/lib/`, `src/hooks/` | pure logic, and the hooks that wrap it |
 | `src/content/` | projects (markdown folders), skills, facts, the tag → icon/colour map |
-| `src/content.config.ts` | project schema |
+| `src/content.config.ts` | project collection; schema in `src/content/schema.ts` |
 | `src/styles/` | tokens, shared patterns, interaction states |
 
 ## Commands

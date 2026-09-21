@@ -77,11 +77,11 @@ sort order (`10`). No TypeScript to edit. Each project page is pre-rendered
 with its own title, description and Open Graph tags, so the link unfurls
 correctly when shared.
 
-The folder holds `index.md` or `index.mdx`; frontmatter is unchanged. Paragraphs
-and bullet lists get the PATCH NOTES styling. An `.mdx` body can `import`
-components and use them inline, and a component that needs interactivity takes
-`client:visible`. Frontmatter validation is still strict, runs in
-`src/content.config.ts`, and **fails the build** naming the file and the key.
+The folder holds `index.md` or `index.mdx`. Paragraphs and bullet lists get the
+PATCH NOTES styling; an `.mdx` body can also `import` components and use them
+inline, and a component that needs interactivity takes `client:visible`.
+Frontmatter validation is strict, lives in `src/content/schema.ts`, and
+**fails the build** naming the file and the key.
 
 ## Deploying
 
