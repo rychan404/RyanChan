@@ -25,12 +25,11 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div style={{ padding: '20px 20px 24px', display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
           <h3 style={{ fontSize: 'var(--fs-26)', color: 'var(--color-text)' }}>{project.title}</h3>
           <span style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 'none' }}>
             <span
-              className={project.statusCls ? `pixel-badge ${project.statusCls}` : 'pixel-badge'}
-              style={{ fontSize: 'var(--fs-11)', padding: '3px 7px' }}
+              className={project.statusCls ? `pixel-badge rc-card-status ${project.statusCls}` : 'pixel-badge rc-card-status'}
             >
               {project.status}
             </span>

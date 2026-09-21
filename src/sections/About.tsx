@@ -50,16 +50,16 @@ function AboutImpl() {
   return (
     <section
       id="about"
+      className="rc-section"
       style={{
         position: 'relative',
         background: 'var(--color-surface)',
-        padding: '0 0 112px',
         order: 1,
       }}
     >
       <DitherFade ink="var(--dither-ink-about)" />
 
-      <div style={{ padding: '56px var(--section-pad-x) 0' }}>
+      <div className="rc-section-inner">
         <h2 className="rc-section-title">
           About
         </h2>
@@ -68,7 +68,6 @@ function AboutImpl() {
           className="rc-grid-about"
           style={{
             display: 'grid',
-            gap: '48px',
             marginTop: '44px',
             alignItems: 'start',
           } as CSSProperties}
@@ -123,9 +122,9 @@ function AboutImpl() {
             </div>
 
             {/* Stats grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))', gap: '12px', marginBottom: '40px' }}>
+            <div className="rc-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))', marginBottom: '40px' }}>
               {STATS.map((stat, idx) => (
-                <div key={idx} className="rc-stat" style={{ padding: stat.padding }}>
+                <div key={idx} className="rc-stat" style={{ '--stat-pad': stat.padding } as CSSProperties}>
                   <div className="rc-stat-value">{stat.value}</div>
                   <div className="rc-stat-label">{stat.label}</div>
                 </div>

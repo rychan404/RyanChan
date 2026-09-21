@@ -20,7 +20,6 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
       className="px-hero"
       style={{
         position: 'relative',
-        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
       }}

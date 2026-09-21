@@ -30,10 +30,11 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
   return (
     <section
       id="projects"
-      style={{ position: 'relative', padding: '0 0 112px', background: 'var(--color-bg)', order: 2 }}
+      className="rc-section"
+      style={{ position: 'relative', background: 'var(--color-bg)', order: 2 }}
     >
       <DitherFade ink="var(--color-surface)" />
-      <div style={{ padding: '56px var(--section-pad-x) 0' }}>
+      <div className="rc-section-inner">
         <h2 className="rc-section-title">
           Projects
         </h2>

@@ -91,12 +91,11 @@ function ContactImpl() {
       style={{
         position: 'relative',
         background: 'var(--color-bg)',
-        padding: '0 0 0',
         order: 4,
       }}
     >
       <DitherFade ink="var(--color-surface)" />
-      <div style={{ padding: '56px var(--section-pad-x) 0' }}>
+      <div className="rc-section-inner">
         <h2 className="rc-section-title">
           Contact Me
         </h2>
@@ -108,7 +107,6 @@ function ContactImpl() {
           className="rc-grid-contact"
           style={{
             display: 'grid',
-            gap: '48px',
             marginTop: '44px',
             alignItems: 'stretch',
           }}

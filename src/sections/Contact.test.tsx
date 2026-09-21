@@ -61,10 +61,9 @@ describe('Contact layout', () => {
     expect(panel).toHaveClass('rc-contact-scene');
   });
 
-  it('uses correct spacing: gap 48px and marginTop 44px', () => {
+  it('uses correct spacing: marginTop 44px', () => {
     const { container } = renderContact();
     const grid = container.querySelector('section#contact div[style*="display: grid"]') as HTMLElement;
-    expect(grid.style.gap).toBe('48px');
     expect(grid.style.marginTop).toBe('44px');
   });
 

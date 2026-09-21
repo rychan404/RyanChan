@@ -9,10 +9,11 @@ function SkillsImpl() {
   return (
     <section
       id="skills"
-      style={{ position: 'relative', background: 'var(--color-surface)', padding: '0 0 112px', order: 3 }}
+      className="rc-section"
+      style={{ position: 'relative', background: 'var(--color-surface)', order: 3 }}
     >
       <DitherFade ink="var(--color-bg)" />
-      <div style={{ padding: '56px var(--section-pad-x) 0' }}>
+      <div className="rc-section-inner">
         <h2 className="rc-section-title">
           Skills
         </h2>

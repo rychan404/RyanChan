@@ -22,10 +22,9 @@ beforeEach(() => { localStorage.clear(); vi.unstubAllGlobals(); });
 describe('Hero', () => {
   beforeEach(() => setViewport(false));
 
-  it('is a full-viewport section with id="home"', () => {
+  it('is the hero section with id="home"', () => {
     const { container } = renderHero();
     const section = container.querySelector('#home') as HTMLElement;
-    expect(section.style.minHeight).toBe('100vh');
     expect(section).toHaveClass('px-hero');
   });
 

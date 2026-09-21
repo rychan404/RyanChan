@@ -29,7 +29,7 @@ describe('About layout', () => {
     const section = container.querySelector('#about') as HTMLElement;
     expect(section.style.background).toBe('var(--color-surface)');
     expect(section.style.order).toBe('1');
-    expect(section.style.padding).toBe('0px 0px 112px 0px');
+    expect(section.classList.contains('rc-section')).toBe(true);
   });
 
   it('inks its dither fade from the per-theme token', () => {
