@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadProjects } from '../content/load';
+import { HomeIsland } from '../routes/Home';
+
+const projects = (await loadProjects()).map((p) => p.project);
+---
+<Base
+  title="Ryan Chan — Software Engineer and Video Editor"
+  description="Portfolio of Ryan Chan, a software engineer and video editor in the DMV building technology around what people actually want."
+  path="/"
+>
+  <HomeIsland client:load projects={projects} />
+</Base>

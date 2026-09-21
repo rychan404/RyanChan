@@ -14,7 +14,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["vite/client", "vitest/globals", "node"]
+    "types": ["astro/client", "vitest/globals", "node"]
   },
-  "include": ["src", "plugins", "vite.config.ts"]
+  "include": [".astro/types.d.ts", "src", "vitest.config.ts"]
 }

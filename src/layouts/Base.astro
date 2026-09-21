@@ -1,0 +1,35 @@
+---
+import '../styles/index.css';
+
+type Props = { title: string; description: string; path: string };
+const { title, description, path } = Astro.props;
+const site = Astro.site;
+const url = site ? new URL(path, site).href : path;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ryan Chan" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    {site && <meta property="og:image" content={new URL('/og.png', site).href} />}
+    <meta name="twitter:card" content={site ? 'summary_large_image' : 'summary'} />
+    <link rel="canonical" href={url} />
+    <script is:inline>
+      try {
+        if ((localStorage.getItem('rc-theme') || 'dark') === 'light') {
+          document.documentElement.classList.add('theme-light');
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

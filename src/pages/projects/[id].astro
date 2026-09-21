@@ -1,0 +1,18 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { loadProjects, type ProjectEntry } from '../../content/load';
+import { ProjectDetailIsland } from '../../routes/ProjectDetail';
+
+export async function getStaticPaths() {
+  return (await loadProjects()).map((p) => ({ params: { id: p.project.id }, props: p }));
+}
+
+const { entry, project } = Astro.props as ProjectEntry;
+const { Content } = await render(entry);
+---
+<Base title={`${project.title} — Ryan Chan`} description={project.blurb} path={`/projects/${project.id}`}>
+  <ProjectDetailIsland client:load project={project}>
+    <Content />
+  </ProjectDetailIsland>
+</Base>

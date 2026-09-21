@@ -35,7 +35,7 @@ function walk(dir: string): string[] {
 
 const rel = (p: string) => relative(SRC, p).split(sep).join('/');
 const FILES = walk(SRC)
-  .filter((p) => /\.tsx?$/.test(p) && !/\.test\.tsx?$/.test(p))
+  .filter((p) => /\.(tsx?|astro)$/.test(p) && !/\.test\.tsx?$/.test(p))
   .filter((p) => !Object.keys(EXEMPT).some((e) => rel(p).startsWith(e)));
 
 function violations(text: string, rules: [string, RegExp][]) {
