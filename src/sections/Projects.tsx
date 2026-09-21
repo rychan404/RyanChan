@@ -6,7 +6,6 @@ import {
 } from '../content/projects';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
-import { projGridCols, sectionHeadingShadow } from '../lib/responsive';
 
 const FILTERS: Filter[] = ['all', 'code', 'video', 'misc'];
 
@@ -35,7 +34,7 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
     >
       <DitherFade ink="var(--color-surface)" />
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
+        <h2 className="rc-section-title">
           Projects
         </h2>
         <p className="rc-section-lede">
@@ -92,7 +91,7 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: projGridCols(isMobile), gap: '32px' }}>
+        <div className="rc-grid-projects" style={{ display: 'grid', gap: '32px' }}>
           {visible.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}

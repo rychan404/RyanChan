@@ -53,20 +53,12 @@ describe('Contact layout', () => {
     expect(screen.getByLabelText('Message')).toHaveAttribute('rows', '5');
   });
 
-  it('mounts the beach scene at full height on desktop', () => {
+  it('mounts the beach scene in its sized panel', () => {
     const { container } = renderContact();
     expect(container.querySelector('img[src="/assets/contact/waves-front.png"]')).toBeTruthy();
     const panel = container.querySelector('img[src="/assets/contact/sky-day.png"]')!
       .closest('div[style*="border"]') as HTMLElement;
-    expect(panel.style.height).toBe('100%');
-  });
-
-  it('gives the scene a literal 340px on mobile', () => {
-    setViewport(true);
-    const { container } = renderContact();
-    const panel = container.querySelector('img[src="/assets/contact/sky-day.png"]')!
-      .closest('div[style*="border"]') as HTMLElement;
-    expect(panel.style.height).toBe('340px');
+    expect(panel).toHaveClass('rc-contact-scene');
   });
 
   it('uses correct spacing: gap 48px and marginTop 44px', () => {

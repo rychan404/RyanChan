@@ -43,7 +43,9 @@ The rules in short — never a raw value where a token exists:
 
 Untested convention: **a pattern used in more than one place is a class in
 `patterns.css`**, not a copied inline `style={{…}}`. Keep inline styles for layout and
-for values that depend on state (`isMobile`, `playing`, the active nav row).
+for values that depend on state (`playing`, the active nav row). Mobile vs desktop
+values go in the `@media (max-width:860px)` block in `patterns.css`, not in JS;
+`useIsMobile` is only for swapping markup (the nav, the project filter).
 
 Derived tokens go in the `:root,.theme-light{…}` block at the bottom of `colors.css`.
 `.theme-light` sits on the app's root `<div>`, not `<html>`, so a `var()`-derived token

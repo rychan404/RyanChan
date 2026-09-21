@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
-import { logoBorderW, logoFontSize, navStyle, type Route } from '../lib/responsive';
 
 const LINKS = [
   { id: 'home', label: 'HOME', icon: 'ui/home-solid' },
@@ -13,7 +12,7 @@ const LINKS = [
 ] as const;
 
 type Props = {
-  route: Route;
+  route: 'home' | 'detail';
   active: number;
   onNavigate?: (index: number) => void;
 };
@@ -33,20 +32,16 @@ export function NavRail({ route, active, onNavigate }: Props) {
     onNavigate?.(index);
   };
 
-  const logoW = logoBorderW(isMobile);
-
   return (
     <>
-      <nav style={navStyle(isMobile, route)}>
+      <nav className={route === 'home' ? 'rc-nav rc-nav--home' : 'rc-nav'}>
         <a
           href={href('home')}
           onClick={click(0)}
           className="rc-logo"
           style={{
             display: 'flex', alignItems: 'center', cursor: 'pointer',
-            border: `${logoW} solid var(--edge-primary)`,
             background: 'var(--color-primary)',
-            padding: logoW,
             boxShadow: `var(--shadow-control) var(--edge-primary)`,
             transition: 'transform 100ms steps(2,end)',
           }}
@@ -55,7 +50,6 @@ export function NavRail({ route, active, onNavigate }: Props) {
             src="/assets/brand/logo-head.png"
             alt="Ryan Chan"
             style={{
-              height: `calc(${logoFontSize(isMobile)} * 2)`,
               width: 'auto',
               imageRendering: 'pixelated',
               display: 'block',

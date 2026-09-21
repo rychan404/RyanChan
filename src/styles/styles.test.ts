@@ -65,3 +65,10 @@ describe('global.css', () => {
     expect(css).toContain('@media (orientation:landscape) and (max-height:500px)');
   });
 });
+
+describe('the mobile breakpoint', () => {
+  it('is the same width in patterns.css and useIsMobile', () => {
+    expect(read('./patterns.css')).toContain('@media (max-width:860px)');
+    expect(read('../hooks/useMediaQuery.ts')).toContain("'(max-width: 860px)'");
+  });
+});

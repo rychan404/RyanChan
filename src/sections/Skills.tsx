@@ -2,12 +2,9 @@ import { memo } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { TagChip } from '../components/TagChip';
 import { SKILL_GROUPS } from '../content/skills';
-import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
-import { sectionHeadingShadow } from '../lib/responsive';
 
 function SkillsImpl() {
-  const isMobile = useIsMobile();
 
   return (
     <section
@@ -16,7 +13,7 @@ function SkillsImpl() {
     >
       <DitherFade ink="var(--color-bg)" />
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
+        <h2 className="rc-section-title">
           Skills
         </h2>
         <p className="rc-section-lede">

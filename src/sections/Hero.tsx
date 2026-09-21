@@ -1,20 +1,17 @@
 import { CSSProperties, memo } from 'react';
 import { HeroScene } from '../scenes/HeroScene';
 import { useHydrated } from '../hooks/useHydrated';
-import { useIsMobile } from '../hooks/useMediaQuery';
-import { heroNameShadow, heroPad, heroShift } from '../lib/responsive';
 
-const EYEBROW_BASE = {
+const EYEBROW: CSSProperties = {
   fontFamily: 'var(--font-display)',
   fontSize: 'var(--fs-hero-tagline)',
   letterSpacing: '.06em',
   color: 'var(--color-heading)',
-  textTransform: 'uppercase' as const,
+  textTransform: 'uppercase',
   textShadow: '-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow)',
 };
 
 function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
-  const isMobile = useIsMobile();
   const hydrated = useHydrated();
 
   return (
@@ -26,7 +23,6 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        ...heroPad(isMobile),
       }}
     >
       {hydrated ? <HeroScene /> : null}
@@ -37,26 +33,20 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
         className="px-hero-content"
         style={{
           position: 'relative', zIndex: 3, maxWidth: '1180px', width: '100%',
-          textAlign: 'center', margin: '0 auto', transform: heroShift(isMobile),
+          textAlign: 'center', margin: '0 auto',
         }}
       >
-        {isMobile ? (
-          <p style={{ ...EYEBROW_BASE, margin: '0 0 8px', lineHeight: '1.1' }}>
-            Software Engineer<br />and Video Editor
-          </p>
-        ) : (
-          <p style={{ ...EYEBROW_BASE, margin: '0 0 -8px' }}>
-            Software Engineer and Video Editor
-          </p>
-        )}
+        <p className="rc-hero-eyebrow" style={EYEBROW}>
+          Software Engineer <br className="rc-mobile-only" />and Video Editor
+        </p>
 
         <h1
+          className="rc-hero-name"
           style={{
             fontSize: 'var(--fs-hero-name)',
             lineHeight: '.9',
             wordSpacing: '-0.25em',
             color: 'var(--color-heading)',
-            textShadow: heroNameShadow(isMobile),
             margin: 0,
           }}
         >

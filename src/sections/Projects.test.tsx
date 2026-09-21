@@ -54,10 +54,10 @@ describe('Projects on desktop', () => {
     expect(cardTitles()).toHaveLength(9);
   });
 
-  it('uses the auto-fill track on desktop', () => {
+  it('lays the cards out on the projects grid', () => {
     const { container } = renderProjects();
     const grid = container.querySelector('#projects div[style*="display: grid"]') as HTMLElement;
-    expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fill,minmax(330px,1fr))');
+    expect(grid).toHaveClass('rc-grid-projects');
     expect(grid.style.gap).toBe('32px');
   });
 
@@ -126,11 +126,5 @@ describe('Projects on mobile', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Misc' }));
     expect(cardTitles()).toEqual(['Piano Covers', '3D Origami Sculptures']);
     expect(screen.getByRole('button', { expanded: false })).toHaveTextContent('Misc');
-  });
-
-  it('uses a single-column grid', () => {
-    const { container } = renderProjects();
-    const grid = container.querySelector('#projects div[style*="display: grid"]') as HTMLElement;
-    expect(grid.style.gridTemplateColumns).toBe('1fr');
   });
 });

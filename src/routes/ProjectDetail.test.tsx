@@ -69,11 +69,9 @@ describe('ProjectDetail — found', () => {
     expect(backs.length).toBeGreaterThanOrEqual(2);   // the overlay back button and EXPLORE MORE
   });
 
-  it('labels the back button icon-only on mobile', () => {
-    setViewport(true);
+  it('hides the back button label on mobile', () => {
     renderDetail();
-    expect(screen.queryByText('BACK TO PROJECTS')).toBeNull();
-    setViewport(false);
+    expect(screen.getByText('BACK TO PROJECTS')).toHaveClass('rc-desktop-only');
   });
 
   it('pins the nav cursor on Projects', () => {

@@ -46,9 +46,7 @@ describe('Home', () => {
   it('makes main a flex column so those order values apply', () => {
     const { container } = renderHome();
     const main = container.querySelector('main') as HTMLElement;
-    expect(main.style.display).toBe('flex');
-    expect(main.style.flexDirection).toBe('column');
-    expect(main.style.marginLeft).toBe('88px');
+    expect(main).toHaveClass('rc-main');
   });
 
   it('sets the section padding variable and the page chrome on the root', () => {

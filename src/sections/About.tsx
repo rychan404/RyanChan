@@ -1,8 +1,6 @@
 import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { FACTS, type FactId } from '../content/facts';
-import { useIsMobile } from '../hooks/useMediaQuery';
 import { useSpriteSheet } from '../hooks/useSpriteSheet';
-import { aboutGridCols, sectionHeadingShadow } from '../lib/responsive';
 import { DitherFade } from '../layout/DitherFade';
 import { PixelIcon } from '../components/PixelIcon';
 import { FactPopover } from '../components/FactPopover';
@@ -28,7 +26,6 @@ const QUEST_LOG = [
 ];
 
 function AboutImpl() {
-  const isMobile = useIsMobile();
   const { panelRef, spriteRef, playing, toggle } = useSpriteSheet();
 
   const [openFact, setOpenFact] = useState<FactId | null>(null);
@@ -63,14 +60,14 @@ function AboutImpl() {
       <DitherFade ink="var(--dither-ink-about)" />
 
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
+        <h2 className="rc-section-title">
           About
         </h2>
 
         <div
+          className="rc-grid-about"
           style={{
             display: 'grid',
-            gridTemplateColumns: aboutGridCols(isMobile),
             gap: '48px',
             marginTop: '44px',
             alignItems: 'start',

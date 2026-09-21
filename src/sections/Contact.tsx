@@ -5,8 +5,6 @@ import { BeachScene } from '../scenes/BeachScene';
 import { PixelIcon } from '../components/PixelIcon';
 import { submitContactForm } from '../lib/contact';
 import { useHydrated } from '../hooks/useHydrated';
-import { useIsMobile } from '../hooks/useMediaQuery';
-import { contactGridCols, contactSceneHeight, sectionHeadingShadow } from '../lib/responsive';
 
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -68,7 +66,6 @@ function Result({ kind, message, action, onAction }: {
 }
 
 function ContactImpl() {
-  const isMobile = useIsMobile();
   const hydrated = useHydrated();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -100,7 +97,7 @@ function ContactImpl() {
     >
       <DitherFade ink="var(--color-surface)" />
       <div style={{ padding: '56px var(--section-pad-x) 0' }}>
-        <h2 className="rc-section-title" style={{ textShadow: sectionHeadingShadow(isMobile) }}>
+        <h2 className="rc-section-title">
           Contact Me
         </h2>
         <p className="rc-section-lede">
@@ -108,9 +105,9 @@ function ContactImpl() {
         </p>
 
         <div
+          className="rc-grid-contact"
           style={{
             display: 'grid',
-            gridTemplateColumns: contactGridCols(isMobile),
             gap: '48px',
             marginTop: '44px',
             alignItems: 'stretch',
@@ -187,11 +184,11 @@ function ContactImpl() {
 
           {/* Beach Scene Panel */}
           <div
+            className="rc-contact-scene"
             style={{
               border: 'var(--border-thick) solid var(--edge-on-surface)',
               boxShadow: 'var(--shadow-card) var(--edge-on-surface)',
               background: 'var(--color-bg-alt)',
-              height: contactSceneHeight(isMobile),
               position: 'relative',
               overflow: 'hidden',
               imageRendering: 'pixelated',

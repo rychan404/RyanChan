@@ -1,6 +1,4 @@
 import { PixelIcon } from '../components/PixelIcon';
-import { useIsMobile } from '../hooks/useMediaQuery';
-import { footerPad } from '../lib/responsive';
 import { DitherFade } from './DitherFade';
 
 const SOCIALS = [
@@ -12,13 +10,12 @@ const SOCIALS = [
 /** marginTop is '80px' below the Contact section and 'auto' on the detail
  *  page, where it pins the footer to the bottom of a short page. */
 export function Footer({ marginTop }: { marginTop: '80px' | 'auto' }) {
-  const isMobile = useIsMobile();
   return (
     <div style={{ marginTop, background: 'var(--color-surface)' }}>
       <DitherFade ink="var(--color-bg)" height={64} />
       <div
+        className="rc-footer-bar"
         style={{
-          padding: footerPad(isMobile),
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           gap: '16px', flexWrap: 'wrap',
           fontFamily: 'var(--font-display)', fontSize: 'var(--fs-15)',

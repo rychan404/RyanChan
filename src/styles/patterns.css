@@ -45,3 +45,49 @@
 /* Pixel back button — the detail page's three BACK / EXPLORE MORE links. Padding and
    placement stay inline; hover and press live in interactions.css. */
 .rc-pixel-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text);background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-control) var(--color-ink);text-decoration:none;cursor:pointer}
+
+/* Responsive layout. One breakpoint, the same (max-width:860px) useIsMobile
+   reads — that hook now only swaps markup (the nav, the project filter). Living
+   here instead of in JS means the server HTML is already right on a phone,
+   instead of rendering desktop and correcting after hydration. */
+.rc-nav{position:fixed;left:0;top:0;bottom:0;width:88px;background:var(--color-surface);border-right:var(--border-thick) solid var(--edge-on-surface);display:flex;flex-direction:column;align-items:center;padding:16px 0 12px;z-index:60}
+.rc-nav--home{overflow-y:auto;scrollbar-width:none}
+.rc-logo{--logo-w:var(--border-thick);--logo-fs:var(--fs-28);border:var(--logo-w) solid var(--edge-primary);padding:var(--logo-w)}
+.rc-logo > img{height:calc(var(--logo-fs) * 2)}
+.rc-main{display:flex;flex-direction:column;margin-left:88px}
+.px-hero{padding:96px 56px 120px}
+.px-hero-content{transform:translateY(-110px)}
+.rc-hero-eyebrow{margin:0 0 -8px}
+.rc-hero-name{text-shadow:-6px -6px 0 var(--color-heading-shadow),6px -6px 0 var(--color-heading-shadow),-6px 6px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow),-6px 0 0 var(--color-heading-shadow),6px 0 0 var(--color-heading-shadow),0 -6px 0 var(--color-heading-shadow),0 6px 0 var(--color-heading-shadow),10px 10px 0 var(--color-heading-shadow)}
+.rc-section-title{text-shadow:-4px -4px 0 var(--color-heading-shadow),4px -4px 0 var(--color-heading-shadow),-4px 4px 0 var(--color-heading-shadow),4px 4px 0 var(--color-heading-shadow),-4px 0 0 var(--color-heading-shadow),4px 0 0 var(--color-heading-shadow),0 -4px 0 var(--color-heading-shadow),0 4px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow)}
+.rc-detail-title{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
+.rc-grid-projects{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.rc-grid-about{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.rc-grid-contact{grid-template-columns:minmax(320px,640px) minmax(320px,640px)}
+.rc-contact-scene{height:100%}
+.rc-footer-bar{padding:24px 56px}
+.rc-detail-top{padding:40px 56px 0}
+.rc-detail-body{padding:40px 56px 96px}
+.rc-notfound{padding:0 56px}
+.rc-back-float{padding:8px 14px}
+.rc-mobile-only{display:none}
+@media (max-width:860px){
+  .rc-nav{right:0;bottom:auto;width:100%;height:64px;border-right:none;border-bottom:var(--border-thick) solid var(--edge-on-surface);flex-direction:row;justify-content:space-between;padding:0 16px;overflow-y:visible}
+  .rc-logo{--logo-w:var(--border-mid);--logo-fs:var(--fs-20)}
+  .rc-main{margin-left:0;padding-top:64px}
+  .px-hero{padding:56px 20px 72px}
+  .px-hero-content{transform:translateY(-40px)}
+  .rc-hero-eyebrow{margin:0 0 8px;line-height:1.1}
+  .rc-hero-name{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
+  .rc-section-title,.rc-detail-title{text-shadow:-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow),-2px 0 0 var(--color-heading-shadow),2px 0 0 var(--color-heading-shadow),0 -2px 0 var(--color-heading-shadow),0 2px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow)}
+  .rc-grid-projects,.rc-grid-about,.rc-grid-contact{grid-template-columns:1fr}
+  /* 100% only resolves in the desktop grid's stretched row. */
+  .rc-contact-scene{height:340px}
+  .rc-footer-bar{padding:24px 20px}
+  .rc-detail-top{padding:24px 20px 0}
+  .rc-detail-body{padding:24px 20px 72px}
+  .rc-notfound{padding:0 20px}
+  .rc-back-float{padding:10px}
+  .rc-mobile-only{display:inline}
+  .rc-desktop-only{display:none}
+}

@@ -5,22 +5,13 @@ import { ImageSlot } from '../components/ImageSlot';
 import { TagChip } from '../components/TagChip';
 import { PixelIcon } from '../components/PixelIcon';
 import type { Project } from '../content/projects';
-import { useIsMobile } from '../hooks/useMediaQuery';
 import { ThemeProvider, useTheme } from '../hooks/useTheme';
-import {
-  mainStyle,
-  contentPadTop,
-  contentPadBody,
-  backBtnPad,
-  detailHeadingShadow,
-  notFoundPad,
-} from '../lib/responsive';
 
-function Found({ project, isMobile, children }: { project: Project; isMobile: boolean; children: ReactNode }) {
+function Found({ project, children }: { project: Project; children: ReactNode }) {
   return (
     <>
       {/* Image region wrapper */}
-      <div style={{ maxWidth: '860px', margin: '0 auto', width: '100%', padding: contentPadTop(isMobile) }}>
+      <div className="rc-detail-top" style={{ maxWidth: '860px', margin: '0 auto', width: '100%' }}>
         <div
           style={{
             position: 'relative',
@@ -33,21 +24,21 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
           <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
           <a
             href="/#projects"
-            className="rc-pixel-back"
-            style={{ position: 'absolute', left: '16px', top: '16px', padding: backBtnPad(isMobile) }}
+            className="rc-pixel-back rc-back-float"
+            style={{ position: 'absolute', left: '16px', top: '16px' }}
           >
             <PixelIcon name="ui/arrow-left-solid" size={16} />
-            {!isMobile && 'BACK TO PROJECTS'}
+            <span className="rc-desktop-only">BACK TO PROJECTS</span>
           </a>
         </div>
       </div>
 
       {/* Body wrapper */}
       <div
+        className="rc-detail-body"
         style={{
           maxWidth: '860px',
           margin: '0 auto',
-          padding: contentPadBody(isMobile),
           display: 'flex',
           flexDirection: 'column',
           gap: '28px',
@@ -56,11 +47,11 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
         {/* Title row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
           <h1
+            className="rc-detail-title"
             style={{
               fontSize: 'var(--fs-detail-title)',
               letterSpacing: '.02em',
               color: 'var(--color-heading)',
-              textShadow: detailHeadingShadow(isMobile),
               margin: '4px 0 0',
             }}
           >
@@ -125,11 +116,11 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
   );
 }
 
-function NotFound({ isMobile }: { isMobile: boolean }) {
+function NotFound() {
   return (
     <div
+      className="rc-notfound"
       style={{
-        padding: `0 ${notFoundPad(isMobile)}`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -139,10 +130,10 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
       }}
     >
       <h1
+        className="rc-detail-title"
         style={{
           fontSize: 'var(--fs-notfound-title)',
           color: 'var(--color-heading)',
-          textShadow: detailHeadingShadow(isMobile),
           margin: '0',
           textAlign: 'center',
         }}
@@ -167,7 +158,6 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
 type Props = { project?: Project; children?: ReactNode };
 
 export function ProjectDetail({ project, children }: Props): JSX.Element {
-  const isMobile = useIsMobile();
   const { themeClass } = useTheme();
 
   return (
@@ -182,9 +172,9 @@ export function ProjectDetail({ project, children }: Props): JSX.Element {
       }}
     >
       <NavRail route="detail" active={2} />
-      <div style={mainStyle(isMobile, 'detail')}>
+      <div className="rc-main" style={{ minHeight: '100vh' }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          {project ? <Found project={project} isMobile={isMobile}>{children}</Found> : <NotFound isMobile={isMobile} />}
+          {project ? <Found project={project}>{children}</Found> : <NotFound />}
         </div>
         <Footer marginTop="auto" />
       </div>

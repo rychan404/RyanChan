@@ -6,13 +6,10 @@ import { Hero } from '../sections/Hero';
 import { Projects } from '../sections/Projects';
 import { Skills } from '../sections/Skills';
 import type { Project } from '../content/projects';
-import { useIsMobile } from '../hooks/useMediaQuery';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { ThemeProvider, useTheme } from '../hooks/useTheme';
-import { mainStyle } from '../lib/responsive';
 
 export function Home({ projects }: { projects: Project[] }) {
-  const isMobile = useIsMobile();
   const { themeClass } = useTheme();
   const rootRef = useRef<HTMLDivElement>(null);
   const { active, jumpTo } = useScrollSpy(rootRef);
@@ -39,7 +36,7 @@ export function Home({ projects }: { projects: Project[] }) {
           carries its own CSS `order` so the flex column renders them as
           Home, About, Projects, Skills, Contact. Both halves of that are
           load-bearing — see spec section 4.1. */}
-      <main style={mainStyle(isMobile, 'home')}>
+      <main className="rc-main">
         <Hero onNavigate={toAbout} />
         <Projects projects={projects} />
         <About />

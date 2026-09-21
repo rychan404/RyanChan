@@ -26,7 +26,7 @@ describe('Hero', () => {
     const { container } = renderHero();
     const section = container.querySelector('#home') as HTMLElement;
     expect(section.style.minHeight).toBe('100vh');
-    expect(section.style.padding).toBe('96px 56px 120px');
+    expect(section).toHaveClass('px-hero');
   });
 
   it('renders the name, tagline and eyebrow', () => {
@@ -43,13 +43,12 @@ describe('Hero', () => {
     expect(h1.style.lineHeight).toBe('0.9');
     expect(h1.style.wordSpacing).toBe('-0.25em');
     expect(h1.style.color).toBe('var(--color-heading)');
-    expect(h1.style.textShadow.split(',')).toHaveLength(9);
+    expect(h1).toHaveClass('rc-hero-name');
   });
 
-  it('shifts the content up and keeps the media-query hook class', () => {
+  it('keeps the media-query hook class', () => {
     const { container } = renderHero();
     const content = container.querySelector('.px-hero-content') as HTMLElement;
-    expect(content.style.transform).toBe('translateY(-110px)');
     expect(content.style.maxWidth).toBe('1180px');
   });
 
@@ -78,25 +77,11 @@ describe('Hero', () => {
   });
 });
 
-describe('Hero on mobile', () => {
-  beforeEach(() => setViewport(true));
-
-  it('breaks the eyebrow onto two lines', () => {
+describe('Hero eyebrow', () => {
+  it('carries a line break that only shows on mobile', () => {
     const { container } = renderHero();
     const eyebrow = container.querySelector('.px-hero-content p') as HTMLElement;
-    expect(eyebrow.querySelector('br')).not.toBeNull();
-    expect(eyebrow.textContent).toBe('Software Engineerand Video Editor');
-    expect(eyebrow.style.lineHeight).toBe('1.1');
-    expect(eyebrow.style.margin).toBe('0px 0px 8px 0px');
-  });
-
-  it('uses the smaller shift, padding and shadow', () => {
-    const { container } = renderHero();
-    expect((container.querySelector('.px-hero-content') as HTMLElement).style.transform)
-      .toBe('translateY(-40px)');
-    expect((container.querySelector('#home') as HTMLElement).style.padding)
-      .toBe('56px 20px 72px');
-    expect(screen.getByRole('heading', { level: 1 }).style.textShadow)
-      .toContain('-3px -3px 0 var(--color-heading-shadow)');
+    expect(eyebrow).toHaveClass('rc-hero-eyebrow');
+    expect(eyebrow.querySelector('br')).toHaveClass('rc-mobile-only');
   });
 });

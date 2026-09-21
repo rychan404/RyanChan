@@ -22,8 +22,10 @@ breaks one. The failure names the file, the line and the rule.
 
 And one convention the test can't check: **a pattern used in more than one place is a
 class in `src/styles/patterns.css`**, not a copied inline `style={{…}}` object. Keep
-inline styles for layout, and for values that depend on state (`isMobile`, `playing`,
-the active nav row).
+inline styles for layout, and for values that depend on state (`playing`, the active
+nav row). Mobile vs desktop values live in the `@media (max-width:860px)` block at the
+bottom of `patterns.css`, so the server HTML is right on a phone before hydration;
+`useIsMobile` only swaps markup (the nav, the project filter).
 
 ## Tokens
 
@@ -109,7 +111,7 @@ changing one of those moves the resting shadow and the press together.
 
 | Class | What |
 |---|---|
-| `.rc-section-title` | section `<h2>`; pair with an inline `textShadow: sectionHeadingShadow(isMobile)` |
+| `.rc-section-title` | section `<h2>`, including its 9-part heading shadow |
 | `.rc-section-lede` | the paragraph under a section title |
 | `.rc-panel`, `.rc-panel-heading`, `.rc-panel-lines`, `.rc-panel-line` | About's FUN FACTS / QUEST LOG boxes |
 | `.rc-stat`, `.rc-stat-value`, `.rc-stat-label` | About stat cards |
@@ -118,6 +120,9 @@ changing one of those moves the resting shadow and the press together.
 | `.rc-slot-empty`, `.rc-slot-dither`, `.rc-slot-hint` | an image slot with no image yet: dither, pixel glyph, and a dev-only hint |
 | `.rc-tape` | a theme-tape group. Marks a `forwards` animation that must reach 100%, so `prefers-reduced-motion` leaves it alone |
 | `.rc-patch-notes` | a project's MDX body: PATCH NOTES paragraphs and square-marker bullets |
+| `.rc-pixel-back` | the detail page's BACK / EXPLORE MORE buttons |
+| `.rc-nav`, `.rc-main`, `.rc-grid-*`, `.rc-hero-*`, `.rc-detail-*`, … | responsive layout: desktop values, then the one mobile `@media` block |
+| `.rc-mobile-only`, `.rc-desktop-only` | show a node on one side of the breakpoint only |
 
 Hover and press states live in `interactions.css`, keyed on the `rc-*` classes.
 
