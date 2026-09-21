@@ -1,24 +1,27 @@
 # AGENTS.md
 
-Pixel-art portfolio for Ryan Chan. Vite + React 18 + TypeScript. No CSS framework, no
-state library, no backend. Ported from the Claude Design handoff in `docs/design/` —
-those `.dc.html` files are the visual reference of record.
+Pixel-art portfolio for Ryan Chan. Astro 7 + React 18 islands + TypeScript + MDX. No
+CSS framework, no state library, no backend. Ported from the Claude Design handoff in
+`docs/design/` — those `.dc.html` files are the visual reference of record.
 
 ## Layout
 
 | Path | What |
 |---|---|
-| `src/routes/` | `Home` (every section, scroll-spy) and `ProjectDetail` |
+| `src/pages/` | the three routes, each mounting one `*Island` |
+| `src/layouts/` | `Base.astro`: head, OG tags, theme boot script |
+| `src/routes/` | `Home` and `ProjectDetail` React trees, plus the `*Island` wrappers the pages mount |
 | `src/sections/` | Hero, About, Projects, Skills, Contact |
 | `src/scenes/` | the layered pixel-art scenes — animation, not UI chrome |
 | `src/components/`, `src/layout/` | cards, chips, popovers; NavRail and Footer |
 | `src/lib/`, `src/hooks/` | pure logic, and the hooks that wrap it |
 | `src/content/` | projects (markdown folders), skills, facts, the tag → icon/colour map |
+| `src/content.config.ts` | project schema |
 | `src/styles/` | tokens, shared patterns, interaction states |
 
 ## Commands
 
-`npm run dev` · `npm test` · `npm run typecheck` · `npm run build` (typechecks first).
+`npm run dev` (`astro dev`) · `npm test` · `npm run typecheck` · `npm run build` (typechecks first).
 
 Tests are Vitest, colocated: `Foo.tsx` → `Foo.test.tsx`. Run `npm test` before claiming
 something works.
@@ -49,14 +52,15 @@ declared only in `:root` would lock in the dark value.
 ## Content
 
 Projects are markdown folders under `src/content/projects/`. Frontmatter validation is
-strict and fails the build deliberately — the design renders exactly two note forms.
-See the README before adding or editing one.
+strict and fails the build deliberately — bodies are MDX; paragraphs and bullet lists
+get the PATCH NOTES style (`.rc-patch-notes`). See the README before adding or editing
+one.
 
 ## Conventions
 
 - Conventional commits, lowercase subject: `feat: …`, `fix: …`, `chore: …`, `docs: …`.
-- Runtime dependencies are deliberately three (React, React DOM, Router). Ask before
-  adding a fourth.
+- Runtime dependencies are deliberately five (React, React DOM, Astro, @astrojs/react,
+  @astrojs/mdx). Ask before adding another.
 - When the live site and the design mock disagree, it is the owner's call. Ask, then
   record the answer in the decision log at the bottom of `STYLEGUIDE.md`.
 

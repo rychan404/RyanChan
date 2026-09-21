@@ -9,7 +9,7 @@ Claude Design handoff in `docs/design/`, at pixel-perfect fidelity.
 
 ## Requirements
 
-Node 20 LTS.
+Node 22.12+.
 
 ## Getting started
 
@@ -19,10 +19,14 @@ cp .env.example .env.local     # then fill in the two VITE_ values
 npm run dev
 ```
 
+The dev server is at `http://localhost:4321`.
+
 Without a `VITE_WEB3FORMS_KEY` the contact form still renders and validates,
 but submitting shows an error toast instead of reporting a success that never
 left the browser. Without `VITE_SITE_URL` the build still succeeds; project
-links just unfurl without a card image.
+links just unfurl without a card image. When set, `VITE_SITE_URL` must be a
+full absolute URL (e.g. `https://example.com`) — Astro rejects a bare host
+like `localhost`.
 
 ## Scripts
 
@@ -69,29 +73,24 @@ An optional opening paragraph.
 ```
 
 The directory name supplies both the URL slug (`/projects/my-thing`) and the
-sort order (`10`). No TypeScript to edit. The build also emits
-`dist/projects/my-thing/index.html` with that project's own title, description
-and Open Graph tags, so the link unfurls correctly when shared.
+sort order (`10`). No TypeScript to edit. Each project page is pre-rendered
+with its own title, description and Open Graph tags, so the link unfurls
+correctly when shared.
 
-Validation is strict and runs at build time. Unknown frontmatter keys, values
-outside the `kind`/`status` enums, and any body content other than paragraphs
-and bullet lists all **fail the build**, naming the file and the problem. That
-is deliberate: the design renders exactly two note forms and has no styling for
-a heading or a code block.
-
-Restart the dev server after adding a folder — `import.meta.glob` resolves at
-module-graph build time. Editing an existing `index.md` hot-reloads.
+The folder holds `index.md` or `index.mdx`; frontmatter is unchanged. Paragraphs
+and bullet lists get the PATCH NOTES styling. An `.mdx` body can `import`
+components and use them inline, and a component that needs interactivity takes
+`client:visible`. Frontmatter validation is still strict, runs in
+`src/content.config.ts`, and **fails the build** naming the file and the key.
 
 ## Deploying
 
 Cloudflare Pages, git-connected to `main`. Build command `npm run build`, output
-directory `dist`, Node pinned by `.node-version`.
+directory `dist`, Node pinned by `.node-version` (22).
 
-- `public/_redirects` sends anything without a matching file to `index.html`, so
-  an unknown path reaches the SPA's not-found state rather than a Cloudflare 404.
-  Project routes do not rely on it — they are real files (see the plan's Task 24).
+- Unknown paths get `dist/404.html`, served with a 404 status.
 - `VITE_SITE_URL` and `VITE_WEB3FORMS_KEY` are build-time variables set in the
-  Pages project. Changing one needs a redeploy.
+  Pages project — the names are unchanged. Changing one needs a redeploy.
 - The domain is registered in Cloudflare Registrar and attached under the Pages
   project's custom domains, so DNS is managed in the same account.
 
