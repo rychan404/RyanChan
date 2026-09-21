@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { StrictMode, type ReactNode } from 'react';
 import { NavRail } from '../layout/NavRail';
 import { Footer } from '../layout/Footer';
 import { ImageSlot } from '../components/ImageSlot';
@@ -242,5 +242,9 @@ export function ProjectDetail({ project, children }: Props): JSX.Element {
 
 /** What the Astro page mounts; `children` is the Astro-rendered MDX body. */
 export function ProjectDetailIsland(props: Props) {
-  return <ThemeProvider><ProjectDetail {...props} /></ThemeProvider>;
+  return (
+    <StrictMode>
+      <ThemeProvider><ProjectDetail {...props} /></ThemeProvider>
+    </StrictMode>
+  );
 }

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { StrictMode, useCallback, useRef } from 'react';
 import { NavRail } from '../layout/NavRail';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
@@ -53,5 +53,9 @@ export function Home({ projects }: { projects: Project[] }) {
 /** What the Astro page mounts. The provider lives inside the island, because
  *  React context does not cross an island boundary. */
 export function HomeIsland({ projects }: { projects: Project[] }) {
-  return <ThemeProvider><Home projects={projects} /></ThemeProvider>;
+  return (
+    <StrictMode>
+      <ThemeProvider><Home projects={projects} /></ThemeProvider>
+    </StrictMode>
+  );
 }
