@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { useTheme } from '../hooks/useTheme';
 import { useIsMobile } from '../hooks/useMediaQuery';
-import { PRIMARY_EDGE, logoBorderW, logoFontSize, navStyle, type Route } from '../lib/responsive';
+import { logoBorderW, logoFontSize, navStyle, type Route } from '../lib/responsive';
 
 const LINKS = [
   { id: 'home', label: 'HOME', icon: 'ui/home-solid' },
@@ -44,10 +44,10 @@ export function NavRail({ route, active, onNavigate }: Props) {
           className="rc-logo"
           style={{
             display: 'flex', alignItems: 'center', cursor: 'pointer',
-            border: `${logoW} solid ${PRIMARY_EDGE}`,
+            border: `${logoW} solid var(--edge-primary)`,
             background: 'var(--color-primary)',
             padding: logoW,
-            boxShadow: `var(--shadow-control) ${PRIMARY_EDGE}`,
+            boxShadow: `var(--shadow-control) var(--edge-primary)`,
             transition: 'transform 100ms steps(2,end)',
           }}
         >

@@ -84,19 +84,10 @@ describe('ImageSlot', () => {
   });
 
   it('shows the image and hides the placeholder when there is one', () => {
-    render(<ImageSlot placeholder="Drop a photo" src="/assets/about/fact-eggs.png" alt="Eggs" />);
+    render(<ImageSlot placeholder="Drop a photo" src="/assets/about/fact-eggs.webp" alt="Eggs" />);
     const img = screen.getByRole('img', { name: 'Eggs' });
-    expect(img).toHaveAttribute('src', '/assets/about/fact-eggs.png');
+    expect(img).toHaveAttribute('src', '/assets/about/fact-eggs.webp');
     expect(screen.queryByText('Drop a photo')).toBeNull();
-  });
-
-  it('emits a <picture> with a WebP source when given one', () => {
-    const { container } = render(
-      <ImageSlot placeholder="x" src="/a.png" srcWebp="/a.webp" alt="A" />,
-    );
-    const source = container.querySelector('source');
-    expect(source).toHaveAttribute('srcset', '/a.webp');
-    expect(source).toHaveAttribute('type', 'image/webp');
   });
 });
 

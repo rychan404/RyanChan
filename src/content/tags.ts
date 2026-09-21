@@ -1,7 +1,6 @@
 /** Tag icon files, vendored under /icons/tags/ (decision D6).
  *  Keys and colours are the prototype's, verbatim
- *  (docs/design/portfolio-home.dc.html:527-543). An absolute http(s) value is
- *  passed through untouched; no shipped entry uses that branch today. */
+ *  (docs/design/portfolio-home.dc.html:527-543). */
 export const TAG_ICONS: Record<string, string> = {
   'Python': 'python.svg',
   'Java': 'java.svg',
@@ -63,8 +62,7 @@ export const TAG_COLORS: Record<string, string> = {
  *  (no fetchable icon slugs), though they have colors. */
 export function tagIcon(name: string): string {
   const v = TAG_ICONS[name];
-  if (!v) return '';
-  return v.startsWith('http') ? v : `/icons/tags/${v}`;
+  return v ? `/icons/tags/${v}` : '';
 }
 
 export function tagColor(name: string): string {

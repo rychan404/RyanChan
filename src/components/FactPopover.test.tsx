@@ -29,7 +29,7 @@ describe('FactPopover', () => {
 
   it('shows the image instead of the slot when the fact has one', () => {
     render(<FactPopover fact={eggs} open onToggle={vi.fn()} onClose={vi.fn()} />);
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/assets/about/fact-eggs.png');
+    expect(screen.getByRole('img')).toHaveAttribute('src', '/assets/about/fact-eggs.webp');
     expect(screen.queryByText('Drop an egg photo')).toBeNull();
   });
 

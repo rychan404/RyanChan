@@ -92,7 +92,7 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Loopline');
   });
 
-  it('applies PRIMARY_EDGE custom properties to the CTA button', () => {
+  it('applies the primary edge colour to the CTA button', () => {
     renderDetail();
     const cta = screen.getByRole('link', { name: /View Source/ }) as HTMLElement;
     // Check that custom properties are set (they exist in the element's style)

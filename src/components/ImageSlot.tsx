@@ -5,8 +5,6 @@ type Props = {
   /** Caption shown in the empty state. */
   placeholder: string;
   src?: string;
-  /** Optional WebP variant; when present the img becomes a <picture>. */
-  srcWebp?: string;
   alt?: string;
   style?: CSSProperties;
 };
@@ -24,18 +22,8 @@ const FILL: CSSProperties = {
  *  language: a light dither over the frame's fill and a pixel picture glyph.
  *  The placeholder hint ("Drop a gameplay screenshot") is a note to the owner,
  *  so it only renders in development. */
-export function ImageSlot({ placeholder, src, srcWebp, alt = '', style }: Props) {
-  if (src) {
-    const img = <img src={src} alt={alt} style={{ ...FILL, ...style }} />;
-    return srcWebp ? (
-      <picture>
-        <source srcSet={srcWebp} type="image/webp" />
-        {img}
-      </picture>
-    ) : (
-      img
-    );
-  }
+export function ImageSlot({ placeholder, src, alt = '', style }: Props) {
+  if (src) return <img src={src} alt={alt} style={{ ...FILL, ...style }} />;
 
   return (
     <span data-slot-placeholder="true" aria-hidden="true" className="rc-slot-empty" style={style}>

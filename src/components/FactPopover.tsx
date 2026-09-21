@@ -42,7 +42,6 @@ export function FactPopover({ fact, open, onToggle, onClose }: Props) {
               <ImageSlot
                 placeholder={fact.slotHint}
                 src={fact.image}
-                srcWebp={fact.imageWebp}
                 alt={fact.image ? fact.caption : undefined}
               />
             </span>

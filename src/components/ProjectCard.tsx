@@ -2,11 +2,6 @@ import type { Project } from '../content/projects';
 import { ImageSlot } from './ImageSlot';
 import { TagChip } from './TagChip';
 
-const CARD_EDGE =
-  'var(--edge-on-surface)';
-const IMAGE_EDGE =
-  'var(--edge-on-bg-alt)';
-
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <a
@@ -16,13 +11,13 @@ export function ProjectCard({ project }: { project: Project }) {
         padding: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column',
         transition: 'transform 120ms steps(2,end),box-shadow 120ms steps(2,end)',
         color: 'inherit', textDecoration: 'none',
-        '--color-border': CARD_EDGE,
+        '--color-border': 'var(--edge-on-surface)',
       } as React.CSSProperties}
     >
       <div
         style={{
           position: 'relative', height: '190px',
-          borderBottom: `var(--border-thick) solid ${IMAGE_EDGE}`,
+          borderBottom: 'var(--border-thick) solid var(--edge-on-bg-alt)',
           background: 'var(--color-bg-alt)',
         }}
       >

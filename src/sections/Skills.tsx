@@ -6,9 +6,6 @@ import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
 import { sectionHeadingShadow } from '../lib/responsive';
 
-const CARD_EDGE =
-  'var(--edge-on-surface)';
-
 function SkillsImpl() {
   const isMobile = useIsMobile();
 
@@ -34,7 +31,7 @@ function SkillsImpl() {
               style={{
                 padding: '24px',
                 background: 'var(--color-bg)',
-                '--color-border': CARD_EDGE,
+                '--color-border': 'var(--edge-on-surface)',
               } as React.CSSProperties}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>

@@ -2,16 +2,6 @@ import type { CSSProperties } from 'react';
 
 export type Route = 'home' | 'detail';
 
-/** The --px-edge fallback the prototype repeats on every surface-coloured
- *  border. Kept as one constant so a typo cannot desync two call sites. */
-export const PX_EDGE_SURFACE =
-  'var(--edge-on-surface)';
-
-/** The primary-coloured edge for the nav logo and contact form button.
- *  Kept as one constant so a typo cannot desync multiple call sites. */
-export const PRIMARY_EDGE =
-  'var(--edge-primary)';
-
 const SHADOW9 = (n: number, drop: number) =>
   [
     `-${n}px -${n}px 0 var(--color-heading-shadow)`, `${n}px -${n}px 0 var(--color-heading-shadow)`,
@@ -28,7 +18,7 @@ export function navStyle(isMobile: boolean, route: Route): CSSProperties {
       width: '100%', height: '64px',
       background: 'var(--color-surface)',
       borderRight: 'none',
-      borderBottom: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
+      borderBottom: 'var(--border-thick) solid var(--edge-on-surface)',
       display: 'flex', flexDirection: 'row',
       alignItems: 'center', justifyContent: 'space-between',
       padding: '0 16px', zIndex: 60,
@@ -40,7 +30,7 @@ export function navStyle(isMobile: boolean, route: Route): CSSProperties {
     // The home rail can overflow on a short viewport; the detail rail cannot,
     // and the prototype does not give it these two declarations.
     ...(route === 'home' ? { overflowY: 'auto' as const, scrollbarWidth: 'none' as const } : {}),
-    borderRight: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
+    borderRight: 'var(--border-thick) solid var(--edge-on-surface)',
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     padding: '16px 0 12px', zIndex: 60,
   };

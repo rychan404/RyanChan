@@ -13,7 +13,6 @@ export type Fact = {
   caption: string;
   slotHint: string;
   image?: string;
-  imageWebp?: string;
 };
 
 export const FACTS: Fact[] = [
@@ -34,8 +33,7 @@ export const FACTS: Fact[] = [
     after: '',
     caption: 'I love eggs in 4 ways',
     slotHint: 'Drop an egg photo',
-    image: '/assets/about/fact-eggs.png',
-    imageWebp: '/assets/about/fact-eggs.webp',
+    image: '/assets/about/fact-eggs.webp',
   },
   {
     id: 'sing',

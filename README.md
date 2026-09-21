@@ -37,8 +37,6 @@ like `localhost`.
 | `npm run preview` | serve `dist/` |
 | `npm test` | unit tests (Vitest) |
 | `npm run typecheck` | regenerates Astro's content types (`astro sync`), then TypeScript |
-| `node scripts/fetch-assets.mjs` | re-vendor the CDN icons and fonts |
-| `npm run optimize:images` | re-encode the two oversized About images |
 
 ## Adding a project
 

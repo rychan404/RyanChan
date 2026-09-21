@@ -10,15 +10,6 @@ describe('tagIcon', () => {
     expect(tagIcon('AWS')).toBe('/icons/tags/amazon-web-services.png');
   });
 
-  it('passes an absolute URL through unchanged', () => {
-    // The branch exists for future entries; no shipped tag uses it after D6.
-    expect(tagIcon('__absolute_probe__')).toBe('');   // unmapped, no icon
-    // and, with a temporary entry:
-    (TAG_ICONS as Record<string, string>).__probe__ = 'https://example.com/i.svg';
-    expect(tagIcon('__probe__')).toBe('https://example.com/i.svg');
-    delete (TAG_ICONS as Record<string, string>).__probe__;
-  });
-
   it('returns empty string for the intentionally unmapped tags', () => {
     // D6 vendoring gap: Premiere Pro and After Effects have no fetchable icon slugs.
     // The other 10 tags (YouTube, Motion, etc.) are unmapped by original design.

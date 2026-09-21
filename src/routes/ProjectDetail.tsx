@@ -14,8 +14,6 @@ import {
   backBtnPad,
   detailHeadingShadow,
   notFoundPad,
-  PX_EDGE_SURFACE,
-  PRIMARY_EDGE,
 } from '../lib/responsive';
 
 function Found({ project, isMobile, children }: { project: Project; isMobile: boolean; children: ReactNode }) {
@@ -29,31 +27,14 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
             height: 'min(40vw,380px)',
             minHeight: '220px',
             background: 'var(--color-bg-alt)',
-            border: `var(--border-thick) solid ${PX_EDGE_SURFACE}`,
+            border: 'var(--border-thick) solid var(--edge-on-surface)',
           }}
         >
           <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
           <a
             href="/#projects"
             className="rc-pixel-back"
-            style={{
-              position: 'absolute',
-              left: '16px',
-              top: '16px',
-              border: 'var(--border-thick) solid var(--color-ink)',
-              boxShadow: 'var(--shadow-control) var(--color-ink)',
-              padding: backBtnPad(isMobile),
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: 'var(--color-text)',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              background: 'var(--color-surface)',
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--fs-15)',
-              letterSpacing: '.05em',
-            }}
+            style={{ position: 'absolute', left: '16px', top: '16px', padding: backBtnPad(isMobile) }}
           >
             <PixelIcon name="ui/arrow-left-solid" size={16} />
             {!isMobile && 'BACK TO PROJECTS'}
@@ -122,7 +103,7 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              '--color-border': PRIMARY_EDGE,
+              '--color-border': 'var(--edge-primary)',
               textDecoration: 'none',
               cursor: 'pointer',
             } as React.CSSProperties}
@@ -133,21 +114,7 @@ function Found({ project, isMobile, children }: { project: Project; isMobile: bo
           <a
             href="/#projects"
             className="rc-pixel-back"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '16px 24px',
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--fs-15)',
-              letterSpacing: '.05em',
-              color: 'var(--color-text)',
-              background: 'var(--color-surface)',
-              border: 'var(--border-thick) solid var(--color-ink)',
-              boxShadow: 'var(--shadow-control) var(--color-ink)',
-              textDecoration: 'none',
-              cursor: 'pointer',
-            }}
+            style={{ padding: '16px 24px' }}
           >
             <PixelIcon name="ui/arrow-left-solid" size={16} />
             EXPLORE MORE
@@ -188,22 +155,7 @@ function NotFound({ isMobile }: { isMobile: boolean }) {
       <a
         href="/#projects"
         className="rc-pixel-back"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '8px 14px',
-          fontFamily: 'var(--font-display)',
-          fontSize: 'var(--fs-15)',
-          letterSpacing: '.05em',
-          color: 'var(--color-text)',
-          background: 'var(--color-surface)',
-          border: 'var(--border-thick) solid var(--color-ink)',
-          boxShadow: 'var(--shadow-control) var(--color-ink)',
-          textDecoration: 'none',
-          cursor: 'pointer',
-          marginTop: '8px',
-        }}
+        style={{ padding: '8px 14px', marginTop: '8px' }}
       >
         <PixelIcon name="ui/arrow-left-solid" size={16} />
         BACK TO PROJECTS

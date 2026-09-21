@@ -10,6 +10,62 @@ import { contactGridCols, contactSceneHeight, sectionHeadingShadow } from '../li
 
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
+type FieldProps = {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  /** Present without a type means a textarea. */
+  input: { type?: 'text' | 'email'; placeholder: string };
+  last?: boolean;
+};
+
+function Field({ id, label, value, onChange, input, last }: FieldProps) {
+  const common = {
+    id, value, className: 'pixel-input', placeholder: input.placeholder, style: { width: '100%' },
+  };
+  return (
+    <div className="pixel-field" style={{ marginBottom: last ? '24px' : '20px' }}>
+      <label className="pixel-label" htmlFor={id} style={{ display: 'block', marginBottom: '8px' }}>
+        {label}
+      </label>
+      {input.type ? (
+        <input {...common} type={input.type} onChange={(e) => onChange(e.target.value)} />
+      ) : (
+        <textarea {...common} rows={5} onChange={(e) => onChange(e.target.value)} />
+      )}
+    </div>
+  );
+}
+
+function Result({ kind, message, action, onAction }: {
+  kind: 'success' | 'danger';
+  message: string;
+  action: string;
+  onAction: () => void;
+}) {
+  return (
+    <div role="status" style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
+      <div className={`pixel-toast pixel-toast--${kind}`} style={{ width: '100%' }}>
+        <PixelIcon
+          name={kind === 'success' ? 'ui/check-box-solid' : 'ui/times-solid'}
+          size={24}
+          color={kind === 'success' ? 'var(--color-primary)' : 'var(--color-danger)'}
+        />
+        <span style={{ fontSize: 'var(--fs-16)' }}>{message}</span>
+      </div>
+      <button
+        type="button"
+        onClick={onAction}
+        className="pixel-btn pixel-btn--ghost pixel-btn--sm rc-ghost-btn"
+        style={{ width: '100%', boxShadow: 'var(--shadow-control) var(--color-border)' }}
+      >
+        <PixelIcon name="ui/refresh-solid" size={16} />
+        {action}
+      </button>
+    </div>
+  );
+}
 
 function ContactImpl() {
   const isMobile = useIsMobile();
@@ -70,65 +126,12 @@ function ContactImpl() {
               '--color-border': 'var(--edge-on-surface)',
             } as React.CSSProperties}
           >
-            {/* Name Field */}
-            <div className="pixel-field" style={{ marginBottom: '20px' }}>
-              <label
-                className="pixel-label"
-                htmlFor="c-name"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
-                Name
-              </label>
-              <input
-                id="c-name"
-                type="text"
-                className="pixel-input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                style={{ width: '100%' }}
-              />
-            </div>
-
-            {/* Email Field */}
-            <div className="pixel-field" style={{ marginBottom: '20px' }}>
-              <label
-                className="pixel-label"
-                htmlFor="c-email"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
-                Email
-              </label>
-              <input
-                id="c-email"
-                type="email"
-                className="pixel-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                style={{ width: '100%' }}
-              />
-            </div>
-
-            {/* Message Field */}
-            <div className="pixel-field" style={{ marginBottom: '24px' }}>
-              <label
-                className="pixel-label"
-                htmlFor="c-msg"
-                style={{ display: 'block', marginBottom: '8px' }}
-              >
-                Message
-              </label>
-              <textarea
-                id="c-msg"
-                className="pixel-input"
-                rows={5}
-                value={msg}
-                onChange={(e) => setMsg(e.target.value)}
-                placeholder="Your message..."
-                style={{ width: '100%' }}
-              />
-            </div>
+            <Field id="c-name" label="Name" value={name} onChange={setName}
+              input={{ type: 'text', placeholder: 'Your name' }} />
+            <Field id="c-email" label="Email" value={email} onChange={setEmail}
+              input={{ type: 'email', placeholder: 'your@email.com' }} />
+            <Field id="c-msg" label="Message" value={msg} onChange={setMsg} last
+              input={{ placeholder: 'Your message...' }} />
 
             {/* Idle/Sending Button */}
             {(status === 'idle' || status === 'sending') && (
@@ -164,79 +167,21 @@ function ContactImpl() {
               </button>
             )}
 
-            {/* Success Toast */}
             {status === 'sent' && (
-              <div
-                role="status"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '20px',
-                  alignItems: 'flex-start',
+              <Result
+                kind="success"
+                message="Message sent! Thank you. I'll respond ASAP!"
+                action="Send Another"
+                onAction={() => {
+                  setStatus('idle');
+                  setName('');
+                  setEmail('');
+                  setMsg('');
                 }}
-              >
-                <div
-                  className="pixel-toast pixel-toast--success"
-                  style={{ width: '100%' }}
-                >
-                  <PixelIcon
-                    name="ui/check-box-solid"
-                    size={24}
-                    color="var(--color-primary)"
-                  />
-                  <span style={{ fontSize: 'var(--fs-16)' }}>
-                    Message sent! Thank you. I'll respond ASAP!
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStatus('idle');
-                    setName('');
-                    setEmail('');
-                    setMsg('');
-                  }}
-                  className="pixel-btn pixel-btn--ghost pixel-btn--sm rc-ghost-btn"
-                  style={{ width: '100%', boxShadow: 'var(--shadow-control) var(--color-border)' }}
-                >
-                  <PixelIcon name="ui/refresh-solid" size={16} />
-                  Send Another
-                </button>
-              </div>
+              />
             )}
-
-            {/* Error Toast */}
             {status === 'error' && (
-              <div
-                role="status"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '20px',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <div
-                  className="pixel-toast pixel-toast--danger"
-                  style={{ width: '100%' }}
-                >
-                  <PixelIcon
-                    name="ui/times-solid"
-                    size={24}
-                    color="var(--color-danger)"
-                  />
-                  <span style={{ fontSize: 'var(--fs-16)' }}>{error}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setStatus('idle')}
-                  className="pixel-btn pixel-btn--ghost pixel-btn--sm rc-ghost-btn"
-                  style={{ width: '100%', boxShadow: 'var(--shadow-control) var(--color-border)' }}
-                >
-                  <PixelIcon name="ui/refresh-solid" size={16} />
-                  Try Again
-                </button>
-              </div>
+              <Result kind="danger" message={error} action="Try Again" onAction={() => setStatus('idle')} />
             )}
           </form>
 

@@ -4,20 +4,18 @@ import {
 } from 'react';
 import {
   TAPE_DUR, THEME_KEY, type Theme, type TransPhase,
-  fadeStyle as pureFade, groupStyle as pureGroup,
+  groupStyle as pureGroup,
   moonGlowStyle as pureMoonGlow, themeClass as pureClass,
 } from '../lib/theme';
 
 type ThemeValue = {
   theme: Theme;
   isDark: boolean;
-  isLight: boolean;
   transPhase: TransPhase;
   sceneFrom: Theme | null;
   toggleTheme: () => void;
   themeClass: string;
   groupStyle: (isLightGroup: boolean) => CSSProperties;
-  fadeStyle: (visible: boolean) => CSSProperties;
   moonGlowStyle: CSSProperties;
   themeIcon: string;
   themeLabel: string;
@@ -76,13 +74,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     () => ({
       theme,
       isDark: theme === 'dark',
-      isLight: theme === 'light',
       transPhase,
       sceneFrom,
       toggleTheme,
       themeClass: pureClass(theme, transPhase),
       groupStyle: (isLightGroup: boolean) => pureGroup(transPhase, sceneFrom, theme, isLightGroup),
-      fadeStyle: pureFade,
       moonGlowStyle: pureMoonGlow(transPhase, theme),
       themeIcon: theme === 'dark' ? 'ui/moon-solid' : 'ui/brightness-high-solid',
       themeLabel: theme === 'dark' ? 'DARK' : 'LIGHT',

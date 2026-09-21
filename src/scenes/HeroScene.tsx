@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useScenePause } from '../hooks/useScenePause';
 import { useTheme } from '../hooks/useTheme';
+import { fadeStyle } from '../lib/theme';
 
 /** Every scene layer is a full-bleed cover image. There is no z-index in this
  *  scene — document order IS the paint order, so do not reorder these. */
@@ -95,7 +96,7 @@ const FOREGROUND = (
 );
 
 export function HeroScene() {
-  const { groupStyle, fadeStyle, moonGlowStyle, isDark } = useTheme();
+  const { groupStyle, moonGlowStyle, isDark } = useTheme();
   // Parks every animation below while the hero is off screen. The four
   // drop-shadow keyframes here are the expensive ones -- see useScenePause.
   const sceneRef = useScenePause<HTMLDivElement>();
