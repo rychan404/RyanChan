@@ -1,17 +1,15 @@
-/** The only project module either route imports. The Project type lives here;
- *  plugins/markdown-projects.ts emits objects that satisfy it. */
-export type ProjectNote = string | { p: string };
+/** The Project type and the pure helpers shared by the Astro pages and the
+ *  React islands. src/content/load.ts builds Projects from the collection;
+ *  src/content.config.ts holds the frontmatter schema. */
 export type ProjectKind = 'code' | 'video' | 'misc';
 export type Filter = 'all' | ProjectKind;
 
-export type Project = {
-  id: string;              // from the directory name, minus the numeric prefix
-  order: number;           // from the directory prefix
+/** Validated frontmatter, with `image` already resolved to a URL. */
+export type ProjectData = {
   kind: ProjectKind;
   title: string;
   year: string;
   status: 'Completed' | 'In Progress';
-  statusCls: '' | 'pixel-badge--warning';
   blurb: string;
   tags: string[];
   role: string;            // real content, currently unrendered
@@ -19,21 +17,29 @@ export type Project = {
   slotHint: string;
   cta: string;
   ctaUrl?: string;         // absent -> the CTA preventDefaults, as the prototype does
-  notes: ProjectNote[];
-  image?: string;          // Vite-resolved hashed URL
+  image?: string;
 };
 
-const modules = import.meta.glob<{ default: Project }>('./projects/*/index.md', {
-  eager: true,
-});
+export type Project = ProjectData & {
+  id: string;              // from the directory name, minus the numeric prefix
+  order: number;           // from the directory prefix
+  statusCls: '' | 'pixel-badge--warning';
+};
 
-export const PROJECTS: Project[] = Object.values(modules)
-  .map((m) => m.default)
-  .sort((a, b) => a.order - b.order);
+const DIR_RE = /^(\d+)-(.+)$/;
 
-export function findProject(id: string): Project | undefined {
-  return PROJECTS.find((p) => p.id === id);
+export function toProject(dir: string, data: ProjectData): Project {
+  const m = DIR_RE.exec(dir);
+  if (!m) throw new Error(`project directory "${dir}" needs a numeric prefix, e.g. "02-${dir}"`);
+  return {
+    ...data,
+    id: m[2],
+    order: Number(m[1]),
+    statusCls: data.status === 'In Progress' ? 'pixel-badge--warning' : '',
+  };
 }
+
+export const byOrder = (a: Project, b: Project) => a.order - b.order;
 
 export function filterProjects(list: Project[], filter: Filter): Project[] {
   return filter === 'all' ? list : list.filter((p) => p.kind === filter);

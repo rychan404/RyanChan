@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import type { Project } from '../content/projects';
 import { ImageSlot } from './ImageSlot';
 import { TagChip } from './TagChip';
@@ -9,21 +8,14 @@ const IMAGE_EDGE =
   'var(--edge-on-bg-alt)';
 
 export function ProjectCard({ project }: { project: Project }) {
-  const navigate = useNavigate();
-  const open = () => navigate(`/projects/${project.id}`);
-
   return (
-    <div
-      role="link"
-      tabIndex={0}
-      onClick={open}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') open();
-      }}
+    <a
+      href={`/projects/${project.id}`}
       className="pixel-card rc-project-card"
       style={{
         padding: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column',
         transition: 'transform 120ms steps(2,end),box-shadow 120ms steps(2,end)',
+        color: 'inherit', textDecoration: 'none',
         '--color-border': CARD_EDGE,
       } as React.CSSProperties}
     >
@@ -63,6 +55,6 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </div>
+    </a>
   );
 }

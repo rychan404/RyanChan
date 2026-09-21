@@ -1,14 +1,13 @@
 import { describe, expect, it } from 'vitest';
+import { TEST_PROJECTS as PROJECTS } from '../test-projects';
 import {
-  DEFAULT_FILTER,
-  FILTER_LABELS,
-  PROJECTS,
-  filterProjects,
-  findProject,
+  DEFAULT_FILTER, FILTER_LABELS, filterProjects, toProject, type ProjectData,
 } from './projects';
 
+const find = (id: string) => PROJECTS.find((p) => p.id === id)!;
+
 describe('the nine seed projects', () => {
-  it('all parse and compile', () => {
+  it('all load', () => {
     expect(PROJECTS).toHaveLength(9);
   });
 
@@ -20,8 +19,8 @@ describe('the nine seed projects', () => {
     ]);
   });
 
-  it('carries the prototype content verbatim for a representative project', () => {
-    const p = findProject('loopline')!;
+  it('carries the frontmatter verbatim for a representative project', () => {
+    const p = find('loopline');
     expect(p.kind).toBe('code');
     expect(p.title).toBe('Loopline');
     expect(p.year).toBe('JUN 2026');
@@ -33,14 +32,6 @@ describe('the nine seed projects', () => {
     expect(p.cta).toBe('View Source');
     expect(p.ctaUrl).toBeUndefined();
     expect(p.image).toBeUndefined();
-    expect(p.notes[0]).toEqual({
-      p: 'Started as a personal itch — I was tired of rerunning a full test suite after changing one file. Loopline watches the filesystem, builds a dependency graph of what actually depends on what, and only reruns the slice of work that changed.',
-    });
-    expect(p.notes.slice(1)).toEqual([
-      'Dependency graph diffing cut my own build loop from 40s to under 3s.',
-      'Config is a twelve-line TOML file — no plugin system, on purpose.',
-      'Currently at 190 stars and four outside contributors.',
-    ]);
   });
 
   it('derives statusCls consistently across all nine', () => {
@@ -48,22 +39,17 @@ describe('the nine seed projects', () => {
       expect(p.statusCls).toBe(p.status === 'In Progress' ? 'pixel-badge--warning' : '');
     }
   });
-
-  it('preserves the double quotes inside the nightshift bullet', () => {
-    expect(findProject('nightshift')!.notes).toContain(
-      'Timezone parsing accepts anything from "9pm PST" to "tomorrow morning".',
-    );
-  });
 });
 
-describe('findProject', () => {
-  it('finds a project by slug', () => {
-    expect(findProject('tilebreaker')?.title).toBe('Tilebreaker');
+describe('toProject', () => {
+  const data: ProjectData = find('loopline');
+
+  it('takes the slug and order from the directory name', () => {
+    expect(toProject('10-my-thing', data)).toMatchObject({ id: 'my-thing', order: 10 });
   });
 
-  it('returns undefined for an unknown slug', () => {
-    expect(findProject('does-not-exist')).toBeUndefined();
-    expect(findProject('')).toBeUndefined();
+  it('rejects a directory without a numeric prefix', () => {
+    expect(() => toProject('my-thing', data)).toThrow('needs a numeric prefix');
   });
 });
 
@@ -85,8 +71,7 @@ describe('filterProjects', () => {
   });
 
   it('preserves order within a filter', () => {
-    const codes = filterProjects(PROJECTS, 'code');
-    expect(codes.map((p) => p.order)).toEqual([1, 2, 3, 4]);
+    expect(filterProjects(PROJECTS, 'code').map((p) => p.order)).toEqual([1, 2, 3, 4]);
   });
 });
 

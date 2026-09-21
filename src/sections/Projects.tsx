@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { ProjectCard } from '../components/ProjectCard';
 import {
-  DEFAULT_FILTER, FILTER_LABELS, PROJECTS, filterProjects, type Filter,
+  DEFAULT_FILTER, FILTER_LABELS, filterProjects, type Filter, type Project,
 } from '../content/projects';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
@@ -17,11 +17,11 @@ const DROPDOWN_ITEM = {
   color: 'var(--color-text)',
 };
 
-function ProjectsImpl() {
+function ProjectsImpl({ projects }: { projects: Project[] }) {
   const isMobile = useIsMobile();
   const [filter, setFilter] = useState<Filter>(DEFAULT_FILTER);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const visible = filterProjects(PROJECTS, filter);
+  const visible = filterProjects(projects, filter);
 
   const select = (f: Filter) => () => {
     setFilter(f);

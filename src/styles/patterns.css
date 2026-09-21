@@ -33,3 +33,11 @@
 .rc-slot-dither{position:absolute;inset:0;--dither-ink:var(--color-text-dim);opacity:.35}
 .rc-slot-empty > .pixel-icon{position:relative}
 .rc-slot-hint{position:relative;max-width:90%;font-family:var(--font-body);font-size:var(--fs-12);color:var(--color-text-dim)}
+
+/* Project PATCH NOTES — the rendered MDX body. Descendant selectors, because
+   Astro wraps island children in <astro-slot> (display:contents). */
+.rc-patch-notes{display:flex;flex-direction:column;gap:10px}
+.rc-patch-notes p{font-size:var(--fs-16);line-height:1.75;color:var(--color-text-muted);margin:0}
+.rc-patch-notes ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.rc-patch-notes li{position:relative;padding-left:22px;font-size:var(--fs-16);line-height:1.65;color:var(--color-text-muted)}
+.rc-patch-notes li::before{content:'';position:absolute;left:0;top:8px;width:10px;height:10px;background:var(--color-primary)}

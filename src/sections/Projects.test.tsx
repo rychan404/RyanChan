@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { TEST_PROJECTS } from '../test-projects';
 import { ThemeProvider } from '../hooks/useTheme';
 import { Projects } from './Projects';
 
@@ -14,16 +14,7 @@ function setViewport(isMobile: boolean) {
 }
 
 const renderProjects = () =>
-  render(
-    <MemoryRouter initialEntries={['/']}>
-      <ThemeProvider>
-        <Routes>
-          <Route path="/" element={<Projects />} />
-          <Route path="/projects/:id" element={<div data-testid="detail" />} />
-        </Routes>
-      </ThemeProvider>
-    </MemoryRouter>,
-  );
+  render(<ThemeProvider><Projects projects={TEST_PROJECTS} /></ThemeProvider>);
 
 const cardTitles = () =>
   screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
@@ -109,18 +100,10 @@ describe('ProjectCard', () => {
     expect(region.style.borderBottom).toContain('var(--border-thick) solid');
   });
 
-  it('routes to the project when clicked', async () => {
+  it('links to the project page', () => {
     renderProjects();
-    await userEvent.click(screen.getByRole('heading', { name: 'Nightshift' }));
-    expect(screen.getByTestId('detail')).toBeInTheDocument();
-  });
-
-  it('is reachable by keyboard', async () => {
-    renderProjects();
-    const card = screen.getByRole('heading', { name: 'Nightshift' }).closest('[role="link"]') as HTMLElement;
-    card.focus();
-    await userEvent.keyboard('{Enter}');
-    expect(screen.getByTestId('detail')).toBeInTheDocument();
+    const card = screen.getByRole('heading', { name: 'Nightshift' }).closest('a');
+    expect(card).toHaveAttribute('href', '/projects/nightshift');
   });
 });
 

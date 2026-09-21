@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { TEST_PROJECTS } from '../test-projects';
 import { ThemeProvider } from '../hooks/useTheme';
 import { Home } from './Home';
 
@@ -23,7 +23,7 @@ beforeEach(() => {
 });
 
 const renderHome = () =>
-  render(<MemoryRouter><ThemeProvider><Home /></ThemeProvider></MemoryRouter>);
+  render(<ThemeProvider><Home projects={TEST_PROJECTS} /></ThemeProvider>);
 
 describe('Home', () => {
   it('keeps the prototype DOM order', () => {
