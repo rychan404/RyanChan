@@ -1,5 +1,5 @@
 import {
-  createContext, useCallback, useContext, useEffect, useMemo, useRef, useState,
+  createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState,
   type CSSProperties, type ReactNode,
 } from 'react';
 import {
@@ -33,16 +33,21 @@ function readStoredTheme(): Theme {
   }
 }
 
+// useLayoutEffect warns in a server render; on the client it runs before paint.
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(readStoredTheme);
+  const [theme, setTheme] = useState<Theme>('dark');
   const [transPhase, setTransPhase] = useState<TransPhase>('idle');
   const [sceneFrom, setSceneFrom] = useState<Theme | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
-  // index.html's boot script puts theme-light on <html> to avoid a flash of
-  // the wrong theme. React owns the class on the app root from here on, so
-  // drop the boot copy or the two fight over the light-theme token overrides.
-  useEffect(() => {
+  // Start dark on both sides so hydration matches the server HTML, then apply
+  // the stored theme before first paint. Until then the boot script's
+  // theme-light on <html> keeps the tokens right. React owns the class on the
+  // app root from here on, so drop the boot copy.
+  useIsoLayoutEffect(() => {
+    setTheme(readStoredTheme());
     document.documentElement.classList.remove('theme-light');
   }, []);
 

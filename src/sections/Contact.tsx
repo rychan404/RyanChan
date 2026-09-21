@@ -4,6 +4,7 @@ import { Footer } from '../layout/Footer';
 import { BeachScene } from '../scenes/BeachScene';
 import { PixelIcon } from '../components/PixelIcon';
 import { submitContactForm } from '../lib/contact';
+import { useHydrated } from '../hooks/useHydrated';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { contactGridCols, contactSceneHeight, sectionHeadingShadow } from '../lib/responsive';
 
@@ -12,6 +13,7 @@ export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 function ContactImpl() {
   const isMobile = useIsMobile();
+  const hydrated = useHydrated();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
@@ -250,7 +252,7 @@ function ContactImpl() {
               imageRendering: 'pixelated',
             }}
           >
-            <BeachScene />
+            {hydrated ? <BeachScene /> : null}
           </div>
         </div>
       </div>

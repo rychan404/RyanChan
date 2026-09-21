@@ -1,5 +1,6 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ThemeProvider, useTheme } from './useTheme';
 
@@ -79,6 +80,11 @@ describe('ThemeProvider', () => {
     act(() => { vi.advanceTimersByTime(620); });
     expect(screen.getByTestId('theme')).toHaveTextContent('light');
     expect(screen.getByTestId('phase')).toHaveTextContent('idle');
+  });
+
+  it('server-renders dark even when light is stored, so hydration matches', () => {
+    localStorage.setItem('rc-theme', 'light');
+    expect(renderToString(<ThemeProvider><Probe /></ThemeProvider>)).toContain('>dark<');
   });
 
   it('survives localStorage throwing', () => {

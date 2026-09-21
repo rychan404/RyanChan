@@ -1,5 +1,6 @@
 import { CSSProperties, memo } from 'react';
 import { HeroScene } from '../scenes/HeroScene';
+import { useHydrated } from '../hooks/useHydrated';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { heroNameShadow, heroPad, heroShift } from '../lib/responsive';
 
@@ -14,6 +15,7 @@ const EYEBROW_BASE = {
 
 function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
   const isMobile = useIsMobile();
+  const hydrated = useHydrated();
 
   return (
     <section
@@ -27,7 +29,7 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
         ...heroPad(isMobile),
       }}
     >
-      <HeroScene />
+      {hydrated ? <HeroScene /> : null}
 
       {/* .px-hero-content is the hook for global.css's landscape /
           short-viewport override. Do not rename it. */}
