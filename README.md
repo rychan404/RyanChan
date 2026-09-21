@@ -1,7 +1,7 @@
 # Ryan Chan — portfolio
 
-A pixel-art portfolio built with Vite, React and TypeScript. Rebuilt from the
-Claude Design handoff in `docs/design/`, at pixel-perfect fidelity.
+A pixel-art portfolio built with Astro, React islands, TypeScript and MDX. Rebuilt
+from the Claude Design handoff in `docs/design/`, at pixel-perfect fidelity.
 
 - Design spec: `docs/superpowers/specs/2026-09-02-portfolio-pixel-site-design.md`
 - Implementation plan: `docs/superpowers/plans/2026-09-02-portfolio-pixel-site-rebuild.md`
@@ -36,7 +36,7 @@ like `localhost`.
 | `npm run build` | typecheck, then a static build into `dist/` |
 | `npm run preview` | serve `dist/` |
 | `npm test` | unit tests (Vitest) |
-| `npm run typecheck` | TypeScript only |
+| `npm run typecheck` | regenerates Astro's content types (`astro sync`), then TypeScript |
 | `node scripts/fetch-assets.mjs` | re-vendor the CDN icons and fonts |
 | `npm run optimize:images` | re-encode the two oversized About images |
 
