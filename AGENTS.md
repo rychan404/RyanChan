@@ -6,18 +6,7 @@ CSS framework, no state library, no backend. Ported from the Claude Design hando
 
 ## Layout
 
-| Path | What |
-|---|---|
-| `src/pages/` | the three routes, each mounting one `*Island` |
-| `src/layouts/` | `Base.astro`: head, OG tags, theme boot script |
-| `src/routes/` | `Home` and `ProjectDetail` React trees, plus the `*Island` wrappers the pages mount |
-| `src/sections/` | Hero, About, Projects, Skills, Contact |
-| `src/scenes/` | the layered pixel-art scenes — animation, not UI chrome |
-| `src/components/`, `src/layout/` | cards, chips, popovers; NavRail and Footer |
-| `src/lib/`, `src/hooks/` | pure logic, and the hooks that wrap it |
-| `src/content/` | projects (markdown folders), skills, facts, the tag → icon/colour map |
-| `src/content.config.ts` | project collection; schema in `src/content/schema.ts` |
-| `src/styles/` | tokens, shared patterns, interaction states |
+See the Project structure tree in [`README.md`](README.md#project-structure).
 
 ## Commands
 
@@ -54,8 +43,7 @@ declared only in `:root` would lock in the dark value.
 
 Projects are markdown folders under `src/content/projects/`. Frontmatter validation is
 strict and fails the build deliberately — bodies are MDX; paragraphs and bullet lists
-get the PATCH NOTES style (`.rc-patch-notes`). See the README before adding or editing
-one.
+get the PATCH NOTES style (`.rc-patch-notes`). The schema is in `src/content/schema.ts`.
 
 ## Conventions
 
@@ -63,8 +51,10 @@ one.
 - Runtime dependencies are deliberately five (React, React DOM, Astro, @astrojs/react,
   @astrojs/mdx). Ask before adding another.
 - When the live site and the design mock disagree, it is the owner's call. Ask.
+- Adding, removing or renaming a top-level folder in `src/` (or a root config file)
+  means updating the Project structure tree in `README.md` in the same change.
 
 ## More
 
-- [`README.md`](README.md) — setup, env vars, adding a project, deploying
+- [`README.md`](README.md) — project structure, building
 - `docs/superpowers/` — the original spec and implementation plan
