@@ -5,7 +5,7 @@ from the Claude Design handoff in `docs/design/`, at pixel-perfect fidelity.
 
 - Design spec: `docs/superpowers/specs/2026-09-02-portfolio-pixel-site-design.md`
 - Implementation plan: `docs/superpowers/plans/2026-09-02-portfolio-pixel-site-rebuild.md`
-- Styling rules and tokens: [`STYLEGUIDE.md`](STYLEGUIDE.md) — enforced by `npm test`
+- Styling rules: [`AGENTS.md`](AGENTS.md#styling) — enforced by `npm test`
 
 ## Requirements
 

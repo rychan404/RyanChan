@@ -37,7 +37,7 @@
 --color-link:var(--pixel-blue-3);
 --color-link-hover:var(--pixel-green-3);
 --color-accent-text:var(--color-primary); /* accent when used AS TEXT — remapped in .theme-light for contrast */
-/* site tokens — see STYLEGUIDE.md */
+/* site tokens */
 --color-heading:var(--pixel-green-4);
 --color-heading-shadow:var(--pixel-green-1);
 --color-ink:var(--pixel-black);

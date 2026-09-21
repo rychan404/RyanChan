@@ -1,7 +1,7 @@
 :root{
 --radius-0:0px; /* every corner in this system is square -- no rounding, ever */
 --border-thin:2px;--border-mid:3px;--border-thick:4px;--border-tag:5px;
-/* site shadow offsets — see STYLEGUIDE.md. A pressed element slides by its lift and drops the shadow. */
+/* site shadow offsets. A pressed element slides by its lift and drops the shadow. */
 --lift-control:3px;--lift-card:4px;
 --shadow-control:var(--lift-control) var(--lift-control) 0;
 --shadow-card:var(--lift-card) var(--lift-card) 0;

@@ -28,9 +28,8 @@ something works.
 
 ## Styling
 
-**Read [`STYLEGUIDE.md`](STYLEGUIDE.md) before changing any style.** It holds the token
-tables. `src/styles/guidelines.test.ts` enforces the rules and names the file, the line
-and the rule when one breaks.
+Tokens live in `src/styles/tokens/*.css`. `src/styles/guidelines.test.ts` enforces the
+rules below and names the file, the line and the rule when one breaks.
 
 The rules in short — never a raw value where a token exists:
 
@@ -63,11 +62,9 @@ one.
 - Conventional commits, lowercase subject: `feat: …`, `fix: …`, `chore: …`, `docs: …`.
 - Runtime dependencies are deliberately five (React, React DOM, Astro, @astrojs/react,
   @astrojs/mdx). Ask before adding another.
-- When the live site and the design mock disagree, it is the owner's call. Ask, then
-  record the answer in the decision log at the bottom of `STYLEGUIDE.md`.
+- When the live site and the design mock disagree, it is the owner's call. Ask.
 
 ## More
 
 - [`README.md`](README.md) — setup, env vars, adding a project, deploying
-- [`STYLEGUIDE.md`](STYLEGUIDE.md) — tokens, shared patterns, decision log
 - `docs/superpowers/` — the original spec and implementation plan

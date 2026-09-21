@@ -1,4 +1,4 @@
-/* Shared site patterns — see STYLEGUIDE.md. Values here are tokens only; a pattern
+/* Shared site patterns. Values here are tokens only; a pattern
    that appears in more than one place lives here, not in copied inline style objects. */
 
 /* Section <h2> and the paragraph under it. The text-shadow is keyed on isMobile, so it stays inline. */
