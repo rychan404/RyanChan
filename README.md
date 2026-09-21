@@ -1,9 +1,9 @@
-# Ryan Chan — portfolio
+# Ryan Chan Portfolio
 
 A pixel-art portfolio built with Astro, React islands, TypeScript and MDX.
 Styling rules are in [`AGENTS.md`](AGENTS.md#styling), enforced by `npm test`.
 
-## Project structure
+## Project Structure
 
 ```
 public/              fonts, icons, pixel-art assets, og.png
@@ -24,7 +24,7 @@ astro.config.mjs     Astro config
 vitest.config.ts     test config
 ```
 
-## Building
+## Run Locally
 
 Needs Node 22.12+.
 
