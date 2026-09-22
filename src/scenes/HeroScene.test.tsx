@@ -115,11 +115,19 @@ describe('HeroScene geometry', () => {
     }
   });
 
-  it('frames the waterfall and camera layers at 20% 50%', () => {
+  it('pins each ground group to where it sits in the art', () => {
     const { container } = renderScene();
-    for (const n of ['waterfall-ocean.png', 'waterfall-splash.png', 'camera.png', 'camera-record-off.png', 'camera-record-on.png']) {
-      expect((container.querySelector(`img[src="/assets/hero/${n}"]`) as HTMLElement).style.objectPosition)
-        .toBe('20% 50%');
+    const pos = (n: string) =>
+      (container.querySelector(`img[src="/assets/hero/${n}"]`) as HTMLElement).style.objectPosition;
+    const groups: Record<string, string[]> = {
+      '20% 100%': ['waterfall-ocean.png', 'waterfall-splash.png', 'camera.png', 'camera-record-off.png', 'camera-record-on.png'],
+      '38% 100%': ['tennis-net.png', 'tennis-player-1.png', 'tennis-player-2.png', 'tennis-ball.png'],
+      '80% 100%': ['tree-1-z1.png', 'tree-2-z1.png', 'tree-3-z3.png', 'tree-4-z3.png', 'tree-5-z2.png', 'swing.png', 'computer-person.png', 'computer.png'],
+    };
+    for (const [at, names] of Object.entries(groups)) for (const n of names) expect(pos(n)).toBe(at);
+    // Both moons — the sky one and the screen-blended glow — must stay together.
+    for (const img of container.querySelectorAll('img[src$="moon.png"], img[src$="sun.png"]')) {
+      expect((img as HTMLElement).style.objectPosition).toBe('80% 0%');
     }
   });
 });
