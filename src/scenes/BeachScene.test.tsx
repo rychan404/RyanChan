@@ -69,9 +69,9 @@ describe('BeachScene phase lock', () => {
 });
 
 describe('BeachScene waves and birds', () => {
-  it('overscans both wave layers by 6% each side', () => {
+  it('overscans the waves, duck and Ryan by the same 6% each side, so they cover-fit alike', () => {
     const { container } = renderScene();
-    for (const n of ['waves-back.png', 'waves-front.png']) {
+    for (const n of ['waves-back.png', 'waves-front.png', 'duck.png', 'ryan-wave-01.png']) {
       const el = container.querySelector(`img[src="/assets/contact/${n}"]`) as HTMLElement;
       expect(el.style.left).toBe('-6%');
       expect(el.style.width).toBe('112%');

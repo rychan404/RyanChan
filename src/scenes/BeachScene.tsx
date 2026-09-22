@@ -11,7 +11,10 @@ const LAYER: CSSProperties = {
 const GROUP: CSSProperties = { position: 'absolute', inset: 0 };
 const CLIPPED: CSSProperties = { ...GROUP, overflow: 'hidden' };
 
-/** Overscan so the +/-8px sway can never expose an edge. */
+/** Overscan so the +/-8px sway can never expose an edge. The duck and Ryan
+ *  sit in this same box: when the panel is wider than the art (a phone in
+ *  landscape) cover scales by width, so a 112% box renders 12% larger than a
+ *  100% one and the boat would float above the water. */
 const WAVE: CSSProperties = {
   position: 'absolute', top: 0, left: '-6%', width: '112%', height: '100%',
   objectFit: 'cover', imageRendering: 'pixelated',
@@ -151,7 +154,7 @@ export function BeachScene() {
         decoding="async"
         src="/assets/contact/duck.png"
         alt=""
-        style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
+        style={{ ...WAVE, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />
       <img
         ref={ryanRef}
@@ -159,7 +162,7 @@ export function BeachScene() {
         decoding="async"
         src={RYAN_FRAMES[0]}
         alt=""
-        style={{ ...LAYER, animation: 'pxwavesway 6s ease-in-out infinite' }}
+        style={{ ...WAVE, animation: 'pxwavesway 6s ease-in-out infinite' }}
       />
 
       {/* 6  front clouds */}
