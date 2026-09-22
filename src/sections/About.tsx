@@ -104,6 +104,7 @@ function AboutImpl() {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                  objectPosition: 'top',
                   opacity: playing ? 0 : 1,
                   transition: 'opacity 140ms steps(3,end)',
                 }}

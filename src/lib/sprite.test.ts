@@ -18,7 +18,7 @@ describe('spriteFrameStyle', () => {
     const bw = 56 * 7;
     const bh = 61 * 7;
     expect(backgroundSize).toBe(`${68 * bw}px ${bh}px`);
-    expect(backgroundPosition).toBe(`${Math.round((380 - bw) / 2)}px ${Math.round((380 - bh) * 0.1)}px`);
+    expect(backgroundPosition).toBe(`${Math.round((380 - bw) / 2)}px 0px`);
   });
 
   it('steps left by one frame width per frame', () => {
@@ -34,10 +34,9 @@ describe('spriteFrameStyle', () => {
       .toBe(spriteFrameStyle(300, 300, 67).backgroundSize);
   });
 
-  it('offsets vertically by 10% of the overflow, not by half', () => {
+  it('anchors to the top so the head is never cropped', () => {
     const { backgroundPosition } = spriteFrameStyle(200, 400, 0);
-    const bh = 61 * Math.ceil(Math.max(200 / 56, 400 / 61));
-    expect(parseFloat(backgroundPosition.split(' ')[1])).toBe(Math.round((400 - bh) * 0.1));
+    expect(parseFloat(backgroundPosition.split(' ')[1])).toBe(0);
   });
 
   it('is safe on a zero-sized container', () => {
