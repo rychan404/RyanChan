@@ -66,7 +66,7 @@ describe('About layout', () => {
     expect(document.body.textContent).toContain('chasing down shots on the tennis court');
     // Verify all three bio paragraphs have margin: 0 (not overridden by marginBottom)
     const bioParagraphs = Array.from(container.querySelectorAll('p')).filter(
-      (p) => p.textContent?.includes('Computer science') || p.textContent?.includes('tennis court') || p.textContent?.includes('Everything I create'),
+      (p) => p.textContent?.includes('aspiring software engineer') || p.textContent?.includes('Computer science') || p.textContent?.includes('tennis court'),
     ) as HTMLElement[];
     expect(bioParagraphs).toHaveLength(3);
     bioParagraphs.forEach((p) => {

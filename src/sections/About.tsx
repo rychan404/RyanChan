@@ -167,12 +167,9 @@ function AboutImpl() {
           <div className="rc-about-col rc-about-bio">
             {/* Bio paragraphs, at body size */}
             <p style={BIO}>
-              Computer science sophomore at the University of Maryland, passionate about software engineering
-              and creative media. I'm also an avid videographer and filmmaker, constantly exploring the intersection of code and creativity.
-            </p>
-
-            <p style={BIO}>
-              You can find{' '}
+              I'm an aspiring software engineer and video editor in the DMV who builds technology around what
+              people actually want. Also, I'm a problem solver at heart, fixing bugs in systems before adding
+              more features. See this in{' '}
               <a
                 href="#projects"
                 className="rc-fact-term"
@@ -185,13 +182,16 @@ function AboutImpl() {
               >
                 my projects
               </a>
-              {' '}showcasing everything from web apps to production-grade video content. Beyond the computer screen,
-              I'm constantly chasing down shots on the tennis court, whether it's hitting aces in matches or creating
-              dynamic video reels.
+              .
             </p>
 
             <p style={BIO}>
-              Everything I create is driven by one goal: to bring ideas to life through thoughtful design and solid engineering.
+              Computer science sophomore at the University of Maryland with junior-level credits, focused on
+              full-stack development.
+            </p>
+
+            <p style={BIO}>
+              While I'm not coding, you might see me editing videos for fun or chasing down shots on the tennis court.
             </p>
 
             {/* Quest log panel */}
