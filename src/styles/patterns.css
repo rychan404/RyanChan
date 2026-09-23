@@ -11,9 +11,10 @@
 .rc-panel-lines{display:flex;flex-direction:column;gap:12px}
 .rc-panel-line{display:flex;gap:12px;align-items:flex-start}
 .rc-panel-line > p{margin:0;font-size:var(--fs-17);line-height:1.6;color:var(--color-text-muted)}
+.rc-about-bio{display:flex;flex-direction:column;gap:24px}
 
 /* About — stat cards. Padding varies per card, so each card sets --stat-pad inline. */
-.rc-stats{gap:12px}
+.rc-stats{gap:12px;margin-bottom:40px}
 .rc-stat{padding:var(--stat-pad);background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);text-align:center}
 .rc-stat-value{font-family:var(--font-display);font-size:var(--fs-34);color:var(--color-primary)}
 .rc-stat-label{font-family:var(--font-display);font-size:var(--fs-13);letter-spacing:.04em;color:var(--color-text-dim);margin-top:4px}
@@ -94,7 +95,12 @@
   .rc-stat-label{font-size:var(--fs-14);line-height:1.2;letter-spacing:.02em}
   .rc-card-status{font-size:var(--fs-13)}
   .rc-panel-heading{font-size:var(--fs-20)}
-  .rc-photo-frame{width:64%;margin:0 auto 32px}
+  .rc-photo-frame{width:64%;margin:0 auto}
+  /* Phone: flatten both About columns into one grid so FUN FACTS can sit under the bio. */
+  .rc-about-col{display:contents}
+  .rc-stats{margin-bottom:0}
+  .rc-about-facts{order:1}
+  .rc-about-quest{order:2}
   .rc-hero-eyebrow{margin:0 0 8px;line-height:1.1}
   .rc-hero-name{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
   .rc-section-title,.rc-detail-title{text-shadow:-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow),-2px 0 0 var(--color-heading-shadow),2px 0 0 var(--color-heading-shadow),0 -2px 0 var(--color-heading-shadow),0 2px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow)}

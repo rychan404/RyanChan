@@ -73,7 +73,7 @@ function AboutImpl() {
           } as CSSProperties}
         >
           {/* Left column */}
-          <div>
+          <div className="rc-about-col">
             {/* Sprite panel */}
             <div ref={panelRef} className="rc-photo-frame">
               <div
@@ -123,7 +123,7 @@ function AboutImpl() {
             </div>
 
             {/* Stats grid */}
-            <div className="rc-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))', marginBottom: '40px' }}>
+            <div className="rc-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(96px,1fr))' }}>
               {STATS.map((stat, idx) => (
                 <div key={idx} className="rc-stat" style={{ '--stat-pad': stat.padding } as CSSProperties}>
                   <div className="rc-stat-value">{stat.value}</div>
@@ -135,7 +135,7 @@ function AboutImpl() {
             {/* Fun facts panel */}
             <div
               ref={factsRef}
-              className="rc-panel"
+              className="rc-panel rc-about-facts"
             >
               <h3 className="rc-panel-heading">
                 FUN FACTS
@@ -164,7 +164,7 @@ function AboutImpl() {
           </div>
 
           {/* Right column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="rc-about-col rc-about-bio">
             {/* Bio paragraphs, at body size */}
             <p style={BIO}>
               Computer science sophomore at the University of Maryland, passionate about software engineering
@@ -195,7 +195,7 @@ function AboutImpl() {
             </p>
 
             {/* Quest log panel */}
-            <div className="rc-panel">
+            <div className="rc-panel rc-about-quest">
               <h3 className="rc-panel-heading">
                 QUEST LOG
               </h3>
