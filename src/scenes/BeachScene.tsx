@@ -3,9 +3,11 @@ import { prefersReducedMotion } from '../lib/motion';
 import { useScenePause } from '../hooks/useScenePause';
 import { useTheme } from '../hooks/useTheme';
 
+/** Anchored to the bottom, so a panel wider than the art (a phone in
+ *  landscape) crops the top of the sky rather than the water. */
 const LAYER: CSSProperties = {
   position: 'absolute', inset: 0, width: '100%', height: '100%',
-  objectFit: 'cover', imageRendering: 'pixelated',
+  objectFit: 'cover', objectPosition: '50% 100%', imageRendering: 'pixelated',
 };
 
 const GROUP: CSSProperties = { position: 'absolute', inset: 0 };
@@ -17,7 +19,7 @@ const CLIPPED: CSSProperties = { ...GROUP, overflow: 'hidden' };
  *  100% one and the boat would float above the water. */
 const WAVE: CSSProperties = {
   position: 'absolute', top: 0, left: '-6%', width: '112%', height: '100%',
-  objectFit: 'cover', imageRendering: 'pixelated',
+  objectFit: 'cover', objectPosition: '50% 100%', imageRendering: 'pixelated',
 };
 
 /** Overscan for the same reason, on a layer that also drifts. */
