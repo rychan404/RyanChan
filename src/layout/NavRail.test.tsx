@@ -93,10 +93,12 @@ describe('NavRail on desktop', () => {
 describe('NavRail on mobile', () => {
   beforeEach(() => setViewport(true));
 
-  it('renders the bar with a hamburger and no rail links', () => {
-    renderNav({ route: 'home', active: 0 });
+  it('renders the bar with a hamburger and the overlay closed and inert', () => {
+    const { container } = renderNav({ route: 'home', active: 0 });
     expect(screen.getByLabelText('Toggle menu')).toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'PROJECTS' })).toBeNull();
+    const menu = container.querySelector('.rc-mobile-menu')!;
+    expect(menu).not.toHaveAttribute('data-open');
+    expect(menu).toHaveAttribute('inert');
   });
 
   it('opens the overlay and reports it via aria-expanded', async () => {
@@ -106,7 +108,9 @@ describe('NavRail on mobile', () => {
 
     await userEvent.click(burger);
     expect(burger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('link', { name: 'PROJECTS' })).toBeInTheDocument();
+    const menu = screen.getByRole('link', { name: 'PROJECTS' }).closest('.rc-mobile-menu')!;
+    expect(menu).toHaveAttribute('data-open');
+    expect(menu).not.toHaveAttribute('inert');
   });
 
   it('swaps the hamburger glyph for a close glyph when open', async () => {
@@ -130,7 +134,9 @@ describe('NavRail on mobile', () => {
   it('closes the overlay when a row is clicked', async () => {
     renderNav({ route: 'home', active: 0, onNavigate: vi.fn() });
     await userEvent.click(screen.getByLabelText('Toggle menu'));
-    await userEvent.click(screen.getByRole('link', { name: 'ABOUT' }));
-    expect(screen.queryByRole('link', { name: 'ABOUT' })).toBeNull();
+    const about = screen.getByRole('link', { name: 'ABOUT' });
+    await userEvent.click(about);
+    // Stays mounted so the close can animate; inert keeps it out of reach.
+    expect(about.closest('.rc-mobile-menu')).toHaveAttribute('inert');
   });
 });

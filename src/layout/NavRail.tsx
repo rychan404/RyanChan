@@ -159,15 +159,12 @@ export function NavRail({ route, active, onNavigate }: Props) {
         )}
       </nav>
 
-      {mobileNavOpen && (
+      {/* Always mounted on mobile so closing can animate; inert while shut.
+          React 18 has no `inert` prop, hence the spread. */}
+      {isMobile && (
         <div
-          style={{
-            position: 'fixed', left: 0, right: 0, top: '64px', maxHeight: 'calc(100vh - 64px)',
-            background: 'var(--color-surface)', zIndex: 59,
-            borderBottom: 'var(--border-thick) solid var(--color-border-light)',
-            boxShadow: 'var(--shadow-card) var(--color-border)',
-            display: 'flex', flexDirection: 'column', overflowY: 'auto',
-          }}
+          className="rc-mobile-menu"
+          {...(mobileNavOpen ? { 'data-open': '' } : { inert: '' })}
         >
           {LINKS.map((link, i) => (
             <a

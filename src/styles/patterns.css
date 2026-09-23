@@ -78,6 +78,11 @@
 .rc-back-float{padding:8px 14px}
 .rc-card-status{font-size:var(--fs-11);padding:3px 7px}
 .rc-mobile-only{display:none}
+/* Mobile nav overlay: slides out from behind the 64px bar (z 60) on the theme transition's curve.
+   visibility trails the close so the menu is unreachable once it is up. */
+.rc-mobile-menu{position:fixed;left:0;right:0;top:64px;max-height:calc(100vh - 64px);background:var(--color-surface);z-index:59;display:flex;flex-direction:column;overflow-y:auto;transform:translateY(-100%);visibility:hidden;transition:transform 280ms cubic-bezier(.45,0,.2,1),visibility 0s 280ms}
+.rc-mobile-menu[data-open]{transform:none;visibility:visible;transition:transform 280ms cubic-bezier(.45,0,.2,1)}
+@media (prefers-reduced-motion: reduce){ .rc-mobile-menu,.rc-mobile-menu[data-open]{transition:none} }
 @media (max-width:860px){
   .rc-nav{right:0;bottom:auto;width:100%;height:64px;border-right:none;border-bottom:var(--border-thick) solid var(--edge-on-surface);flex-direction:row;justify-content:space-between;padding:0 16px;overflow-y:visible}
   .rc-logo{--logo-w:var(--border-mid);--logo-fs:var(--fs-20)}
