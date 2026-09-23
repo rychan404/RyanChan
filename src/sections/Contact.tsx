@@ -13,22 +13,22 @@ type FieldProps = {
   label: string;
   value: string;
   onChange: (v: string) => void;
-  /** Present without a type means a textarea. */
-  input: { type?: 'text' | 'email'; placeholder: string };
+  /** Absent means a textarea. */
+  type?: 'text' | 'email';
   last?: boolean;
 };
 
-function Field({ id, label, value, onChange, input, last }: FieldProps) {
+function Field({ id, label, value, onChange, type, last }: FieldProps) {
   const common = {
-    id, value, className: 'pixel-input', placeholder: input.placeholder, style: { width: '100%' },
+    id, value, className: 'pixel-input', style: { width: '100%' },
   };
   return (
     <div className="pixel-field" style={{ marginBottom: last ? '24px' : '20px' }}>
       <label className="pixel-label" htmlFor={id} style={{ display: 'block', marginBottom: '8px' }}>
         {label}
       </label>
-      {input.type ? (
-        <input {...common} type={input.type} onChange={(e) => onChange(e.target.value)} />
+      {type ? (
+        <input {...common} type={type} onChange={(e) => onChange(e.target.value)} />
       ) : (
         <textarea {...common} rows={5} onChange={(e) => onChange(e.target.value)} />
       )}
@@ -121,12 +121,9 @@ function ContactImpl() {
               '--color-border': 'var(--edge-on-surface)',
             } as React.CSSProperties}
           >
-            <Field id="c-name" label="Name" value={name} onChange={setName}
-              input={{ type: 'text', placeholder: 'Your name' }} />
-            <Field id="c-email" label="Email" value={email} onChange={setEmail}
-              input={{ type: 'email', placeholder: 'your@email.com' }} />
-            <Field id="c-msg" label="Message" value={msg} onChange={setMsg} last
-              input={{ placeholder: 'Your message...' }} />
+            <Field id="c-name" label="Name" value={name} onChange={setName} type="text" />
+            <Field id="c-email" label="Email" value={email} onChange={setEmail} type="email" />
+            <Field id="c-msg" label="Message" value={msg} onChange={setMsg} last />
 
             {/* Idle/Sending Button */}
             {(status === 'idle' || status === 'sending') && (

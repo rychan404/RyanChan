@@ -34,7 +34,7 @@ a:hover{color:var(--color-link-hover)}
 
 .pixel-field{display:flex;flex-direction:column;gap:var(--space-2)}
 .pixel-label{font-family:var(--font-display);font-size:14px;text-transform:uppercase;color:var(--color-text-muted);letter-spacing:0.5px}
-.pixel-input,.pixel-textarea{font-family:var(--font-body);font-size:var(--text-sm);color:var(--color-text);background:var(--color-bg-alt);border:var(--border-thick) solid var(--color-border);padding:var(--space-3) var(--space-4);width:100%}
+.pixel-input,.pixel-textarea{font-family:var(--font-body);font-size:var(--text-sm);color:var(--color-text);background:var(--color-bg-alt);border:var(--border-thick) solid var(--color-border);padding:var(--space-3) var(--space-4);width:100%;resize:none}
 .pixel-textarea{resize:vertical;min-height:96px;font-family:var(--font-body)}
 .pixel-input:focus,.pixel-textarea:focus,.pixel-select:focus{outline:none;border-color:var(--color-primary)}
 .pixel-input::placeholder,.pixel-textarea::placeholder{color:var(--color-text-dim)}
