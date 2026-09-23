@@ -162,8 +162,10 @@ export function NavRail({ route, active, onNavigate }: Props) {
       {mobileNavOpen && (
         <div
           style={{
-            position: 'fixed', left: 0, right: 0, top: '64px', bottom: 0,
+            position: 'fixed', left: 0, right: 0, top: '64px', maxHeight: 'calc(100vh - 64px)',
             background: 'var(--color-surface)', zIndex: 59,
+            borderBottom: 'var(--border-thick) solid var(--color-border-light)',
+            boxShadow: 'var(--shadow-card) var(--color-border)',
             display: 'flex', flexDirection: 'column', overflowY: 'auto',
           }}
         >
