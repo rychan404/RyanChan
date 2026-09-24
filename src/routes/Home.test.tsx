@@ -25,6 +25,42 @@ beforeEach(() => {
 const renderHome = () =>
   render(<ThemeProvider><Home projects={TEST_PROJECTS} /></ThemeProvider>);
 
+describe('Home dither dissolve', () => {
+  it('arms the blocks below the trigger line, dissolves them in as they rise past it and out as they sink below it', () => {
+    type Entry = { target: Element; isIntersecting: boolean; boundingClientRect?: { top: number }; rootBounds?: { top: number; bottom: number } };
+    let fire: (e: Entry[]) => void = () => {};
+    const view = { top: 0, bottom: 700 };
+    vi.stubGlobal('IntersectionObserver', class {
+      constructor(cb: typeof fire) { fire = cb; }
+      observe = vi.fn(); unobserve = vi.fn(); disconnect = vi.fn(); takeRecords = vi.fn();
+      root = null; rootMargin = ''; thresholds = [];
+    });
+    const rect = vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
+      return { top: this.closest('#projects') ? 100 : 2000 } as DOMRect;
+    });
+    const { container } = renderHome();
+    const title = (id: string) => container.querySelector(`#${id} .rc-section-title`) as HTMLElement;
+    const lede = container.querySelector('#skills .rc-section-lede') as HTMLElement;
+    expect(container.querySelector('#home [data-dissolve]')).toBeNull();
+    expect(title('projects').dataset.dissolve).toBeUndefined();
+    expect(title('skills').dataset.dissolve).toBe('armed');
+    fire([{ target: title('skills'), isIntersecting: true }, { target: lede, isIntersecting: true }]);
+    expect(title('skills').dataset.dissolve).toBe('in');
+    expect(lede.style.getPropertyValue('--i')).toBe('1');
+    // Off the top: stays in. Back below the line: out. Up again: in.
+    fire([{ target: lede, isIntersecting: false, boundingClientRect: { top: -300 }, rootBounds: view }]);
+    expect(lede.dataset.dissolve).toBe('in');
+    fire([{ target: lede, isIntersecting: false, boundingClientRect: { top: 750 }, rootBounds: view }]);
+    expect(lede.dataset.dissolve).toBe('out');
+    fire([{ target: lede, isIntersecting: true }]);
+    expect(lede.dataset.dissolve).toBe('in');
+    // Shown on load: a sink below the line takes it out too.
+    fire([{ target: title('projects'), isIntersecting: false, boundingClientRect: { top: 750 }, rootBounds: view }]);
+    expect(title('projects').dataset.dissolve).toBe('out');
+    rect.mockRestore();
+  });
+});
+
 describe('Home', () => {
   it('keeps the prototype DOM order', () => {
     const { container } = renderHome();

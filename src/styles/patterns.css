@@ -84,6 +84,29 @@
 .rc-inv-links{display:flex;flex-wrap:wrap;gap:8px}
 .rc-inv-links > a{padding:5px 10px;background:var(--color-bg);color:var(--color-text);font-size:var(--fs-13);text-decoration:none;border-bottom:var(--border-mid) solid var(--color-primary)}
 
+/* Dither dissolve: a block Home has armed stays hidden until it scrolls in, then appears
+   through the dither steps (12 / 25 / 50 / 75 of tokens/dither.css, 4px pixels), one block
+   after another, and goes back out through them as it scrolls away down the screen.
+   no-clip keeps the mask over the block's shadow too. */
+[data-dissolve=armed],[data-dissolve=out]{opacity:0}
+[data-dissolve]{-webkit-mask-size:16px 16px;mask-size:16px 16px;mask-clip:no-clip}
+[data-dissolve=in]{animation:rc-dissolve-in 500ms linear backwards;animation-delay:calc(var(--i) * 90ms)}
+[data-dissolve=out]{animation:rc-dissolve-out 500ms linear}
+@keyframes rc-dissolve-out{
+  0%,19%{opacity:1;-webkit-mask-image:var(--dither-mask-75);mask-image:var(--dither-mask-75)}
+  20%,39%{-webkit-mask-image:var(--dither-mask-50);mask-image:var(--dither-mask-50)}
+  40%,59%{-webkit-mask-image:var(--dither-mask-25);mask-image:var(--dither-mask-25)}
+  60%,79%{opacity:1;-webkit-mask-image:var(--dither-mask-12);mask-image:var(--dither-mask-12)}
+  80%,100%{opacity:0}
+}
+@keyframes rc-dissolve-in{
+  0%,19%{opacity:0}
+  20%,39%{opacity:1;-webkit-mask-image:var(--dither-mask-12);mask-image:var(--dither-mask-12)}
+  40%,59%{-webkit-mask-image:var(--dither-mask-25);mask-image:var(--dither-mask-25)}
+  60%,79%{-webkit-mask-image:var(--dither-mask-50);mask-image:var(--dither-mask-50)}
+  80%,99%{-webkit-mask-image:var(--dither-mask-75);mask-image:var(--dither-mask-75)}
+}
+
 /* Scenes — the off-screen pause, set by useScenePause.
    animation-play-state is not inherited, so the descendant selector is not
    optional, and !important is what lets one class beat the `animation`

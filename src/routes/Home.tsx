@@ -1,4 +1,4 @@
-import { StrictMode, useCallback, useRef } from 'react';
+import { StrictMode, useCallback, useEffect, useRef } from 'react';
 import { NavRail } from '../layout/NavRail';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
@@ -8,6 +8,11 @@ import { Skills } from '../sections/Skills';
 import type { Project } from '../content/projects';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { ThemeProvider, useTheme } from '../hooks/useTheme';
+import { prefersReducedMotion } from '../lib/motion';
+
+/** The blocks that dissolve in: each section's heading, lede and tabs, and the panels of its layout. */
+const DISSOLVE = ['.rc-section-title', '.rc-section-lede', '.pixel-tabs', '.rc-roster > *', '.rc-about > *', '.rc-inv > *', '.rc-grid-contact > *']
+  .map((s) => `.rc-main > section:not(#home) ${s}`).join(',');
 
 export function Home({ projects }: { projects: Project[] }) {
   const { themeClass } = useTheme();
@@ -15,6 +20,33 @@ export function Home({ projects }: { projects: Project[] }) {
   const { active, jumpTo } = useScrollSpy(rootRef);
   // Stable, or Hero's memo is defeated by a fresh arrow on every render.
   const toAbout = useCallback(() => jumpTo(1), [jumpTo]);
+
+  // The dither dissolve (patterns.css): a block dissolves in through the dither steps as it
+  // rises past the trigger line (the observer's -10% margin), and back out as it sinks below
+  // it again; blocks arriving together go one after another (--i). Leaving off the top
+  // changes nothing. Blocks already past the line on load start shown, the rest armed
+  // (hidden); both after hydration, so without JS (or with reduced motion) everything shows.
+  useEffect(() => {
+    if (prefersReducedMotion() || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver((entries) => {
+      let i = 0;
+      for (const e of entries) {
+        const el = e.target as HTMLElement;
+        if (e.isIntersecting) {
+          if (!el.dataset.dissolve) continue; // shown on load, never left
+          el.style.setProperty('--i', String(i++));
+          el.dataset.dissolve = 'in';
+        } else if (e.boundingClientRect.top > e.rootBounds!.bottom && el.dataset.dissolve !== 'armed') {
+          el.dataset.dissolve = 'out';
+        }
+      }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    for (const el of rootRef.current!.querySelectorAll<HTMLElement>(DISSOLVE)) {
+      if (el.getBoundingClientRect().top >= window.innerHeight * 0.9) el.dataset.dissolve = 'armed';
+      io.observe(el);
+    }
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div
