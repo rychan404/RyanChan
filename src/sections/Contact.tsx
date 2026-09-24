@@ -1,9 +1,9 @@
 import { memo, useState } from 'react';
 import { DitherFade } from '../layout/DitherFade';
-import { Footer } from '../layout/Footer';
+import { Footer, SOCIALS } from '../layout/Footer';
 import { BeachScene } from '../scenes/BeachScene';
 import { PixelIcon } from '../components/PixelIcon';
-import { submitContactForm } from '../lib/contact';
+import { CONTACT_EMAIL, submitContactForm } from '../lib/contact';
 
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -63,6 +63,19 @@ function Result({ kind, message, action, onAction }: {
     </div>
   );
 }
+
+/** Email, then the socials, as labelled slots under the beach. Static, so it is
+ *  built once here rather than on every render of the form. */
+const LINK_SLOTS = (
+  <div className="rc-contact-slots">
+    {[{ title: 'Email', href: `mailto:${CONTACT_EMAIL}`, icon: 'ui/envelope-solid' }, ...SOCIALS].map((s) => (
+      <a key={s.title} href={s.href} className="rc-inv-slot">
+        <PixelIcon name={s.icon} size={24} color="var(--color-text)" />
+        <span className="rc-inv-caption">{s.title.toUpperCase()}</span>
+      </a>
+    ))}
+  </div>
+);
 
 function ContactImpl() {
   const [name, setName] = useState('');
@@ -175,19 +188,22 @@ function ContactImpl() {
             )}
           </form>
 
-          {/* Beach Scene Panel */}
-          <div
-            className="rc-contact-scene"
-            style={{
-              border: 'var(--border-thick) solid var(--edge-on-surface)',
-              boxShadow: 'var(--shadow-card) var(--edge-on-surface)',
-              background: 'var(--color-bg-alt)',
-              position: 'relative',
-              overflow: 'hidden',
-              imageRendering: 'pixelated',
-            }}
-          >
-            <BeachScene />
+          {/* Beach scene, with the link slots under it */}
+          <div className="rc-contact-side">
+            <div
+              className="rc-contact-scene"
+              style={{
+                border: 'var(--border-thick) solid var(--edge-on-surface)',
+                boxShadow: 'var(--shadow-card) var(--edge-on-surface)',
+                background: 'var(--color-bg-alt)',
+                position: 'relative',
+                overflow: 'hidden',
+                imageRendering: 'pixelated',
+              }}
+            >
+              <BeachScene />
+            </div>
+            {LINK_SLOTS}
           </div>
         </div>
       </div>

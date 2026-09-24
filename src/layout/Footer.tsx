@@ -1,7 +1,7 @@
 import { PixelIcon } from '../components/PixelIcon';
 import { DitherFade } from './DitherFade';
 
-const SOCIALS = [
+export const SOCIALS = [
   { title: 'LinkedIn', href: 'https://linkedin.com', icon: 'brands/linkedin' },
   { title: 'GitHub', href: 'https://github.com', icon: 'brands/github' },
   { title: 'YouTube', href: 'https://youtube.com', icon: 'brands/youtube' },

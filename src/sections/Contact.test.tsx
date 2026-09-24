@@ -6,6 +6,7 @@ import { Contact } from './Contact';
 
 vi.mock('../lib/contact', () => ({
   WEB3FORMS_ENDPOINT: 'https://api.web3forms.com/submit',
+  CONTACT_EMAIL: 'ryan@example.com',
   submitContactForm: vi.fn(),
 }));
 import { submitContactForm } from '../lib/contact';
@@ -81,6 +82,21 @@ describe('Contact layout', () => {
     ) as HTMLElement;
     expect(footerDiv).toBeTruthy();
     expect(footerDiv.parentElement).toBe(section);
+  });
+});
+
+describe('Contact link slots', () => {
+  it('shows email, LinkedIn, GitHub and YouTube slots with labels, and no heading over them', () => {
+    const { container } = renderContact();
+    const slots = Array.from(container.querySelectorAll('.rc-contact-slots > .rc-inv-slot'));
+    expect(slots.map((s) => s.textContent)).toEqual(['EMAIL', 'LINKEDIN', 'GITHUB', 'YOUTUBE']);
+    expect(slots[2]).toHaveAttribute('href', 'https://github.com');
+    expect(screen.queryByText(/find me on/i)).toBeNull();
+  });
+
+  it('links the email slot to a mailto for the address', () => {
+    renderContact();
+    expect(screen.getByRole('link', { name: 'EMAIL' })).toHaveAttribute('href', 'mailto:ryan@example.com');
   });
 });
 

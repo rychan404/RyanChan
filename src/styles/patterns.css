@@ -125,7 +125,11 @@
 .rc-section-title{text-shadow:-4px -4px 0 var(--color-heading-shadow),4px -4px 0 var(--color-heading-shadow),-4px 4px 0 var(--color-heading-shadow),4px 4px 0 var(--color-heading-shadow),-4px 0 0 var(--color-heading-shadow),4px 0 0 var(--color-heading-shadow),0 -4px 0 var(--color-heading-shadow),0 4px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow)}
 .rc-detail-title{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
 .rc-grid-contact{grid-template-columns:minmax(320px,640px) minmax(320px,640px)}
-.rc-contact-scene{height:100%}
+/* The scene fills the column beside the form, above the row of link slots, which borrow the Skills slot look. */
+.rc-contact-side{display:flex;flex-direction:column;gap:16px}
+.rc-contact-scene{flex:1;min-height:240px}
+.rc-contact-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rc-contact-slots > .rc-inv-slot{aspect-ratio:auto;height:88px;text-decoration:none}
 .rc-footer-bar{padding:24px 56px 120px}
 .rc-detail-top{padding:40px 56px 0}
 .rc-detail-body{padding:40px 56px 96px}
@@ -198,7 +202,7 @@
   .rc-inv-grid[data-short] > :nth-child(n+5){display:none}
   /* A 4-wide phone slot is too narrow for "TypeScript", so slots go icon-only and
      the panel below names the picked one. */
-  .rc-inv-caption{display:none}
+  .rc-inv-grid .rc-inv-caption{display:none}
   .rc-inv-slot > .rc-inv-icon{width:52%;height:52%}
   .rc-inv-detail{padding:18px 16px 22px;border-left:none;border-top:var(--border-thick) solid var(--color-bg)}
   .rc-inv-big{width:60px;height:60px}
@@ -211,7 +215,9 @@
   .rc-roster-grid{order:-1;gap:10px}
   .rc-roster-name{padding:5px 6px;border-top-width:var(--border-mid);font-size:var(--fs-11)}
   /* 100% only resolves in the desktop grid's stretched row. */
-  .rc-contact-scene{height:340px}
+  .rc-contact-scene{flex:none;height:340px}
+  .rc-contact-slots{gap:8px}
+  .rc-contact-slots > .rc-inv-slot{height:72px}
   .rc-footer-bar{padding:24px 20px 108px}
   .rc-detail-top{padding:24px 20px 0}
   .rc-detail-body{padding:24px 20px 72px}

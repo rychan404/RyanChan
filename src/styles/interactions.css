@@ -49,3 +49,4 @@
 /* the detail page's two anchor-as-button overrides — project-detail.dc.html lines 27-28 */
 a.pixel-btn:hover{color:var(--color-text-on-accent)}
 a.pixel-btn--ghost:hover{color:var(--color-text)}
+.rc-contact-slots > .rc-inv-slot:hover{border-color:var(--color-primary);color:var(--color-text)}
