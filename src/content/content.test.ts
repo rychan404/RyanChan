@@ -12,14 +12,6 @@ describe('SKILL_GROUPS', () => {
     ]);
   });
 
-  it('points each group icon at a vendored UI icon', () => {
-    expect(SKILL_GROUPS.map((g) => g.icon)).toEqual([
-      'ui/code-solid',
-      'ui/cog-solid',
-      'ui/video-camera-solid',
-    ]);
-  });
-
   it('names skills that all resolve to a tag icon and colour', () => {
     for (const g of SKILL_GROUPS) {
       for (const s of g.skills) {

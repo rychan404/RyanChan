@@ -1,6 +1,8 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ThemeProvider } from '../hooks/useTheme';
+import { TEST_PROJECTS } from '../test-projects';
 import { Skills } from './Skills';
 
 beforeEach(() => {
@@ -12,7 +14,9 @@ beforeEach(() => {
   }));
 });
 
-const renderSkills = () => render(<ThemeProvider><Skills /></ThemeProvider>);
+const renderSkills = () => render(<ThemeProvider><Skills projects={TEST_PROJECTS} /></ThemeProvider>);
+const slots = () => within(screen.getByRole('group', { name: 'Skills' })).getAllByRole('button');
+const detail = () => document.querySelector('.rc-inv-detail') as HTMLElement;
 
 describe('Skills', () => {
   it('is a surface-coloured section with id="skills" and order 3', () => {
@@ -28,43 +32,49 @@ describe('Skills', () => {
     expect(screen.getByText('Tech I use on a daily basis')).toBeInTheDocument();
   });
 
-  it('renders all three groups unconditionally', () => {
+  it('labels the three groups above their rows', () => {
     const { container } = renderSkills();
-    expect(container.querySelectorAll('.pixel-card')).toHaveLength(3);
-    expect(screen.getByText('CODE')).toBeInTheDocument();
-    expect(screen.getByText('BUILD')).toBeInTheDocument();
-    expect(screen.getByText('POST')).toBeInTheDocument();
+    const labels = Array.from(container.querySelectorAll('.rc-inv-group > .rc-inv-label')).map((l) => l.textContent);
+    expect(labels).toEqual(['CODE', 'BUILD', 'POST']);
   });
 
-  it('renders every skill as a large tag chip', () => {
+  it('gives every skill a slot with its icon, and pads each row to the widest group', () => {
     const { container } = renderSkills();
-    const chips = Array.from(container.querySelectorAll('.pixel-tag')) as HTMLElement[];
-    expect(chips).toHaveLength(16);          // 5 + 8 + 3
-    expect(chips[0].style.fontSize).toBe('var(--fs-16)');
-    expect(chips[0].style.padding).toBe('10px 18px');
+    expect(slots()).toHaveLength(16);          // 5 + 8 + 3
+    expect((slots()[0].querySelector('.rc-inv-icon') as HTMLElement).style.maskImage).toBe('url(/icons/tags/python.svg)');
+    expect(container.querySelectorAll('.rc-inv-empty')).toHaveLength(3 + 0 + 5);
+    expect(screen.getByRole('button', { name: 'Tailwind CSS' })).toHaveTextContent('Tailwind');
   });
 
-  it('puts the right skills in the right card', () => {
-    const { container } = renderSkills();
-    const cards = Array.from(container.querySelectorAll('.pixel-card')) as HTMLElement[];
-    expect(within(cards[2]).getByText('DaVinci Resolve')).toBeInTheDocument();
-    expect(within(cards[2]).queryByText('Python')).toBeNull();
+  it('starts on Python and shows it in the detail panel', () => {
+    renderSkills();
+    expect(screen.getByRole('button', { name: 'Python' })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(detail()).getByText('Python')).toBeInTheDocument();
+    expect(within(detail()).getByText('CODE')).toBeInTheDocument();
   });
 
-  it('accents each group icon', () => {
-    const { container } = renderSkills();
-    const icons = Array.from(container.querySelectorAll('.pixel-icon')) as HTMLElement[];
-    expect(icons.map((i) => i.style.maskImage)).toEqual([
-      'url(/icons/ui/code-solid.svg)',
-      'url(/icons/ui/cog-solid.svg)',
-      'url(/icons/ui/video-camera-solid.svg)',
-    ]);
-    expect(icons.every((i) => i.style.color === 'var(--color-accent-text)')).toBe(true);
+  it('picks a slot on click and on hover, and lists the projects that use it', async () => {
+    renderSkills();
+    await userEvent.click(screen.getByRole('button', { name: 'JavaScript' }));
+    expect(screen.getByRole('button', { name: 'JavaScript' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Python' })).toHaveAttribute('aria-pressed', 'false');
+    expect(within(detail()).getByRole('link', { name: 'Nightshift' })).toHaveAttribute('href', '/projects/nightshift');
+    expect(within(detail()).getByRole('link', { name: 'Pixelforge' })).toHaveAttribute('href', '/projects/pixelforge');
+
+    fireEvent.mouseEnter(screen.getByRole('button', { name: 'Docker' }));
+    expect(within(detail()).getByText('BUILD')).toBeInTheDocument();
+    expect(within(detail()).getByRole('link', { name: 'Loopline' })).toBeInTheDocument();
   });
 
-  it('has no filter control and no skill bars', () => {
+  it('leaves out the used-in list when no project uses the skill', () => {
+    renderSkills();
+    expect(within(detail()).queryByText('Used in')).toBeNull();
+    expect(detail().querySelector('.rc-inv-used')).toBeNull();
+  });
+
+  it('marks the short groups so a phone can drop their empty second row', () => {
     const { container } = renderSkills();
-    expect(container.querySelectorAll('button')).toHaveLength(0);
-    expect(container.querySelector('.pixel-tabs')).toBeNull();
+    const grids = Array.from(container.querySelectorAll('.rc-inv-grid')) as HTMLElement[];
+    expect(grids.map((g) => g.hasAttribute('data-short'))).toEqual([false, false, true]);
   });
 });

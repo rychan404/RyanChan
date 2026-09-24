@@ -59,6 +59,31 @@
 .rc-roster-tile[aria-pressed=true] .rc-roster-name::before{content:'> ' / ''}
 .rc-roster-tile:focus-visible{outline:var(--border-thin) solid var(--pixel-green-4);outline-offset:var(--border-thin)}
 
+/* Skills — one framed box: a slot per skill, in rows padded with empty slots to the
+   widest group, and a detail panel for the hovered or picked slot. */
+.rc-inv{display:grid;grid-template-columns:minmax(0,1fr) 300px;margin-top:48px;background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:inset 0 0 0 var(--border-thin) var(--color-border-light),var(--shadow-card) var(--color-ink)}
+.rc-inv-slots{display:flex;flex-direction:column;gap:18px;padding:24px 28px 28px}
+.rc-inv-group{display:flex;flex-direction:column;gap:8px}
+.rc-inv-label{margin:0;font-family:var(--font-display);font-size:var(--fs-16);letter-spacing:.04em;color:var(--color-text-dim)}
+.rc-inv-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+.rc-inv-slot,.rc-inv-empty{aspect-ratio:1 / 1;background:var(--color-bg);border:var(--border-thick) solid var(--color-ink);box-shadow:inset 0 0 0 var(--border-thin) var(--color-surface)}
+.rc-inv-empty{opacity:.45}
+.rc-inv-slot{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0;cursor:pointer;font-family:var(--font-body);font-size:var(--fs-11);color:var(--color-text-dim)}
+.rc-inv-icon{width:40%;height:40%;background-color:var(--color-text);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center}
+.rc-inv-caption{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc-inv-slot[aria-pressed=true]{border-color:var(--color-primary);box-shadow:inset 0 0 0 var(--border-thin) var(--pixel-green-3);color:var(--color-text)}
+.rc-inv-slot:focus-visible{outline:var(--border-thin) solid var(--color-heading);outline-offset:var(--border-thin)}
+.rc-inv-detail{display:flex;flex-direction:column;gap:16px;padding:24px 24px 28px;border-left:var(--border-thick) solid var(--color-bg)}
+.rc-inv-head{display:flex;gap:16px;align-items:center}
+.rc-inv-big{flex:none;width:76px;height:76px;display:flex;align-items:center;justify-content:center;background:var(--color-bg);border:var(--border-thick) solid var(--color-primary);box-shadow:inset 0 0 0 var(--border-thin) var(--pixel-green-3)}
+.rc-inv-big > .rc-inv-icon{width:50%;height:50%}
+.rc-inv-name{margin:0;font-family:var(--font-display);font-size:var(--fs-26);line-height:1.1;text-transform:uppercase;color:var(--color-accent-text)}
+.rc-inv-group-name{margin:6px 0 0;font-family:var(--font-display);font-size:var(--fs-14);color:var(--color-text-dim)}
+.rc-inv-used{display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:var(--border-thin) solid var(--color-bg)}
+.rc-inv-used > .rc-inv-label{font-size:var(--fs-12)}
+.rc-inv-links{display:flex;flex-wrap:wrap;gap:8px}
+.rc-inv-links > a{padding:5px 10px;background:var(--color-bg);color:var(--color-text);font-size:var(--fs-13);text-decoration:none;border-bottom:var(--border-mid) solid var(--color-primary)}
+
 /* Scenes — the off-screen pause, set by useScenePause.
    animation-play-state is not inherited, so the descendant selector is not
    optional, and !important is what lets one class beat the `animation`
@@ -166,6 +191,18 @@
   .rc-hero-name{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
   .rc-section-title,.rc-detail-title{text-shadow:-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow),-2px 0 0 var(--color-heading-shadow),2px 0 0 var(--color-heading-shadow),0 -2px 0 var(--color-heading-shadow),0 2px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow)}
   .rc-grid-contact{grid-template-columns:1fr}
+  /* Phone Skills: 4-wide slots, the detail panel under them. */
+  .rc-inv{grid-template-columns:1fr;margin-top:32px}
+  .rc-inv-slots{padding:18px 16px 20px}
+  .rc-inv-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .rc-inv-grid[data-short] > :nth-child(n+5){display:none}
+  /* A 4-wide phone slot is too narrow for "TypeScript", so slots go icon-only and
+     the panel below names the picked one. */
+  .rc-inv-caption{display:none}
+  .rc-inv-slot > .rc-inv-icon{width:52%;height:52%}
+  .rc-inv-detail{padding:18px 16px 22px;border-left:none;border-top:var(--border-thick) solid var(--color-bg)}
+  .rc-inv-big{width:60px;height:60px}
+  .rc-inv-name{font-size:var(--fs-22)}
   /* Phone Projects: the roster first, the picked card under it. */
   .rc-card-media{height:190px}
   .rc-card-title{font-size:var(--fs-26)}
@@ -191,4 +228,8 @@
   .rc-card-media{height:120px}
   .rc-card-title{font-size:var(--fs-34)}
   .rc-card-blurb{font-size:var(--fs-19)}
+  /* Skills: 8 across, as on desktop, instead of 4 slots stretched over a wide row.
+     The short groups' empty slots come back to fill the row. */
+  .rc-inv-grid{grid-template-columns:repeat(8,minmax(0,1fr))}
+  .rc-inv-grid[data-short] > :nth-child(n+5){display:block}
 }

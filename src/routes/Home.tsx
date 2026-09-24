@@ -40,7 +40,7 @@ export function Home({ projects }: { projects: Project[] }) {
         <Hero onNavigate={toAbout} />
         <Projects projects={projects} />
         <About />
-        <Skills />
+        <Skills projects={projects} />
         <Contact />
       </main>
     </div>
