@@ -38,8 +38,8 @@
 .rc-about-opt:focus-visible,.rc-bubble-next:focus-visible{outline:var(--border-thin) solid var(--color-primary)}
 
 /* Projects — the picked project's card beside a roster of every project in the
-   filter, one portrait tile each, tinted by kind. The tints are fixed pixel
-   ramps, the same in both themes, like the hotbar frame. */
+   filter, one portrait tile each, tinted by kind. The tints are pixel ramps,
+   flipped light-fill/dark-ink under .theme-light so the roster matches the card. */
 .rc-roster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
 /* The card: on a wide screen the text grows and the image gets more room. */
 .rc-card-media{height:240px}
@@ -49,10 +49,14 @@
 .rc-roster-tile{--tile-fill:var(--pixel-teal-1);--tile-ink:var(--pixel-teal-4);position:relative;aspect-ratio:1 / 1;display:flex;flex-direction:column;padding:0;background:var(--tile-fill);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-card) var(--color-ink);color:var(--tile-ink);cursor:pointer;text-align:left}
 .rc-roster-tile--video{--tile-fill:var(--pixel-violet-2);--tile-ink:var(--pixel-violet-6)}
 .rc-roster-tile--misc{--tile-fill:var(--pixel-tan-1);--tile-ink:var(--pixel-tan-4)}
+.theme-light .rc-roster-tile{--tile-fill:var(--pixel-teal-4);--tile-ink:var(--pixel-teal-1)}
+.theme-light .rc-roster-tile--video{--tile-fill:var(--pixel-violet-6);--tile-ink:var(--pixel-violet-1)}
+.theme-light .rc-roster-tile--misc{--tile-fill:var(--pixel-tan-4);--tile-ink:var(--pixel-tan-1)}
 .rc-roster-portrait{position:relative;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 /* A project image fills the portrait; smooth scaling, since it is a photo, not pixel art. */
 .rc-roster-portrait > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:auto}
 .rc-roster-name{padding:8px 10px;background:var(--pixel-neutral-1);border-top:var(--border-thick) solid var(--color-ink);font-family:var(--font-display);font-size:var(--fs-14);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:var(--pixel-neutral-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme-light .rc-roster-name{background:var(--color-surface);color:var(--color-text-muted)}
 .rc-roster-tile[aria-pressed=true]{border-color:var(--pixel-green-4)}
 .rc-roster-tile[aria-pressed=true] .rc-roster-name{background:var(--pixel-green-4);color:var(--pixel-black)}
 /* A caret before the picked name; empty alt text so screen readers skip it. */
