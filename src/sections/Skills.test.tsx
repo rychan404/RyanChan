@@ -53,7 +53,7 @@ describe('Skills', () => {
     expect(within(detail()).getByText('CODE')).toBeInTheDocument();
   });
 
-  it('picks a slot on click and on hover, and lists the projects that use it', async () => {
+  it('picks a slot on click only, and lists the projects that use it', async () => {
     renderSkills();
     await userEvent.click(screen.getByRole('button', { name: 'JavaScript' }));
     expect(screen.getByRole('button', { name: 'JavaScript' })).toHaveAttribute('aria-pressed', 'true');
@@ -62,6 +62,10 @@ describe('Skills', () => {
     expect(within(detail()).getByRole('link', { name: 'Pixelforge' })).toHaveAttribute('href', '/projects/pixelforge');
 
     fireEvent.mouseEnter(screen.getByRole('button', { name: 'Docker' }));
+    fireEvent.focus(screen.getByRole('button', { name: 'Docker' }));
+    expect(within(detail()).getByText('JavaScript')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Docker' }));
     expect(within(detail()).getByText('BUILD')).toBeInTheDocument();
     expect(within(detail()).getByRole('link', { name: 'Loopline' })).toBeInTheDocument();
   });

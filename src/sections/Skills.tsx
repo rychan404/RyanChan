@@ -57,8 +57,6 @@ function SkillsImpl({ projects }: { projects: Project[] }) {
                       aria-label={s}
                       aria-pressed={s === picked}
                       onClick={() => setPicked(s)}
-                      onMouseEnter={() => setPicked(s)}
-                      onFocus={() => setPicked(s)}
                     >
                       <SkillIcon name={s} />
                       <span className="rc-inv-caption">{SHORT[s] ?? s}</span>
