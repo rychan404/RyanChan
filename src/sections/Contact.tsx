@@ -4,7 +4,6 @@ import { Footer } from '../layout/Footer';
 import { BeachScene } from '../scenes/BeachScene';
 import { PixelIcon } from '../components/PixelIcon';
 import { submitContactForm } from '../lib/contact';
-import { useHydrated } from '../hooks/useHydrated';
 
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -66,7 +65,6 @@ function Result({ kind, message, action, onAction }: {
 }
 
 function ContactImpl() {
-  const hydrated = useHydrated();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
@@ -189,7 +187,7 @@ function ContactImpl() {
               imageRendering: 'pixelated',
             }}
           >
-            {hydrated ? <BeachScene /> : null}
+            <BeachScene />
           </div>
         </div>
       </div>

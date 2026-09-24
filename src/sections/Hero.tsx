@@ -1,6 +1,5 @@
 import { CSSProperties, memo } from 'react';
 import { HeroScene } from '../scenes/HeroScene';
-import { useHydrated } from '../hooks/useHydrated';
 
 const EYEBROW: CSSProperties = {
   fontFamily: 'var(--font-display)',
@@ -12,8 +11,6 @@ const EYEBROW: CSSProperties = {
 };
 
 function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
-  const hydrated = useHydrated();
-
   return (
     <section
       id="home"
@@ -24,7 +21,7 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
         alignItems: 'center',
       }}
     >
-      {hydrated ? <HeroScene /> : null}
+      <HeroScene />
 
       {/* .px-hero-content is the hook for global.css's landscape /
           short-viewport override. Do not rename it. */}

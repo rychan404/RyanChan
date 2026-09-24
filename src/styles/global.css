@@ -21,6 +21,12 @@ section{scroll-margin-top:0}
    is stranded mid-slide, and it only runs when the reader asks for it.
    The two JS frame-advancers (the beach wave, the About walk cycle) check
    prefersReducedMotion() themselves — CSS cannot reach them. */
+/* The scenes are in the server HTML so their images load with the page, and the
+   server always draws the dark scene. For a light-theme reader the boot script
+   has put theme-light on <html>; hide the scene until React takes the class over
+   at hydration and draws the light scene, so the night never flashes. */
+html.theme-light .rc-scene{visibility:hidden}
+
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .rc-scene *:not(.rc-tape){animation-play-state:paused!important}
