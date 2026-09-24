@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { NAV_LOCK_MS, SECTIONS, activeIndexFor } from './scrollSpy';
+import { NAV_LOCK_MS, SECTIONS, activeIndexFor, xpFor } from './scrollSpy';
 
 // A plausible page: five sections, 1000px viewport, so the active line is
 // scrollY + 350.
@@ -34,6 +34,32 @@ describe('activeIndexFor', () => {
 
   it('returns 0 for an empty section list', () => {
     expect(activeIndexFor([], 500, VH)).toBe(0);
+  });
+});
+
+describe('xpFor', () => {
+  // Five sections, 1000px apart, 800px viewport: the 35% line sits 280px down.
+  const tops = [0, 1000, 2000, 3000, 4000];
+  const max = 4600;
+
+  it('is empty at the top of the page', () => {
+    expect(xpFor(tops, 0, 800, max)).toBe(0);
+  });
+
+  it('is a whole number of fifths when the line sits on a section top', () => {
+    expect(xpFor(tops, 2000 - 280, 800, max)).toBeCloseTo(2 / 5);
+  });
+
+  it('fills the current fifth by how far the line is through the section', () => {
+    expect(xpFor(tops, 1500 - 280, 800, max)).toBeCloseTo(1.5 / 5);
+  });
+
+  it('is full at the bottom of the page', () => {
+    expect(xpFor(tops, max, 800, max)).toBe(1);
+  });
+
+  it('returns 0 for an empty section list', () => {
+    expect(xpFor([], 0, 800, 0)).toBe(0);
   });
 });
 

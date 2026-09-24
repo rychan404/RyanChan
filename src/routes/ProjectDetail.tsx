@@ -25,7 +25,7 @@ function Found({ project, children }: { project: Project; children: ReactNode })
           <a
             href="/#projects"
             className="rc-pixel-back rc-back-float"
-            style={{ position: 'absolute', left: '16px', top: '16px' }}
+            style={{ position: 'absolute', right: '16px', top: '16px' }}
           >
             <PixelIcon name="ui/arrow-left-solid" size={16} />
             <span className="rc-desktop-only">BACK TO PROJECTS</span>

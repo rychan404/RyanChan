@@ -12,7 +12,7 @@ const LIVE_KEYFRAMES = [
 const DEAD_KEYFRAMES = ['pxdrift', 'pxfloat', 'pxgrass', 'pxrecblink', 'pxsunpulse'];
 
 const INTERACTION_CLASSES = [
-  'rc-logo', 'rc-nav-link', 'rc-filter-option', 'rc-fact-term',
+  'rc-portrait', 'rc-nav-link', 'rc-filter-option', 'rc-fact-term',
   'rc-footer-link', 'rc-project-card', 'rc-ghost-btn', 'rc-popover-close',
   'rc-sprite-toggle', 'rc-pixel-back', 'rc-hero-cta',
 ];

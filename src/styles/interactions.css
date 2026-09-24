@@ -2,12 +2,16 @@
    pattern in the prototype becomes a class here. Source lines refer to
    docs/design/portfolio-home.dc.html unless noted. */
 
-/* logo press — line 64 */
-.rc-logo:hover{background:hsl(from var(--color-primary) h calc(s * 1.1) calc(l * 1.15))}
-.rc-logo:active{transform:var(--press-control);box-shadow:0 0 0 transparent}
+/* hotbar portrait (the old logo's press) — line 64 */
+.rc-portrait:hover{background:hsl(from var(--color-primary) h calc(s * 1.1) calc(l * 1.15))}
+.rc-portrait:active{transform:var(--press-control)}
 
-/* nav link, desktop rail and mobile overlay — lines 81, 113 */
-.rc-nav-link:hover{color:var(--color-text);background:var(--color-surface-raised)}
+/* hotbar slots */
+.rc-nav-link:hover,.rc-slot:hover{color:var(--color-text);background:var(--color-surface-raised)}
+.rc-slot:active{transform:var(--press-control)}
+/* theme cell */
+.rc-theme:hover{background:var(--pixel-neutral-3)}
+.rc-theme:active{transform:var(--press-control)}
 
 /* mobile filter dropdown option — line 235 */
 .rc-filter-option:hover{background:var(--color-surface-raised)}

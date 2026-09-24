@@ -49,14 +49,10 @@
 .rc-pixel-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text);background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-control) var(--color-ink);text-decoration:none;cursor:pointer}
 
 /* Responsive layout. One breakpoint, the same (max-width:860px) useIsMobile
-   reads — that hook now only swaps markup (the nav, the project filter). Living
+   reads — that hook now only swaps markup (the project filter). Living
    here instead of in JS means the server HTML is already right on a phone,
    instead of rendering desktop and correcting after hydration. */
-.rc-nav{position:fixed;left:0;top:0;bottom:0;width:88px;background:var(--color-surface);border-right:var(--border-thick) solid var(--edge-on-surface);display:flex;flex-direction:column;align-items:center;padding:16px 0 12px;z-index:60}
-.rc-nav--home{overflow-y:auto;scrollbar-width:none}
-.rc-logo{--logo-w:var(--border-thick);--logo-fs:var(--fs-28);border:var(--logo-w) solid var(--edge-primary);padding:var(--logo-w);background:var(--color-primary);box-shadow:var(--shadow-control) var(--edge-primary);transition:transform 100ms steps(2,end),background-color .1s var(--ease-pixel)}
-.rc-logo > img{height:calc(var(--logo-fs) * 2)}
-.rc-main{display:flex;flex-direction:column;margin-left:88px}
+.rc-main{display:flex;flex-direction:column}
 .rc-section{padding:0 0 112px}
 .rc-section-inner{padding:56px var(--section-pad-x) 0}
 .rc-grid-about,.rc-grid-contact{gap:48px}
@@ -71,23 +67,44 @@
 .rc-grid-about{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .rc-grid-contact{grid-template-columns:minmax(320px,640px) minmax(320px,640px)}
 .rc-contact-scene{height:100%}
-.rc-footer-bar{padding:24px 56px}
+.rc-footer-bar{padding:24px 56px 120px}
 .rc-detail-top{padding:40px 56px 0}
 .rc-detail-body{padding:40px 56px 96px}
 .rc-notfound{padding:0 56px}
 .rc-back-float{padding:8px 14px}
 .rc-card-status{font-size:var(--fs-11);padding:3px 7px}
 .rc-mobile-only{display:none}
-/* Mobile nav overlay: slides out from behind the 64px bar (z 60) on the theme transition's curve.
-   visibility trails the close so the menu is unreachable once it is up.
-   Its own transition beats .theme-transitioning *, so background-color is relisted to fade with the bar. */
-.rc-mobile-menu{position:fixed;left:0;right:0;top:64px;max-height:calc(100vh - 64px);background:var(--color-surface);z-index:59;display:flex;flex-direction:column;overflow-y:auto;transform:translateY(-100%);visibility:hidden;transition:transform 280ms cubic-bezier(.45,0,.2,1),background-color 480ms cubic-bezier(.45,0,.2,1),visibility 0s 280ms}
-.rc-mobile-menu[data-open]{transform:none;visibility:visible;transition:transform 280ms cubic-bezier(.45,0,.2,1),background-color 480ms cubic-bezier(.45,0,.2,1)}
-@media (prefers-reduced-motion: reduce){ .rc-mobile-menu,.rc-mobile-menu[data-open]{transition:background-color 480ms cubic-bezier(.45,0,.2,1)} }
+/* Hotbar (NavRail), slim: one black frame, the headshot and the link cells
+   split by thin gaps, fixed bottom-centre. Each cell has its name under the
+   icon; --slot fits the widest, PROJECTS: 52px at fs-12, 44px at fs-11. The XP
+   strip floats 3px above the frame and spans it edge to edge, over the
+   portrait, the link cells, the divider and the theme cell; its fill is a transform
+   driven by --xp from useScrollSpy (the detail page has no spy, so it rests
+   halfway, on Projects). .rc-footer-bar's bottom padding keeps the footer clear. */
+.rc-hotbar{--slot:60px;--xp-h:8px;--link-gap:6px;position:fixed;left:0;right:0;bottom:20px;width:max-content;margin-inline:auto;z-index:60;display:flex;gap:var(--border-thin);padding:var(--border-mid);background:var(--pixel-black);border:var(--border-mid) solid var(--pixel-black);outline:var(--border-thin) solid hsl(from var(--pixel-neutral-5) h s l / .18)}
+.rc-portrait{position:relative;flex:none;width:var(--slot);height:var(--slot);background:var(--color-primary)}
+/* The head at the size the old rail logo drew it: 56px tall here, 40px on a phone. */
+.rc-portrait > img{display:block;width:100%;height:100%;box-sizing:border-box;padding:calc((var(--slot) - 56px) / 2);object-fit:contain;image-rendering:pixelated}
+.rc-hotbar-links{position:relative;display:flex;gap:var(--link-gap)}
+.rc-hotbar-divider{width:var(--border-mid)}
+.rc-xp{position:absolute;left:calc(-2 * var(--border-mid));right:calc(-1 * (2 * var(--border-thin) + var(--border-mid) + var(--slot) / 2 + 2 * var(--border-mid)));bottom:calc(100% + 2 * var(--border-mid) + 3px);height:var(--xp-h);overflow:hidden;background:var(--color-bg);border:var(--border-thin) solid var(--pixel-black)}
+.rc-xp-fill{position:absolute;inset:0;background:linear-gradient(var(--pixel-green-4) 0 2px,var(--pixel-green-3) 2px);transform-origin:left;transform:scaleX(var(--xp,.5))}
+/* Notches: 20 segments, four per section, faint enough to read as texture. */
+.rc-xp::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(5% - 2px),hsl(from var(--pixel-black) h s l / .35) calc(5% - 2px) 5%)}
+.rc-slot{position:relative;width:var(--slot);height:var(--slot);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;background:hsl(from var(--color-bg) h s l / .78);border:none;color:var(--color-text-muted);cursor:pointer}
+/* The selector: a bright frame a little larger than the slot, as in Minecraft. */
+.rc-slot[aria-current]{color:var(--color-text)}
+.rc-slot[aria-current]::after,.rc-portrait[aria-current]::after{content:'';position:absolute;inset:calc(-1 * var(--border-thick));border:var(--border-mid) solid var(--pixel-green-4);pointer-events:none}
+.rc-slot-label{font-family:var(--font-display);font-size:var(--fs-12);letter-spacing:.04em;line-height:1;white-space:nowrap}
+/* Theme toggle: a half-width utility cell after the divider, so it reads as a
+   setting rather than a place. Fixed dark fill and sun/moon yellow, like the
+   black frame, in both themes. */
+.rc-theme{width:calc(var(--slot) / 2);height:var(--slot);display:flex;align-items:center;justify-content:center;padding:0;background:var(--pixel-neutral-2);border:none;color:var(--pixel-tan-5);cursor:pointer}
 @media (max-width:860px){
-  .rc-nav{right:0;bottom:auto;width:100%;height:64px;border-right:none;border-bottom:var(--border-thick) solid var(--edge-on-surface);flex-direction:row;justify-content:space-between;padding:0 16px;overflow-y:visible}
-  .rc-logo{--logo-w:var(--border-mid);--logo-fs:var(--fs-20)}
-  .rc-main{margin-left:0;padding-top:64px}
+  .rc-hotbar{--slot:48px;--link-gap:4px;bottom:12px}
+  .rc-portrait > img{padding:calc((var(--slot) - 40px) / 2)}
+  .rc-slot{gap:3px}
+  .rc-slot-label{font-size:var(--fs-11);letter-spacing:0}
   .rc-section{padding:0 0 64px}
   .rc-section-inner{padding:40px var(--section-pad-x) 0}
   .rc-grid-about,.rc-grid-contact{gap:24px}
@@ -113,7 +130,7 @@
   .rc-grid-projects,.rc-grid-about,.rc-grid-contact{grid-template-columns:1fr}
   /* 100% only resolves in the desktop grid's stretched row. */
   .rc-contact-scene{height:340px}
-  .rc-footer-bar{padding:24px 20px}
+  .rc-footer-bar{padding:24px 20px 108px}
   .rc-detail-top{padding:24px 20px 0}
   .rc-detail-body{padding:24px 20px 72px}
   .rc-notfound{padding:0 20px}

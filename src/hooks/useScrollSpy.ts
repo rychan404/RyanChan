@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
-import { NAV_LOCK_MS, SECTIONS, activeIndexFor } from '../lib/scrollSpy';
+import { NAV_LOCK_MS, SECTIONS, activeIndexFor, xpFor } from '../lib/scrollSpy';
 
-/** One rAF-throttled scroll listener, doing only scroll-spy. The prototype's
+/** One rAF-throttled scroll listener: scroll-spy, plus the hotbar's XP fill,
+ *  written straight to --xp on the root so scrolling never re-renders. The prototype's
  *  [data-parallax] loop is dead code — no element carries the attribute
  *  (spec section 4.2) — and is deliberately not ported. */
 export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
@@ -30,12 +31,17 @@ export function useScrollSpy(rootRef: RefObject<HTMLElement>) {
       rafPending.current = true;
       rafId.current = requestAnimationFrame(() => {
         rafPending.current = false;
-        if (Date.now() <= lockUntil.current) return;
         if (topsStale.current) {
           tops.current = sections.current.map((el) => el.offsetTop);
           topsStale.current = false;
         }
-        setActive(activeIndexFor(tops.current, window.scrollY, window.innerHeight));
+        const { scrollY, innerHeight } = window;
+        const maxScroll = document.documentElement.scrollHeight - innerHeight;
+        root.style.setProperty('--xp', String(xpFor(tops.current, scrollY, innerHeight, maxScroll)));
+        // The fill keeps tracking during a nav click's smooth scroll; only the
+        // highlight holds still.
+        if (Date.now() <= lockUntil.current) return;
+        setActive(activeIndexFor(tops.current, scrollY, innerHeight));
       });
     };
 

@@ -75,9 +75,8 @@ describe('ProjectDetail — found', () => {
   });
 
   it('pins the nav cursor on Projects', () => {
-    const { container } = renderDetail();
-    const cursor = container.querySelector('nav i[aria-hidden="true"]') as HTMLElement;
-    expect(cursor.style.top).toBe('128px');
+    renderDetail();
+    expect(screen.getByRole('link', { name: 'PROJECTS' })).toHaveAttribute('aria-current', 'true');
   });
 
   it('renders the CTA as a no-op anchor when there is no ctaUrl', async () => {

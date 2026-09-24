@@ -31,7 +31,7 @@ function getSnapshot(): boolean {
   return mediaQueryList()?.matches ?? false;
 }
 
-/** The prototype's isMobile. Selects between structurally different nav
+/** The prototype's isMobile. Selects between structurally different filter
  *  markup and different text-shadow strings, so it must stay in JS. */
 export function useIsMobile(): boolean {
   return useSyncExternalStore(

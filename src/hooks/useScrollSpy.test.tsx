@@ -52,6 +52,14 @@ afterEach(() => {
 });
 
 describe('useScrollSpy', () => {
+  it('writes the XP fill to --xp on the root without re-rendering', () => {
+    const { container } = render(<Harness />);
+    const root = container.firstElementChild as HTMLElement;
+    // 2250 + 350 puts the 35% line on Projects' top: exactly two fifths.
+    act(() => setScroll(2250));
+    expect(Number(root.style.getPropertyValue('--xp'))).toBeCloseTo(2 / 5);
+  });
+
   it('tracks the active section as the page scrolls', () => {
     render(<Harness />);
     act(() => setScroll(2300));
