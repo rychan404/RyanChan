@@ -23,7 +23,6 @@ export type ProjectData = {
 export type Project = ProjectData & {
   id: string;              // from the directory name, minus the numeric prefix
   order: number;           // from the directory prefix
-  statusCls: '' | 'pixel-badge--warning';
 };
 
 const DIR_RE = /^(\d+)-(.+)$/;
@@ -35,7 +34,6 @@ export function toProject(dir: string, data: ProjectData): Project {
     ...data,
     id: m[2],
     order: Number(m[1]),
-    statusCls: data.status === 'In Progress' ? 'pixel-badge--warning' : '',
   };
 }
 

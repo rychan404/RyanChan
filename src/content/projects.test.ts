@@ -25,19 +25,12 @@ describe('the nine seed projects', () => {
     expect(p.title).toBe('Loopline');
     expect(p.year).toBe('JUN 2026');
     expect(p.status).toBe('In Progress');
-    expect(p.statusCls).toBe('pixel-badge--warning');
     expect(p.tags).toEqual(['Docker', 'GitHub']);
     expect(p.role).toBe('Maintainer');
     expect(p.stack).toBe('Rust, tokio, notify');
     expect(p.cta).toBe('View Source');
     expect(p.ctaUrl).toBeUndefined();
     expect(p.image).toBeUndefined();
-  });
-
-  it('derives statusCls consistently across all nine', () => {
-    for (const p of PROJECTS) {
-      expect(p.statusCls).toBe(p.status === 'In Progress' ? 'pixel-badge--warning' : '');
-    }
   });
 });
 

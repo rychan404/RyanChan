@@ -15,6 +15,9 @@ const FILL: CSSProperties = {
   width: '100%',
   height: '100%',
   objectFit: 'cover',
+  // Photos and screenshots, not pixel art: effects.css makes every <img> pixelated,
+  // which drops detail when a large image is scaled down to fit the slot.
+  imageRendering: 'auto',
 };
 
 /** Replaces the prototype's <image-slot> (D3). An empty slot is what visitors

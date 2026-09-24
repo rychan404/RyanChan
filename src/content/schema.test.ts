@@ -11,7 +11,8 @@ import { projectSchema } from './schema';
 // directory read. See src/test-projects.ts.
 const DIR = join(dirname(fileURLToPath(import.meta.url)), 'projects/');
 
-const schema = projectSchema({ image: () => z.object({ src: z.string() }) });
+// Frontmatter writes the image as a relative path; Astro's image() resolves it to an object with src.
+const schema = projectSchema({ image: () => z.string().transform((src) => ({ src })) });
 
 const seedFiles = readdirSync(DIR).map((dir) => {
   const file = readdirSync(join(DIR, dir)).find((f) => /^index\.mdx?$/.test(f))!;

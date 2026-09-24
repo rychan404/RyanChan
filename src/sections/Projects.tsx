@@ -2,12 +2,19 @@ import { memo, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { ProjectCard } from '../components/ProjectCard';
 import {
-  DEFAULT_FILTER, FILTER_LABELS, filterProjects, type Filter, type Project,
+  DEFAULT_FILTER, FILTER_LABELS, filterProjects, type Filter, type Project, type ProjectKind,
 } from '../content/projects';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
 
 const FILTERS: Filter[] = ['all', 'code', 'video', 'misc'];
+
+/** Roster portrait icon per kind; the tile tints live in patterns.css. */
+const KIND_ICON: Record<ProjectKind, string> = {
+  code: 'ui/code-solid',
+  video: 'ui/video-camera-solid',
+  misc: 'ui/seedlings-solid',
+};
 
 const DROPDOWN_ITEM = {
   textAlign: 'left' as const, padding: '12px 24px', background: 'none',
@@ -20,7 +27,10 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
   const isMobile = useIsMobile();
   const [filter, setFilter] = useState<Filter>(DEFAULT_FILTER);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const visible = filterProjects(projects, filter);
+  // Derived, not synced: a filter that hides the pick falls back to the first tile.
+  const selected = visible.find((p) => p.id === selectedId) ?? visible[0];
 
   const select = (f: Filter) => () => {
     setFilter(f);
@@ -92,10 +102,28 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
           </div>
         )}
 
-        <div className="rc-grid-projects" style={{ display: 'grid', gap: '32px' }}>
-          {visible.map((p) => (
-            <ProjectCard key={p.id} project={p} />
-          ))}
+        <div className="rc-roster">
+          <div aria-live="polite">
+            {selected && <ProjectCard project={selected} />}
+          </div>
+          <div className="rc-roster-grid" role="group" aria-label="Project list">
+            {visible.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className={`rc-roster-tile rc-roster-tile--${p.kind}`}
+                aria-pressed={p === selected}
+                onClick={() => setSelectedId(p.id)}
+              >
+                <span className="rc-roster-portrait">
+                  {p.image
+                    ? <img src={p.image} alt="" />
+                    : <PixelIcon name={KIND_ICON[p.kind]} size={40} />}
+                </span>
+                <span className="rc-roster-name">{p.title}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

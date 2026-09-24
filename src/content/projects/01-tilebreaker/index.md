@@ -9,6 +9,7 @@ role: "Solo developer"
 stack: "Godot 4, GDScript"
 slotHint: "Drop a gameplay screenshot"
 cta: "Play On Itch"
+image: "./umd-coffee-pic.png"
 ---
 
 - Deterministic rewind system that replays 600 frames of input without desync.

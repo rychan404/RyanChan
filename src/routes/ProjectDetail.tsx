@@ -45,7 +45,7 @@ function Found({ project, children }: { project: Project; children: ReactNode })
         }}
       >
         {/* Title row */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
           <h1
             className="rc-detail-title"
             style={{
@@ -57,10 +57,7 @@ function Found({ project, children }: { project: Project; children: ReactNode })
           >
             {project.title}
           </h1>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '22px', flex: 'none' }}>
-            <span className={`pixel-badge ${project.statusCls}`}>{project.status}</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--fs-15)', color: 'var(--color-text-dim)' }}>{project.year}</span>
-          </span>
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--fs-15)', color: 'var(--color-text-dim)' }}>{project.year}</span>
         </div>
 
         {/* Blurb */}

@@ -30,10 +30,10 @@ const renderNotFound = () => render(<ThemeProvider><ProjectDetail /></ThemeProvi
 beforeEach(() => { localStorage.clear(); vi.unstubAllGlobals(); setViewport(false); });
 
 describe('ProjectDetail — found', () => {
-  it('renders the title, status, year and blurb', () => {
+  it('renders the title, year and blurb, with no status badge', () => {
     renderDetail();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Loopline');
-    expect(screen.getByText('In Progress')).toHaveClass('pixel-badge--warning');
+    expect(screen.queryByText('In Progress')).toBeNull();
     expect(screen.getByText('JUN 2026')).toBeInTheDocument();
     expect(screen.getByText(/A CLI task runner/)).toBeInTheDocument();
   });
