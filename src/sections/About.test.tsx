@@ -22,6 +22,9 @@ beforeEach(() => {
 });
 
 const renderAbout = () => render(<ThemeProvider><About /></ThemeProvider>);
+const bubble = () => document.querySelector('.rc-bubble-text') as HTMLElement;
+const next = () => userEvent.click(screen.getByRole('button', { name: 'Next line' }));
+const ask = (label: string) => userEvent.click(screen.getByRole('button', { name: label }));
 
 describe('About layout', () => {
   it('is a surface-coloured section with id="about" and order 1', () => {
@@ -43,45 +46,64 @@ describe('About layout', () => {
     expect(css).toContain('--pixel-teal-1:#194d46;');
   });
 
-  it('renders the heading and the three stats', () => {
+  it('renders the heading and a character sheet with the name and three stats', () => {
     renderAbout();
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('About');
-    expect(screen.getByText('6+')).toBeInTheDocument();
-    expect(screen.getByText('5K+')).toBeInTheDocument();
-    expect(screen.getByText('50K+')).toBeInTheDocument();
-    expect(screen.getByText('Views on social media content')).toBeInTheDocument();
-    expect(screen.getByText('LINES of Code written')).toBeInTheDocument();
-    // Verify stat grid is 3-up with correct responsive layout
-    let current: HTMLElement | null = screen.getByText('6+');
-    while (current && !current.style.gridTemplateColumns?.includes('minmax(96px')) {
-      current = current.parentElement;
-    }
-    expect(current?.style.gridTemplateColumns).toBe('repeat(auto-fit,minmax(96px,1fr))');
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Ryan Chan');
+    const stats = Array.from(document.querySelectorAll('.rc-about-stat')).map((s) => s.textContent);
+    expect(stats).toEqual(['Projects shipped6+', 'Social media views5K+', 'Lines of code50K+']);
   });
 
-  it('renders the three bio paragraphs and the projects link', () => {
-    const { container } = renderAbout();
+  it('offers four topics, with "Who are you?" picked first', () => {
+    renderAbout();
+    const menu = screen.getByRole('group', { name: 'Ask Ryan' });
+    const opts = Array.from(menu.querySelectorAll('button'));
+    expect(opts.map((b) => b.textContent)).toEqual(['Who are you?', 'Fun facts', 'Quest log', 'Off the clock']);
+    expect(opts.map((b) => b.getAttribute('aria-pressed'))).toEqual(['true', 'false', 'false', 'false']);
+  });
+});
+
+describe('About speech bubble', () => {
+  it('pages through the bio and wraps back to the start', async () => {
+    renderAbout();
+    expect(bubble()).toHaveTextContent('aspiring software engineer and video editor in the DMV');
+    await next();
+    expect(bubble()).toHaveTextContent('problem solver at heart');
     expect(screen.getByRole('link', { name: 'my projects' })).toHaveAttribute('href', '#projects');
-    expect(document.body.textContent).toContain('Computer science sophomore at the University of Maryland');
-    expect(document.body.textContent).toContain('chasing down shots on the tennis court');
-    // Verify all three bio paragraphs have margin: 0 (not overridden by marginBottom)
-    const bioParagraphs = Array.from(container.querySelectorAll('p')).filter(
-      (p) => p.textContent?.includes('aspiring software engineer') || p.textContent?.includes('Computer science') || p.textContent?.includes('tennis court'),
-    ) as HTMLElement[];
-    expect(bioParagraphs).toHaveLength(3);
-    bioParagraphs.forEach((p) => {
-      expect(p.style.margin).toBe('0px');
-    });
+    await next();
+    expect(bubble()).toHaveTextContent('Computer science sophomore at the University of Maryland');
+    await next();
+    expect(bubble()).toHaveTextContent('aspiring software engineer');
   });
 
-  it('renders the quest log with two done entries and one in progress', () => {
-    const { container } = renderAbout();
-    expect(screen.getByText('QUEST LOG')).toBeInTheDocument();
-    expect(screen.getByText('Software Engineer Intern @ Capital Technology Group')).toBeInTheDocument();
-    expect(screen.getByText('Videographer for UMD JASA & Black Rocket Productions')).toBeInTheDocument();
-    expect(screen.getByText('On the internship grind...')).toBeInTheDocument();
-    const icons = Array.from(container.querySelectorAll('.pixel-icon')) as HTMLElement[];
-    expect(icons.some((i) => i.style.maskImage.includes('clock-solid') && i.style.color === 'var(--color-warning)')).toBe(true);
+  it('turns the page on a click anywhere in the bubble, but not on its link', async () => {
+    renderAbout();
+    await userEvent.click(bubble());
+    expect(bubble()).toHaveTextContent('problem solver at heart');
+    await userEvent.click(screen.getByRole('link', { name: 'my projects' }));
+    expect(bubble()).toHaveTextContent('problem solver at heart');
+  });
+
+  it('switches topic from the menu and starts it on its first line', async () => {
+    renderAbout();
+    await next();
+    await ask('Quest log');
+    expect(screen.getByRole('button', { name: 'Quest log' })).toHaveAttribute('aria-pressed', 'true');
+    expect(bubble()).toHaveTextContent('Software Engineer Intern @ Capital Technology Group');
+    await next();
+    expect(bubble()).toHaveTextContent('Videographer for UMD JASA & Black Rocket Productions');
+    await next();
+    expect(bubble()).toHaveTextContent('On the internship grind...');
+    const icon = bubble().querySelector('.pixel-icon') as HTMLElement;
+    expect(icon.style.maskImage).toContain('clock-solid');
+    expect(icon.style.color).toBe('var(--color-warning)');
+  });
+
+  it('hides the next control on a one-line topic', async () => {
+    renderAbout();
+    await ask('Off the clock');
+    expect(bubble()).toHaveTextContent('chasing down shots on the tennis court');
+    expect(screen.queryByRole('button', { name: 'Next line' })).toBeNull();
   });
 });
 
@@ -117,25 +139,37 @@ describe('About sprite panel', () => {
 });
 
 describe('About fun facts', () => {
-  it('renders all three terms', () => {
+  it('shows one fact per page, each with its term', async () => {
     renderAbout();
-    expect(screen.getByText('FUN FACTS')).toBeInTheDocument();
+    await ask('Fun facts');
     expect(screen.getByText('barns')).toBeInTheDocument();
+    await next();
     expect(screen.getByText('cook eggs')).toBeInTheDocument();
+    await next();
     expect(screen.getByText('sing')).toBeInTheDocument();
   });
 
-  it('opens one popover at a time', async () => {
+  it('opens a popover without turning the page', async () => {
     renderAbout();
+    await ask('Fun facts');
     await userEvent.click(screen.getByText('barns'));
     expect(screen.getByText("It's an ancient relic!")).toBeInTheDocument();
-    await userEvent.click(screen.getByText('cook eggs'));
+    expect(screen.getByText('barns')).toBeInTheDocument();
+  });
+
+  it('closes the popover when the page turns', async () => {
+    renderAbout();
+    await ask('Fun facts');
+    await userEvent.click(screen.getByText('barns'));
+    await next();
     expect(screen.queryByText("It's an ancient relic!")).toBeNull();
+    await userEvent.click(screen.getByText('cook eggs'));
     expect(screen.getByText('I love eggs in 4 ways')).toBeInTheDocument();
   });
 
   it('closes on an outside mousedown', async () => {
     renderAbout();
+    await ask('Fun facts');
     await userEvent.click(screen.getByText('barns'));
     await userEvent.click(document.body);
     expect(screen.queryByText("It's an ancient relic!")).toBeNull();
@@ -143,6 +177,7 @@ describe('About fun facts', () => {
 
   it('closes on Escape', async () => {
     renderAbout();
+    await ask('Fun facts');
     await userEvent.click(screen.getByText('barns'));
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByText("It's an ancient relic!")).toBeNull();

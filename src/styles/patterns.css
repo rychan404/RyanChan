@@ -5,23 +5,37 @@
 .rc-section-title{font-size:var(--fs-section-title);color:var(--color-heading)}
 .rc-section-lede{font-size:var(--fs-17);line-height:1.7;max-width:62ch;color:var(--color-text-muted);margin:20px 0 0}
 
-/* About — FUN FACTS / QUEST LOG panels */
-.rc-panel{background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);padding:24px}
-.rc-panel-heading{font-family:var(--font-display);font-size:var(--fs-18);letter-spacing:.05em;color:var(--color-text-dim);margin:0 0 16px 0}
-.rc-panel-lines{display:flex;flex-direction:column;gap:12px}
-.rc-panel-line{display:flex;gap:12px;align-items:flex-start}
-.rc-panel-line > p{margin:0;font-size:var(--fs-17);line-height:1.6;color:var(--color-text-muted)}
-.rc-about-bio{display:flex;flex-direction:column;gap:24px}
-
-/* About — stat cards. Padding varies per card, so each card sets --stat-pad inline. */
-.rc-stats{gap:12px;margin-bottom:40px}
-.rc-stat{padding:var(--stat-pad);background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg);text-align:center}
-.rc-stat-value{font-family:var(--font-display);font-size:var(--fs-34);color:var(--color-primary)}
-.rc-stat-label{font-family:var(--font-display);font-size:var(--fs-13);letter-spacing:.04em;color:var(--color-text-dim);margin-top:4px}
-
-/* About — photo frame and its play/pause button */
-.rc-photo-frame{position:relative;aspect-ratio:1 / 1;margin-bottom:40px;background:var(--color-surface);border:var(--border-thick) solid var(--edge-on-bg-alt);box-shadow:var(--shadow-card) var(--edge-on-bg-alt)}
+/* About — a character sheet, a speech bubble that shows one line of the picked
+   topic at a time, and the topic menu beside it. The three share one frame. */
+.rc-about{display:grid;grid-template-columns:minmax(200px,260px) minmax(0,1fr) minmax(180px,220px);gap:24px;align-items:start;margin-top:44px}
+.rc-about-sheet,.rc-bubble,.rc-about-menu{background:var(--color-bg);border:var(--border-thick) solid var(--edge-on-bg);box-shadow:var(--shadow-card) var(--edge-on-bg)}
+.rc-about-sheet{display:grid;gap:14px;padding:16px}
+.rc-photo-frame{position:relative;aspect-ratio:1 / 1;background:var(--color-surface);border:var(--border-thick) solid var(--edge-on-bg-alt)}
 .rc-photo-toggle{position:absolute;bottom:10px;right:10px;z-index:2;display:flex;align-items:center;justify-content:center;background:var(--color-surface);border:var(--border-mid) solid var(--color-border);box-shadow:var(--shadow-control) var(--color-border);padding:8px;cursor:pointer}
+.rc-about-name{font-size:var(--fs-26);color:var(--color-primary)}
+.rc-about-sub{margin:4px 0 0;font-size:var(--fs-13);color:var(--color-text-dim)}
+.rc-about-stats{margin:0;display:flex;flex-direction:column;gap:4px}
+.rc-about-stat{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.rc-about-stat dt{font-size:var(--fs-14);color:var(--color-text-muted)}
+.rc-about-stat dd{margin:0;font-family:var(--font-display);font-size:var(--fs-18);color:var(--color-primary)}
+.rc-bubble{position:relative;min-height:300px;padding:40px 32px 56px;outline:var(--border-thin) solid var(--color-border-light);outline-offset:-14px;cursor:pointer}
+.rc-bubble-text{margin:0;font-size:var(--fs-18);line-height:1.75;color:var(--color-text);text-wrap:pretty}
+.rc-bubble-text a{color:var(--color-accent-text);text-decoration:underline dotted;text-underline-offset:3px}
+.rc-bubble-line{display:flex;gap:12px;align-items:flex-start}
+.rc-bubble-hint{position:absolute;left:32px;bottom:22px;font-family:var(--font-display);font-size:var(--fs-13);letter-spacing:.04em;color:var(--color-text-dim)}
+.rc-bubble-next{position:absolute;right:18px;bottom:12px;display:flex;padding:8px;background:none;border:none;color:var(--color-primary);cursor:pointer;animation:pxrecdotblink 1s infinite}
+/* The tail: a stepped pixel triangle hanging off the bottom-left. The edge layer takes
+   the bubble border colour; the fill layer covers the border where the two join. */
+.rc-bubble-tail{position:absolute;left:56px;top:100%;width:40px;height:40px;filter:drop-shadow(var(--lift-card) var(--lift-card) 0 var(--edge-on-bg));pointer-events:none}
+.rc-bubble-tail::before,.rc-bubble-tail::after{content:'';position:absolute;inset:0}
+.rc-bubble-tail::before{background:var(--edge-on-bg);clip-path:polygon(0 0,40px 0,40px 8px,32px 8px,32px 16px,24px 16px,24px 24px,16px 24px,16px 32px,8px 32px,8px 40px,0 40px)}
+.rc-bubble-tail::after{background:var(--color-bg);clip-path:polygon(4px 0,36px 0,36px 4px,28px 4px,28px 12px,20px 12px,20px 20px,12px 20px,12px 28px,4px 28px)}
+.rc-about-menu{display:flex;flex-direction:column;gap:4px;padding:16px 12px}
+.rc-about-opt{display:flex;gap:10px;align-items:center;padding:10px 12px;background:none;border:none;font-family:var(--font-body);font-size:var(--fs-15);color:var(--color-text-muted);text-align:left;cursor:pointer}
+.rc-about-opt::before{content:'▶';font-size:var(--fs-12);color:transparent}
+.rc-about-opt[aria-pressed=true]{background:var(--color-surface);color:var(--color-text)}
+.rc-about-opt[aria-pressed=true]::before{color:var(--color-primary)}
+.rc-about-opt:focus-visible,.rc-bubble-next:focus-visible{outline:var(--border-thin) solid var(--color-primary)}
 
 /* Scenes — the off-screen pause, set by useScenePause.
    animation-play-state is not inherited, so the descendant selector is not
@@ -55,7 +69,7 @@
 .rc-main{display:flex;flex-direction:column}
 .rc-section{padding:0 0 112px}
 .rc-section-inner{padding:56px var(--section-pad-x) 0}
-.rc-grid-about,.rc-grid-contact{gap:48px}
+.rc-grid-contact{gap:48px}
 .px-hero{padding:96px 56px 120px;aspect-ratio:16/9;min-height:600px}
 .px-hero-content{transform:translateY(-110px)}
 .rc-hero-cta{color:var(--color-text-muted);transition:color .1s var(--ease-pixel)}
@@ -64,7 +78,6 @@
 .rc-section-title{text-shadow:-4px -4px 0 var(--color-heading-shadow),4px -4px 0 var(--color-heading-shadow),-4px 4px 0 var(--color-heading-shadow),4px 4px 0 var(--color-heading-shadow),-4px 0 0 var(--color-heading-shadow),4px 0 0 var(--color-heading-shadow),0 -4px 0 var(--color-heading-shadow),0 4px 0 var(--color-heading-shadow),6px 6px 0 var(--color-heading-shadow)}
 .rc-detail-title{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
 .rc-grid-projects{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
-.rc-grid-about{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .rc-grid-contact{grid-template-columns:minmax(320px,640px) minmax(320px,640px)}
 .rc-contact-scene{height:100%}
 .rc-footer-bar{padding:24px 56px 120px}
@@ -107,27 +120,33 @@
   .rc-slot-label{font-size:var(--fs-11);letter-spacing:0}
   .rc-section{padding:0 0 64px}
   .rc-section-inner{padding:40px var(--section-pad-x) 0}
-  .rc-grid-about,.rc-grid-contact{gap:24px}
+  .rc-grid-contact{gap:24px}
   /* svh, so the hero doesn't jump as the phone's URL bar hides. */
   .px-hero{padding:48px 20px 56px;min-height:72svh;aspect-ratio:auto}
   .px-hero-content{transform:none}
   /* Pixel fonts read small at their px size; nudge the tiniest labels up. */
-  /* Three cards share a phone's width; tighter padding keeps labels to three lines. */
-  .rc-stats{gap:8px}
-  .rc-stat{padding:14px 4px}
-  .rc-stat-label{font-size:var(--fs-14);line-height:1.2;letter-spacing:.02em}
   .rc-card-status{font-size:var(--fs-13)}
-  .rc-panel-heading{font-size:var(--fs-20)}
-  .rc-photo-frame{width:64%;margin:0 auto}
-  /* Phone: flatten both About columns into one grid so FUN FACTS can sit under the bio. */
-  .rc-about-col{display:contents}
-  .rc-stats{margin-bottom:0}
-  .rc-about-facts{order:1}
-  .rc-about-quest{order:2}
+  /* Phone About: the sheet folds to a portrait-and-name row over a stats row,
+     and the menu drops under the bubble, clear of its tail. */
+  .rc-about{grid-template-columns:1fr;margin-top:32px}
+  .rc-about-sheet{grid-template-columns:96px minmax(0,1fr);gap:12px 14px;padding:12px}
+  .rc-about-id{align-self:center}
+  .rc-photo-toggle{bottom:4px;right:4px;padding:4px}
+  .rc-about-stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-top:10px;border-top:var(--border-thin) solid var(--color-surface)}
+  .rc-about-stat{flex-direction:column-reverse;align-items:center;gap:2px;text-align:center}
+  .rc-about-stat dt{font-size:var(--fs-12);line-height:1.3}
+  .rc-about-stat dd{font-size:var(--fs-20)}
+  .rc-bubble{min-height:214px;padding:30px 22px 44px;outline-offset:-10px}
+  .rc-bubble-text{font-size:var(--fs-15);line-height:1.7}
+  .rc-bubble-hint{left:22px;bottom:16px;font-size:var(--fs-11)}
+  .rc-bubble-next{right:10px;bottom:6px}
+  .rc-bubble-tail{left:32px}
+  .rc-about-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;margin-top:32px}
+  .rc-about-opt{min-height:44px;gap:6px;padding:8px 6px;font-size:var(--fs-14)}
   .rc-hero-eyebrow{margin:0 0 8px;line-height:1.1}
   .rc-hero-name{text-shadow:-3px -3px 0 var(--color-heading-shadow),3px -3px 0 var(--color-heading-shadow),-3px 3px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow),-3px 0 0 var(--color-heading-shadow),3px 0 0 var(--color-heading-shadow),0 -3px 0 var(--color-heading-shadow),0 3px 0 var(--color-heading-shadow),5px 5px 0 var(--color-heading-shadow)}
   .rc-section-title,.rc-detail-title{text-shadow:-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow),-2px 0 0 var(--color-heading-shadow),2px 0 0 var(--color-heading-shadow),0 -2px 0 var(--color-heading-shadow),0 2px 0 var(--color-heading-shadow),3px 3px 0 var(--color-heading-shadow)}
-  .rc-grid-projects,.rc-grid-about,.rc-grid-contact{grid-template-columns:1fr}
+  .rc-grid-projects,.rc-grid-contact{grid-template-columns:1fr}
   /* 100% only resolves in the desktop grid's stretched row. */
   .rc-contact-scene{height:340px}
   .rc-footer-bar{padding:24px 20px 108px}
