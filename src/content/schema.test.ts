@@ -37,6 +37,12 @@ describe('projectSchema', () => {
     expect(() => schema.parse(data)).not.toThrow();
   });
 
+  it('rejects a year that is not "MMM YYYY"', () => {
+    for (const year of ['March 2026', 'MAR 26', '2026', 'mar 2026']) {
+      expect(schema.safeParse({ ...validData, year }).success).toBe(false);
+    }
+  });
+
   it('rejects an unknown key', () => {
     expect(schema.safeParse({ ...validData, tag: ['x'] }).success).toBe(false);
   });

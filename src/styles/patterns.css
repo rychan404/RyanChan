@@ -55,6 +55,8 @@
 .rc-roster-name{padding:8px 10px;background:var(--pixel-neutral-1);border-top:var(--border-thick) solid var(--color-ink);font-family:var(--font-display);font-size:var(--fs-14);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:var(--pixel-neutral-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rc-roster-tile[aria-pressed=true]{border-color:var(--pixel-green-4)}
 .rc-roster-tile[aria-pressed=true] .rc-roster-name{background:var(--pixel-green-4);color:var(--pixel-black)}
+/* A caret before the picked name; empty alt text so screen readers skip it. */
+.rc-roster-tile[aria-pressed=true] .rc-roster-name::before{content:'> ' / ''}
 .rc-roster-tile:focus-visible{outline:var(--border-thin) solid var(--pixel-green-4);outline-offset:var(--border-thin)}
 
 /* Scenes — the off-screen pause, set by useScenePause.

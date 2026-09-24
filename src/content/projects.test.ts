@@ -11,11 +11,13 @@ describe('the nine seed projects', () => {
     expect(PROJECTS).toHaveLength(9);
   });
 
-  it('sort by numeric prefix, not by filesystem order', () => {
-    expect(PROJECTS.map((p) => p.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  it('sort newest first by year, not by directory prefix', () => {
+    expect(PROJECTS.map((p) => p.year)).toEqual([
+      'JUN 2026', 'MAR 2026', 'FEB 2026', 'JAN 2026', 'NOV 2025', 'SEP 2025', 'JUL 2025', 'MAY 2025', 'APR 2025',
+    ]);
     expect(PROJECTS.map((p) => p.id)).toEqual([
-      'tilebreaker', 'loopline', 'nightshift', 'pixelforge', 'dust-and-neon',
-      'devlog-series', 'terra-nova-trailer', 'piano-covers', 'origami-sculptures',
+      'loopline', 'tilebreaker', 'dust-and-neon', 'piano-covers', 'devlog-series',
+      'nightshift', 'terra-nova-trailer', 'origami-sculptures', 'pixelforge',
     ]);
   });
 
@@ -53,7 +55,7 @@ describe('filterProjects', () => {
 
   it('splits the nine seed projects 4 / 3 / 2', () => {
     expect(filterProjects(PROJECTS, 'code').map((p) => p.id)).toEqual([
-      'tilebreaker', 'loopline', 'nightshift', 'pixelforge',
+      'loopline', 'tilebreaker', 'nightshift', 'pixelforge',
     ]);
     expect(filterProjects(PROJECTS, 'video').map((p) => p.id)).toEqual([
       'dust-and-neon', 'devlog-series', 'terra-nova-trailer',
@@ -64,13 +66,13 @@ describe('filterProjects', () => {
   });
 
   it('preserves order within a filter', () => {
-    expect(filterProjects(PROJECTS, 'code').map((p) => p.order)).toEqual([1, 2, 3, 4]);
+    expect(filterProjects(PROJECTS, 'code').map((p) => p.id)).toEqual(['loopline', 'tilebreaker', 'nightshift', 'pixelforge']);
   });
 });
 
 describe('filter presentation', () => {
-  it('defaults to code, not all', () => {
-    expect(DEFAULT_FILTER).toBe('code');
+  it('defaults to all', () => {
+    expect(DEFAULT_FILTER).toBe('all');
   });
 
   it('labels every filter', () => {

@@ -1,9 +1,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { byOrder, toProject, type Project } from './projects';
+import { byNewest, toProject, type Project } from './projects';
 
 export type ProjectEntry = { entry: CollectionEntry<'projects'>; project: Project };
 
-/** Every project, validated by content.config.ts and sorted by directory prefix. */
+/** Every project, validated by content.config.ts and sorted newest first. */
 export async function loadProjects(): Promise<ProjectEntry[]> {
   const entries = await getCollection('projects');
   return entries
@@ -11,5 +11,5 @@ export async function loadProjects(): Promise<ProjectEntry[]> {
       entry,
       project: toProject(entry.id, { ...entry.data, image: entry.data.image?.src }),
     }))
-    .sort((a, b) => byOrder(a.project, b.project));
+    .sort((a, b) => byNewest(a.project, b.project));
 }

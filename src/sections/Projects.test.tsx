@@ -41,11 +41,11 @@ describe('Projects on desktop', () => {
     expect(screen.getByText(/Things I love to tinker with/)).toBeInTheDocument();
   });
 
-  it('opens on Code, not All', () => {
+  it('opens on All, with every project in the roster', () => {
     renderProjects();
-    expect(screen.getByRole('button', { name: 'Code' })).toHaveClass('pixel-tab--active');
-    expect(screen.getByRole('button', { name: 'All' })).not.toHaveClass('pixel-tab--active');
-    expect(cardTitles()).toEqual(['Tilebreaker', 'Loopline', 'Nightshift', 'Pixelforge']);
+    expect(screen.getByRole('button', { name: 'All' })).toHaveClass('pixel-tab--active');
+    expect(screen.getByRole('button', { name: 'Code' })).not.toHaveClass('pixel-tab--active');
+    expect(cardTitles()).toHaveLength(9);
   });
 
   it('switches the visible set when a tab is clicked', async () => {
@@ -60,11 +60,11 @@ describe('Projects on desktop', () => {
 
   it('shows the first tile card, and swaps it when another tile is pressed', async () => {
     renderProjects();
-    expect(screen.getByRole('button', { name: 'Tilebreaker' })).toHaveAttribute('aria-pressed', 'true');
-    expect(shownCard()).toBe('Tilebreaker');
+    expect(screen.getByRole('button', { name: 'Loopline' })).toHaveAttribute('aria-pressed', 'true');
+    expect(shownCard()).toBe('Loopline');
     await pick('Nightshift');
     expect(screen.getByRole('button', { name: 'Nightshift' })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('button', { name: 'Tilebreaker' })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: 'Loopline' })).toHaveAttribute('aria-pressed', 'false');
     expect(shownCard()).toBe('Nightshift');
   });
 
@@ -125,7 +125,7 @@ describe('ProjectCard', () => {
 
   it('gives the image region its height class and a 4px bottom border', () => {
     renderProjects();
-    const card = screen.getByRole('heading', { name: 'Tilebreaker' }).closest('.pixel-card') as HTMLElement;
+    const card = screen.getByRole('heading', { name: 'Loopline' }).closest('.pixel-card') as HTMLElement;
     const region = card.firstElementChild as HTMLElement;
     expect(region).toHaveClass('rc-card-media');
     expect(region.style.borderBottom).toContain('var(--border-thick) solid');
@@ -144,9 +144,9 @@ describe('Projects on mobile', () => {
 
   it('replaces the tabs with a dropdown showing the current filter', () => {
     renderProjects();
-    expect(screen.queryByRole('button', { name: 'All' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Code' })).toBeNull();
     const trigger = screen.getByRole('button', { expanded: false });
-    expect(trigger).toHaveTextContent('Code');
+    expect(trigger).toHaveTextContent('All');
   });
 
   it('opens, selects and closes', async () => {

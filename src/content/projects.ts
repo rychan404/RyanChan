@@ -37,7 +37,16 @@ export function toProject(dir: string, data: ProjectData): Project {
   };
 }
 
-export const byOrder = (a: Project, b: Project) => a.order - b.order;
+export const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+/** 'MAR 2026' -> months since year 0. The schema guarantees the 'MMM YYYY' shape. */
+const monthKey = (year: string) => {
+  const [m, y] = year.split(' ');
+  return Number(y) * 12 + MONTHS.indexOf(m);
+};
+
+/** Newest first; the directory prefix breaks ties within a month. */
+export const byNewest = (a: Project, b: Project) => monthKey(b.year) - monthKey(a.year) || a.order - b.order;
 
 export function filterProjects(list: Project[], filter: Filter): Project[] {
   return filter === 'all' ? list : list.filter((p) => p.kind === filter);
@@ -50,5 +59,5 @@ export const FILTER_LABELS: Record<Filter, string> = {
   misc: 'Misc',
 };
 
-/** The prototype opens on Code, not All (spec section 8, Projects). */
-export const DEFAULT_FILTER: Filter = 'code';
+/** Opens on All, so the roster shows every project. (The prototype opened on Code.) */
+export const DEFAULT_FILTER: Filter = 'all';
