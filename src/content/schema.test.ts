@@ -24,7 +24,7 @@ const validData = {
   title: 'Tilebreaker',
   year: 'MAR 2026',
   blurb: 'A 2D puzzle-platformer about rewinding your own mistakes. Built solo in eight weeks.',
-  tags: ['GitHub'],
+  tags: ['Docker'],
   role: 'Solo developer',
   stack: 'Godot 4, GDScript',
   slotHint: 'Drop a gameplay screenshot',

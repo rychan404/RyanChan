@@ -113,7 +113,6 @@ describe('ProjectCard', () => {
     expect(within(card).getByText('JUN 2026')).toBeInTheDocument();
     expect(within(card).getByText(/A CLI task runner/)).toBeInTheDocument();
     expect(within(card).getByText('Docker')).toBeInTheDocument();
-    expect(within(card).getByText('GitHub')).toBeInTheDocument();
   });
 
   it('shows the slot hint when there is no image', async () => {

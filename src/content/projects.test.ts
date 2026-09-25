@@ -26,7 +26,7 @@ describe('the nine seed projects', () => {
     expect(p.kind).toBe('code');
     expect(p.title).toBe('Loopline');
     expect(p.year).toBe('JUN 2026');
-    expect(p.tags).toEqual(['Docker', 'GitHub']);
+    expect(p.tags).toEqual(['Docker']);
     expect(p.role).toBe('Maintainer');
     expect(p.stack).toBe('Rust, tokio, notify');
     expect(p.cta).toBe('View Source');

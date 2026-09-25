@@ -3,7 +3,7 @@ kind: "code"
 title: "UMD Coffee Website"
 year: "SEP 2026"
 blurb: "One of the largest social clubs at UMD dedicated to showcasing our mission values, events, and collaborations"
-tags: ["GitHub"]
+tags: []
 role: "Solo developer"
 stack: "Godot 4, GDScript"
 outcome: "Placed 12th of 340 entries in a month-long game jam"

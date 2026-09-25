@@ -3,7 +3,7 @@ kind: "code"
 title: "Loopline"
 year: "JUN 2026"
 blurb: "A CLI task runner that watches your project and reruns only what actually changed."
-tags: ["Docker", "GitHub"]
+tags: ["Docker"]
 role: "Maintainer"
 stack: "Rust, tokio, notify"
 outcome: "Cut the build loop from 40s to under 3s; 190 stars on GitHub"

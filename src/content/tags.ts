@@ -23,7 +23,6 @@ export const TAG_ICONS: Record<string, string> = {
   'DaVinci Resolve': 'davinciresolve.svg',
   'Audacity': 'audacity.svg',
   'Git': 'git.svg',
-  'GitHub': 'github.svg',
   'Figma': 'figma.svg',
 };
 
@@ -49,7 +48,6 @@ export const TAG_COLORS: Record<string, string> = {
   'DaVinci Resolve': '#EF3F24',
   'Audacity': '#0000CC',
   'Git': '#F05032',
-  'GitHub': '#8B949E',
   'Figma': '#F24E1E',
   'Premiere Pro': '#9999FF',
   'After Effects': '#9999FF',
