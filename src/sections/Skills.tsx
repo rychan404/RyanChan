@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import type { Project } from '../content/projects';
 import { SKILL_GROUPS } from '../content/skills';
-import { tagIcon } from '../content/tags';
+import { SkillIcon } from '../components/SkillIcon';
 import { DitherFade } from '../layout/DitherFade';
 
 /** Slot captions for the names too long to fit under the icon. */
@@ -15,13 +15,6 @@ const SHORT: Record<string, string> = {
 const ROW = Math.max(...SKILL_GROUPS.map((g) => g.skills.length));
 
 const GROUP_OF = new Map(SKILL_GROUPS.flatMap((g) => g.skills.map((s) => [s, g.name] as const)));
-
-/** The brand logo as a mask filled with the text colour, so every icon (a dark
- *  navy logo included) reads the same on the dark and the light theme. */
-function SkillIcon({ name }: { name: string }) {
-  const url = `url(${tagIcon(name)})`;
-  return <span aria-hidden="true" className="rc-inv-icon" style={{ maskImage: url, WebkitMaskImage: url }} />;
-}
 
 function SkillsImpl({ projects }: { projects: Project[] }) {
   const [picked, setPicked] = useState(SKILL_GROUPS[0].skills[0]);

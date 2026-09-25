@@ -72,6 +72,10 @@
 .rc-inv-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
 .rc-inv-slot,.rc-inv-empty{aspect-ratio:1 / 1;background:var(--color-bg);border:var(--border-thick) solid var(--color-ink);box-shadow:inset 0 0 0 var(--border-thin) var(--color-surface)}
 .rc-inv-empty{opacity:.45}
+/* The project card's tags: logo and name inside one skill slot. */
+.rc-tag-slots{display:flex;flex-wrap:wrap;gap:8px}
+.rc-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 10px;background:var(--color-bg);border:var(--border-thick) solid var(--color-ink);box-shadow:inset 0 0 0 var(--border-thin) var(--color-surface);font-size:var(--fs-13);color:var(--color-text)}
+.rc-tag > .rc-inv-icon{flex:none;width:16px;height:16px}
 .rc-inv-slot{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0;cursor:pointer;font-family:var(--font-body);font-size:var(--fs-11);color:var(--color-text-dim)}
 .rc-inv-icon{width:40%;height:40%;background-color:var(--color-text);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center}
 .rc-inv-caption{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

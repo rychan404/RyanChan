@@ -1,8 +1,11 @@
 import type { Project } from '../content/projects';
+import { tagIcon } from '../content/tags';
 import { ImageSlot } from './ImageSlot';
-import { TagChip } from './TagChip';
+import { SkillIcon } from './SkillIcon';
 
 export function ProjectCard({ project }: { project: Project }) {
+  // Skill-slot tags; tags without a logo (Piano, YouTube…) are left out.
+  const tools = project.tags.filter(tagIcon);
   return (
     <a
       href={`/projects/${project.id}`}
@@ -37,11 +40,13 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.blurb}
         </p>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {project.tags.map((t) => (
-            <TagChip key={t} name={t} />
-          ))}
-        </div>
+        {tools.length ? (
+          <div className="rc-tag-slots">
+            {tools.map((t) => (
+              <span key={t} className="rc-tag"><SkillIcon name={t} />{t}</span>
+            ))}
+          </div>
+        ) : null}
       </div>
     </a>
   );

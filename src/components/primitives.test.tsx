@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { PixelIcon } from './PixelIcon';
-import { TagChip } from './TagChip';
 import { ImageSlot } from './ImageSlot';
 import { DitherFade } from '../layout/DitherFade';
 
@@ -33,38 +32,6 @@ describe('PixelIcon', () => {
     expect((bare.firstElementChild as HTMLElement).style.color).toBe('');
   });
 });
-
-describe('TagChip', () => {
-  it('renders a mapped tag with its icon and bottom-border colour', () => {
-    const { container } = render(<TagChip name="Docker" />);
-    const chip = container.firstElementChild as HTMLElement;
-    expect(chip).toHaveClass('pixel-tag');
-    expect(chip).toHaveTextContent('Docker');
-    expect(chip.style.borderBottom).toBe('var(--border-tag) solid #2496ED');
-    const icon = chip.querySelector('span[style*="mask-image"]') as HTMLElement;
-    expect(icon.style.maskImage).toBe('url(/icons/tags/docker.svg)');
-    expect(icon.style.width).toBe('13px');
-  });
-
-  it('renders an unmapped tag with no icon and currentColor', () => {
-    const { container } = render(<TagChip name="Origami" />);
-    const chip = container.firstElementChild as HTMLElement;
-    expect(chip).toHaveTextContent('Origami');
-    expect(chip.style.borderBottom).toBe('var(--border-tag) solid currentColor');
-    expect(chip.querySelector('span[style*="mask-image"]')).toBeNull();
-  });
-
-  it('uses the larger skills geometry at size="lg"', () => {
-    const { container } = render(<TagChip name="React" size="lg" />);
-    const chip = container.firstElementChild as HTMLElement;
-    expect(chip.style.fontSize).toBe('var(--fs-16)');
-    expect(chip.style.padding).toBe('10px 18px');
-    expect(chip.style.gap).toBe('9px');
-    const icon = chip.querySelector('span[style*="mask-image"]') as HTMLElement;
-    expect(icon.style.width).toBe('17px');
-  });
-});
-
 describe('ImageSlot', () => {
   it('shows the placeholder caption in development when there is no image', () => {
     render(<ImageSlot placeholder="Drop a gameplay screenshot" />);

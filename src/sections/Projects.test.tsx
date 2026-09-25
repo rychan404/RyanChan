@@ -105,14 +105,23 @@ describe('Projects on desktop', () => {
 describe('ProjectCard', () => {
   beforeEach(() => setViewport(false));
 
-  it('shows the title, year, blurb and tags, with no status badge', async () => {
+  it('shows the title, year, blurb and tags as skill slots, with no status badge', async () => {
     renderProjects();
     await pick('Loopline');
     const card = screen.getByRole('heading', { name: 'Loopline' }).closest('.pixel-card') as HTMLElement;
     expect(within(card).queryByText('In Progress')).toBeNull();
     expect(within(card).getByText('JUN 2026')).toBeInTheDocument();
     expect(within(card).getByText(/A CLI task runner/)).toBeInTheDocument();
-    expect(within(card).getByText('Docker')).toBeInTheDocument();
+    expect([...card.querySelectorAll('.rc-tag')].map((s) => s.textContent)).toEqual(['Docker']);
+    expect(card.querySelectorAll('.rc-tag > .rc-inv-icon')).toHaveLength(1);
+    expect(card.querySelector('.pixel-tag')).toBeNull();
+  });
+
+  it('draws no slots for tags without a logo', async () => {
+    renderProjects();
+    await pick('Piano Covers');
+    const card = screen.getByRole('heading', { name: 'Piano Covers' }).closest('.pixel-card') as HTMLElement;
+    expect(card.querySelector('.rc-tag-slots')).toBeNull();
   });
 
   it('shows the slot hint when there is no image', async () => {
