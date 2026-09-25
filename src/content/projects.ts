@@ -9,7 +9,6 @@ export type ProjectData = {
   kind: ProjectKind;
   title: string;
   year: string;
-  status: 'Completed' | 'In Progress';
   blurb: string;
   tags: string[];
   role: string;

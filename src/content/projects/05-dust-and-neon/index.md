@@ -2,7 +2,6 @@
 kind: "video"
 title: "Dust & Neon"
 year: "FEB 2026"
-status: "Completed"
 blurb: "A nine-minute sci-fi short. I cut picture, built the sound design, and graded the whole thing."
 tags: ["Premiere Pro", "After Effects", "DaVinci Resolve"]
 role: "Editor / colourist"

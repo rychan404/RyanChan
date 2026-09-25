@@ -2,7 +2,6 @@
 kind: "misc"
 title: "3D Origami Sculptures"
 year: "MAY 2025"
-status: "Completed"
 blurb: "Modular origami built from hundreds of folded triangle units — no glue, no cuts."
 tags: ["Origami", "Craft"]
 role: "Just for fun"

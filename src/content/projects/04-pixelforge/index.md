@@ -2,7 +2,6 @@
 kind: "code"
 title: "Pixelforge"
 year: "APR 2025"
-status: "Completed"
 blurb: "A browser sprite editor with onion-skinning, built to learn how canvas rendering really works."
 tags: ["React", "JavaScript", "HTML"]
 role: "Solo developer"

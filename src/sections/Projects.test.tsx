@@ -60,11 +60,11 @@ describe('Projects on desktop', () => {
 
   it('shows the first tile card, and swaps it when another tile is pressed', async () => {
     renderProjects();
-    expect(screen.getByRole('button', { name: 'Loopline' })).toHaveAttribute('aria-pressed', 'true');
-    expect(shownCard()).toBe('Loopline');
+    expect(screen.getByRole('button', { name: 'UMD Coffee Website' })).toHaveAttribute('aria-pressed', 'true');
+    expect(shownCard()).toBe('UMD Coffee Website');
     await pick('Nightshift');
     expect(screen.getByRole('button', { name: 'Nightshift' })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('button', { name: 'Loopline' })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: 'UMD Coffee Website' })).toHaveAttribute('aria-pressed', 'false');
     expect(shownCard()).toBe('Nightshift');
   });
 
@@ -125,7 +125,7 @@ describe('ProjectCard', () => {
 
   it('gives the image region its height class and a 4px bottom border', () => {
     renderProjects();
-    const card = screen.getByRole('heading', { name: 'Loopline' }).closest('.pixel-card') as HTMLElement;
+    const card = screen.getByRole('heading', { name: 'UMD Coffee Website' }).closest('.pixel-card') as HTMLElement;
     const region = card.firstElementChild as HTMLElement;
     expect(region).toHaveClass('rc-card-media');
     expect(region.style.borderBottom).toContain('var(--border-thick) solid');

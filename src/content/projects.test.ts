@@ -13,10 +13,10 @@ describe('the nine seed projects', () => {
 
   it('sort newest first by year, not by directory prefix', () => {
     expect(PROJECTS.map((p) => p.year)).toEqual([
-      'JUN 2026', 'MAR 2026', 'FEB 2026', 'JAN 2026', 'NOV 2025', 'SEP 2025', 'JUL 2025', 'MAY 2025', 'APR 2025',
+      'SEP 2026', 'JUN 2026', 'FEB 2026', 'JAN 2026', 'NOV 2025', 'SEP 2025', 'JUL 2025', 'MAY 2025', 'APR 2025',
     ]);
     expect(PROJECTS.map((p) => p.id)).toEqual([
-      'loopline', 'tilebreaker', 'dust-and-neon', 'piano-covers', 'devlog-series',
+      'tilebreaker', 'loopline', 'dust-and-neon', 'piano-covers', 'devlog-series',
       'nightshift', 'terra-nova-trailer', 'origami-sculptures', 'pixelforge',
     ]);
   });
@@ -26,7 +26,6 @@ describe('the nine seed projects', () => {
     expect(p.kind).toBe('code');
     expect(p.title).toBe('Loopline');
     expect(p.year).toBe('JUN 2026');
-    expect(p.status).toBe('In Progress');
     expect(p.tags).toEqual(['Docker', 'GitHub']);
     expect(p.role).toBe('Maintainer');
     expect(p.stack).toBe('Rust, tokio, notify');
@@ -55,7 +54,7 @@ describe('filterProjects', () => {
 
   it('splits the nine seed projects 4 / 3 / 2', () => {
     expect(filterProjects(PROJECTS, 'code').map((p) => p.id)).toEqual([
-      'loopline', 'tilebreaker', 'nightshift', 'pixelforge',
+      'tilebreaker', 'loopline', 'nightshift', 'pixelforge',
     ]);
     expect(filterProjects(PROJECTS, 'video').map((p) => p.id)).toEqual([
       'dust-and-neon', 'devlog-series', 'terra-nova-trailer',
@@ -66,7 +65,7 @@ describe('filterProjects', () => {
   });
 
   it('preserves order within a filter', () => {
-    expect(filterProjects(PROJECTS, 'code').map((p) => p.id)).toEqual(['loopline', 'tilebreaker', 'nightshift', 'pixelforge']);
+    expect(filterProjects(PROJECTS, 'code').map((p) => p.id)).toEqual(['tilebreaker', 'loopline', 'nightshift', 'pixelforge']);
   });
 });
 

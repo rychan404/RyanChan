@@ -23,7 +23,6 @@ const validData = {
   kind: 'code',
   title: 'Tilebreaker',
   year: 'MAR 2026',
-  status: 'Completed',
   blurb: 'A 2D puzzle-platformer about rewinding your own mistakes. Built solo in eight weeks.',
   tags: ['GitHub'],
   role: 'Solo developer',
@@ -49,10 +48,6 @@ describe('projectSchema', () => {
 
   it('rejects a bad kind enum', () => {
     expect(schema.safeParse({ ...validData, kind: 'game' }).success).toBe(false);
-  });
-
-  it('rejects a bad status enum', () => {
-    expect(schema.safeParse({ ...validData, status: 'Done' }).success).toBe(false);
   });
 
   it('rejects a missing required field', () => {

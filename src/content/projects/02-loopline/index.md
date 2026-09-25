@@ -2,7 +2,6 @@
 kind: "code"
 title: "Loopline"
 year: "JUN 2026"
-status: "In Progress"
 blurb: "A CLI task runner that watches your project and reruns only what actually changed."
 tags: ["Docker", "GitHub"]
 role: "Maintainer"

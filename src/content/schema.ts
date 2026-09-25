@@ -15,7 +15,6 @@ export const projectSchema = ({ image }: { image: () => z.ZodType<{ src: string 
     title: z.string().min(1),
     // 'MAR 2026': the projects sort newest first on it, so a typo must fail the build.
     year: z.string().regex(new RegExp(`^(${MONTHS.join('|')}) [0-9]{4}$`), 'year must look like "MAR 2026"'),
-    status: z.enum(['Completed', 'In Progress']),
     blurb: z.string().min(1),
     tags: z.array(z.string()),
     role: z.string(),
