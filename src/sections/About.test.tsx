@@ -91,7 +91,9 @@ describe('About speech bubble', () => {
     expect(screen.getByRole('button', { name: 'Quest log' })).toHaveAttribute('aria-pressed', 'true');
     expect(bubble()).toHaveTextContent('Software Engineer Intern @ Capital Technology Group');
     await next();
-    expect(bubble()).toHaveTextContent('Videographer for UMD JASA & Black Rocket Productions');
+    expect(bubble()).toHaveTextContent('Videographer for Black Rocket Productions');
+    await next();
+    expect(bubble()).toHaveTextContent('Hack4Impact @ UMD');
     await next();
     expect(bubble()).toHaveTextContent('On the internship grind...');
     const icon = bubble().querySelector('.pixel-icon') as HTMLElement;

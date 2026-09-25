@@ -13,7 +13,8 @@ const STATS = [
 
 const QUEST_LOG = [
   { text: 'Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
-  { text: 'Videographer for UMD JASA & Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Videographer for Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Hack4Impact @ UMD', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
   { text: 'On the internship grind...', icon: 'ui/clock-solid', color: 'var(--color-warning)' },
 ];
 
