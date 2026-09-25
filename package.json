@@ -19,6 +19,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@hackernoon/pixel-icon-library": "^1.1.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^18.3.0",
     "gray-matter": "^4.0.3",
     "jsdom": "^25.0.1",
+    "simple-icons": "^16.32.0",
     "typescript": "^5.5.4",
     "vitest": "^5.0.1"
   }

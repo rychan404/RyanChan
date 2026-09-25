@@ -1,13 +1,23 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { TAG_COLORS, TAG_ICONS, tagColor, tagIcon } from './tags';
 
 describe('tagIcon', () => {
-  it('resolves a simpleicons slug to the vendored file', () => {
+  it('resolves a simple-icons slug to /icons/tags/', () => {
     expect(tagIcon('Python')).toBe('/icons/tags/python.svg');
   });
 
-  it('resolves the vendored AWS raster icon', () => {
-    expect(tagIcon('AWS')).toBe('/icons/tags/amazon-web-services.png');
+  it('resolves a custom icon to public/icons/custom/', () => {
+    expect(tagIcon('AWS')).toBe('/icons/custom/amazon-web-services.png');
+    expect(tagIcon('Java')).toBe('/icons/custom/java.svg');
+  });
+
+  it('points every tag at a file that exists', () => {
+    // Catches a typo'd slug, or one simple-icons dropped in an upgrade.
+    for (const name of Object.keys(TAG_ICONS)) {
+      const file = tagIcon(name).replace('/icons/tags/', 'node_modules/simple-icons/icons/').replace('/icons/custom/', 'public/icons/custom/');
+      expect(existsSync(file), `${name} -> ${file}`).toBe(true);
+    }
   });
 
   it('returns empty string for the intentionally unmapped tags', () => {

@@ -31,7 +31,7 @@ export function ImageSlot({ placeholder, src, alt = '', style }: Props) {
   return (
     <span data-slot-placeholder="true" aria-hidden="true" className="rc-slot-empty" style={style}>
       <span className="dither-12 rc-slot-dither" />
-      <PixelIcon name="ui/image-solid" size={32} color="var(--color-text-dim)" />
+      <PixelIcon name="custom/image-solid" size={32} color="var(--color-text-dim)" />
       {import.meta.env.DEV && <span className="rc-slot-hint">{placeholder}</span>}
     </span>
   );

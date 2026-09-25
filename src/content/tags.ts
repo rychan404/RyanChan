@@ -1,29 +1,31 @@
-/** Tag icon files, vendored under /icons/tags/ (decision D6).
- *  Keys and colours are the prototype's, verbatim
+/** Tag icons: a simple-icons slug (node_modules/simple-icons/icons/<slug>.svg,
+ *  served at /icons/tags/ by the icons integration in astro.config.mjs), or
+ *  'custom/<file>' for a logo simple-icons doesn't carry, kept in
+ *  public/icons/custom/. Keys and colours are the prototype's
  *  (docs/design/portfolio-home.dc.html:527-543). */
 export const TAG_ICONS: Record<string, string> = {
-  'Python': 'python.svg',
-  'Java': 'java.svg',
-  'TypeScript': 'typescript.svg',
-  'JavaScript': 'javascript.svg',
-  'TypeScript / JavaScript': 'typescript.svg',
-  'HTML': 'html5.svg',
-  'CSS': 'css.svg',
-  'HTML / CSS': 'html5.svg',
-  'C': 'c.svg',
-  'React': 'react.svg',
-  'FastAPI': 'fastapi.svg',
-  'Tailwind CSS': 'tailwindcss.svg',
-  'MongoDB': 'mongodb.svg',
-  'PostgreSQL': 'postgresql.svg',
-  'Docker': 'docker.svg',
-  'AWS': 'amazon-web-services.png',
-  'Pandas': 'pandas.svg',
-  'Eclipse': 'eclipseide.svg',
-  'DaVinci Resolve': 'davinciresolve.svg',
-  'Audacity': 'audacity.svg',
-  'Git': 'git.svg',
-  'Figma': 'figma.svg',
+  'Python': 'python',
+  'Java': 'custom/java.svg',
+  'TypeScript': 'typescript',
+  'JavaScript': 'javascript',
+  'TypeScript / JavaScript': 'typescript',
+  'HTML': 'html5',
+  'CSS': 'css',
+  'HTML / CSS': 'html5',
+  'C': 'c',
+  'React': 'react',
+  'FastAPI': 'fastapi',
+  'Tailwind CSS': 'tailwindcss',
+  'MongoDB': 'mongodb',
+  'PostgreSQL': 'postgresql',
+  'Docker': 'docker',
+  'AWS': 'custom/amazon-web-services.png',
+  'Pandas': 'pandas',
+  'Eclipse': 'eclipseide',
+  'DaVinci Resolve': 'davinciresolve',
+  'Audacity': 'audacity',
+  'Git': 'git',
+  'Figma': 'figma',
 };
 
 export const TAG_COLORS: Record<string, string> = {
@@ -56,11 +58,12 @@ export const TAG_COLORS: Record<string, string> = {
 /** '' when the tag has no icon. Unmapped tags are real and intentional:
  *  YouTube, Motion, Writing, Trailer, Sound, Client, Piano, Music, Origami,
  *  Craft all render with no icon and currentColor on the bottom border.
- *  Premiere Pro and After Effects are also unmapped due to D6 vendoring gap
- *  (no fetchable icon slugs), though they have colors. */
+ *  Premiere Pro and After Effects are also unmapped (simple-icons dropped Adobe's logos;
+ *  add them under custom/ to show one), though they have colors. */
 export function tagIcon(name: string): string {
   const v = TAG_ICONS[name];
-  return v ? `/icons/tags/${v}` : '';
+  if (!v) return '';
+  return v.startsWith('custom/') ? `/icons/${v}` : `/icons/tags/${v}.svg`;
 }
 
 export function tagColor(name: string): string {
