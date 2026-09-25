@@ -26,6 +26,7 @@ export const TAG_ICONS: Record<string, string> = {
   'Audacity': 'audacity',
   'Git': 'git',
   'Figma': 'figma',
+  'Vercel': 'vercel',
 };
 
 export const TAG_COLORS: Record<string, string> = {
@@ -51,6 +52,7 @@ export const TAG_COLORS: Record<string, string> = {
   'Audacity': '#0000CC',
   'Git': '#F05032',
   'Figma': '#F24E1E',
+  'Vercel': '#000000',
   'Premiere Pro': '#9999FF',
   'After Effects': '#9999FF',
 };

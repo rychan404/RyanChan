@@ -251,7 +251,7 @@
   .rc-inv{grid-template-columns:1fr;margin-top:32px}
   .rc-inv-slots{padding:18px 16px 20px}
   .rc-inv-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-  .rc-inv-grid[data-short] > :nth-child(n+5){display:none}
+  .rc-inv-empty[data-wide]{display:none}
   /* A 4-wide phone slot is too narrow for "TypeScript", so slots go icon-only and
      the panel below names the picked one. */
   .rc-inv-grid .rc-inv-caption{display:none}
@@ -288,7 +288,7 @@
   .rc-card-title{font-size:var(--fs-34)}
   .rc-card-blurb{font-size:var(--fs-19)}
   /* Skills: 8 across, as on desktop, instead of 4 slots stretched over a wide row.
-     The short groups' empty slots come back to fill the row. */
+     The empty slots a phone drops come back to fill the row. */
   .rc-inv-grid{grid-template-columns:repeat(8,minmax(0,1fr))}
-  .rc-inv-grid[data-short] > :nth-child(n+5){display:block}
+  .rc-inv-empty[data-wide]{display:block}
 }

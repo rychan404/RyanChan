@@ -4,10 +4,11 @@ import { FACTS } from './facts';
 import { tagColor, tagIcon } from './tags';
 
 describe('SKILL_GROUPS', () => {
-  it('has the prototype\'s three groups at the right sizes', () => {
+  it('has the four groups at the right sizes', () => {
     expect(SKILL_GROUPS.map((g) => [g.name, g.skills.length])).toEqual([
       ['CODE', 5],
-      ['BUILD', 8],
+      ['BUILD', 7],
+      ['DEPLOY', 2],
       ['POST', 3],
     ]);
   });

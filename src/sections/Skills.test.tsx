@@ -32,17 +32,18 @@ describe('Skills', () => {
     expect(screen.getByText('Tech I use on a daily basis')).toBeInTheDocument();
   });
 
-  it('labels the three groups above their rows', () => {
+  it('labels the groups above their rows', () => {
     const { container } = renderSkills();
     const labels = Array.from(container.querySelectorAll('.rc-inv-group > .rc-inv-label')).map((l) => l.textContent);
-    expect(labels).toEqual(['CODE', 'BUILD', 'POST']);
+    expect(labels).toEqual(['CODE', 'BUILD', 'DEPLOY', 'POST']);
   });
 
-  it('gives every skill a slot with its icon, and pads each row to the widest group', () => {
+  it('gives every skill a slot with its icon, and pads each group to full rows of 8', () => {
     const { container } = renderSkills();
-    expect(slots()).toHaveLength(16);          // 5 + 8 + 3
+    expect(slots()).toHaveLength(17);          // 5 + 7 + 2 + 3
     expect((slots()[0].querySelector('.rc-inv-icon') as HTMLElement).style.maskImage).toBe('url(/icons/tags/python.svg)');
-    expect(container.querySelectorAll('.rc-inv-empty')).toHaveLength(3 + 0 + 5);
+    const empties = Array.from(container.querySelectorAll('.rc-inv-grid')).map((g) => g.querySelectorAll('.rc-inv-empty').length);
+    expect(empties).toEqual([3, 1, 6, 5]);
     expect(screen.getByRole('button', { name: 'Tailwind CSS' })).toHaveTextContent('Tailwind');
   });
 
@@ -66,7 +67,7 @@ describe('Skills', () => {
     expect(within(detail()).getByText('JavaScript')).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole('button', { name: 'Docker' }));
-    expect(within(detail()).getByText('BUILD')).toBeInTheDocument();
+    expect(within(detail()).getByText('DEPLOY')).toBeInTheDocument();
     expect(within(detail()).getByRole('link', { name: 'Loopline' })).toBeInTheDocument();
   });
 
@@ -76,9 +77,10 @@ describe('Skills', () => {
     expect(detail().querySelector('.rc-inv-used')).toBeNull();
   });
 
-  it('marks the short groups so a phone can drop their empty second row', () => {
+  it('marks the empty slots past the last 4-wide row, so a phone drops fully empty rows', () => {
     const { container } = renderSkills();
-    const grids = Array.from(container.querySelectorAll('.rc-inv-grid')) as HTMLElement[];
-    expect(grids.map((g) => g.hasAttribute('data-short'))).toEqual([false, false, true]);
+    const grids = Array.from(container.querySelectorAll('.rc-inv-grid'));
+    // CODE 5 -> 8 cells on a phone; BUILD 7 -> 8; DEPLOY 2 -> 4; POST 3 -> 4.
+    expect(grids.map((g) => g.querySelectorAll('[data-wide]').length)).toEqual([0, 0, 4, 4]);
   });
 });

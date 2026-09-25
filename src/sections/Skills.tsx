@@ -11,8 +11,11 @@ const SHORT: Record<string, string> = {
   'DaVinci Resolve': 'DaVinci',
 };
 
-/** Every row pads with empty slots to the widest group, so the rows line up. */
-const ROW = Math.max(...SKILL_GROUPS.map((g) => g.skills.length));
+/** Slots per row: 8 wide, 4 on a phone (the .rc-inv-grid columns in patterns.css).
+ *  A group fills whole rows, padding with empty slots, and past 8 skills it grows another row. */
+const COLS = 8;
+const PHONE_COLS = 4;
+const fill = (n: number, cols: number) => Math.ceil(n / cols) * cols;
 
 const GROUP_OF = new Map(SKILL_GROUPS.flatMap((g) => g.skills.map((s) => [s, g.name] as const)));
 
@@ -40,8 +43,7 @@ function SkillsImpl({ projects }: { projects: Project[] }) {
             {SKILL_GROUPS.map((g) => (
               <div key={g.name} className="rc-inv-group">
                 <h3 className="rc-inv-label">{g.name}</h3>
-                {/* data-short: on a phone's 4-wide grid, a group of 4 or fewer drops its second, empty row. */}
-                <div className="rc-inv-grid" data-short={g.skills.length <= ROW / 2 || undefined}>
+                <div className="rc-inv-grid">
                   {g.skills.map((s) => (
                     <button
                       key={s}
@@ -55,8 +57,14 @@ function SkillsImpl({ projects }: { projects: Project[] }) {
                       <span className="rc-inv-caption">{SHORT[s] ?? s}</span>
                     </button>
                   ))}
-                  {Array.from({ length: ROW - g.skills.length }, (_, i) => (
-                    <span key={i} className="rc-inv-empty" aria-hidden="true" />
+                  {/* data-wide: an empty slot past the last 4-wide row a phone needs, so a phone drops it. */}
+                  {Array.from({ length: fill(g.skills.length, COLS) - g.skills.length }, (_, i) => (
+                    <span
+                      key={i}
+                      className="rc-inv-empty"
+                      aria-hidden="true"
+                      data-wide={g.skills.length + i >= fill(g.skills.length, PHONE_COLS) || undefined}
+                    />
                   ))}
                 </div>
               </div>

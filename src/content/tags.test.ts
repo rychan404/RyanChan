@@ -53,10 +53,10 @@ describe('tagColor', () => {
 
 describe('the lookup tables', () => {
   it('have the correct entry counts with matching keys', () => {
-    // TAG_ICONS has 22 entries (Premiere Pro and After Effects removed due to D6 gap)
-    // TAG_COLORS has 24 entries (both included for color coverage)
-    expect(Object.keys(TAG_ICONS)).toHaveLength(22);
-    expect(Object.keys(TAG_COLORS)).toHaveLength(24);
+    // TAG_ICONS has 23 entries (Premiere Pro and After Effects removed due to D6 gap)
+    // TAG_COLORS has 25 entries (both included for color coverage)
+    expect(Object.keys(TAG_ICONS)).toHaveLength(23);
+    expect(Object.keys(TAG_COLORS)).toHaveLength(25);
     // TAG_ICONS keys are a subset of TAG_COLORS keys
     expect(Object.keys(TAG_ICONS).every(k => k in TAG_COLORS)).toBe(true);
   });
