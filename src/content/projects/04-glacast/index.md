@@ -1,9 +1,9 @@
 ---
 kind: "code"
-title: "Pixelforge"
-year: "APR 2025"
+title: "Glacast"
+year: "APR 2026"
 blurb: "A browser sprite editor with onion-skinning, built to learn how canvas rendering really works."
-tags: ["React", "JavaScript", "HTML"]
+tags: ["React", "TypeScript", "FastAPI", "Figma"]
 role: "Solo developer"
 stack: "React, Canvas 2D, IndexedDB"
 outcome: "Archived once Aseprite shipped the two features I wanted"

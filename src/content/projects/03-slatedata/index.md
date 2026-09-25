@@ -1,9 +1,9 @@
 ---
 kind: "code"
-title: "Nightshift"
-year: "SEP 2025"
+title: "SlateData"
+year: "JUN 2026"
 blurb: "A scheduling bot for a 4,000-member game-dev server. Handles timezones so nobody has to."
-tags: ["TypeScript", "JavaScript", "PostgreSQL"]
+tags: ["React", "TypeScript", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
 role: "Solo developer"
 stack: "TypeScript, discord.js, Postgres"
 outcome: "Runs 1,200 scheduled jobs a week for a 4,000-member server"

@@ -1,6 +1,6 @@
 ---
-kind: "video"
-title: "Devlog Series"
+kind: "code"
+title: "Helping Hands"
 year: "NOV 2025"
 blurb: "Twelve episodes documenting a game from empty repo to launch day. Written, shot and cut solo."
 tags: ["YouTube", "Motion", "Writing"]
