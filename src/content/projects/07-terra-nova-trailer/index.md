@@ -7,6 +7,7 @@ blurb: "A 75-second launch trailer for an indie colony sim. Client work, cut to 
 tags: ["Trailer", "Sound", "Client"]
 role: "Editor"
 stack: "Premiere Pro, Audition"
+outcome: "Wishlists went up 4x in the launch week"
 slotHint: "Drop a trailer still"
 cta: "Watch Trailer"
 ---

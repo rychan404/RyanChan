@@ -7,6 +7,7 @@ blurb: "A scheduling bot for a 4,000-member game-dev server. Handles timezones s
 tags: ["TypeScript", "JavaScript", "PostgreSQL"]
 role: "Solo developer"
 stack: "TypeScript, discord.js, Postgres"
+outcome: "Runs 1,200 scheduled jobs a week for a 4,000-member server"
 slotHint: "Drop a bot UI screenshot"
 cta: "View Source"
 ---

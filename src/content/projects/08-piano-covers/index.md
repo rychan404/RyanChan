@@ -7,6 +7,7 @@ blurb: "Self-taught piano, mostly game and film themes. No pressure, just practi
 tags: ["Piano", "Music"]
 role: "Just for fun"
 stack: "—"
+outcome: "Working through a Studio Ghibli songbook, about twenty minutes a day"
 slotHint: "Drop a piano photo/video still"
 cta: "Watch On YouTube"
 ---

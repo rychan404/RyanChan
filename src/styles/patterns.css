@@ -111,6 +111,11 @@
   80%,99%{-webkit-mask-image:var(--dither-mask-75);mask-image:var(--dither-mask-75)}
 }
 
+/* Page dissolve: the project page's content appears through the same dither steps on load.
+   CSS only, so it plays from first paint with no flash; the nav rail sits outside it and stays put. */
+.rc-page-dissolve{-webkit-mask-size:16px 16px;mask-size:16px 16px;mask-clip:no-clip;animation:rc-dissolve-in 500ms linear}
+@media (prefers-reduced-motion: reduce){.rc-page-dissolve{animation:none}}
+
 /* Scenes — the off-screen pause, set by useScenePause.
    animation-play-state is not inherited, so the descendant selector is not
    optional, and !important is what lets one class beat the `animation`
@@ -132,9 +137,26 @@
 .rc-patch-notes li{position:relative;padding-left:22px;font-size:var(--fs-16);line-height:1.65;color:var(--color-text-muted)}
 .rc-patch-notes li::before{content:'';position:absolute;left:0;top:8px;width:10px;height:10px;background:var(--color-primary)}
 
-/* Pixel back button — the detail page's three BACK / EXPLORE MORE links. Padding and
+/* Pixel back button — the BACK TO PROJECTS links on the detail and not-found pages. Padding and
    placement stay inline; hover and press live in interactions.css. */
 .rc-pixel-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text);background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-control) var(--color-ink);text-decoration:none;cursor:pointer}
+
+/* Project detail: role / stack / outcome as framed cards (the skills detail's inner
+   green ring), then previous / next cards. */
+.rc-detail-stats{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px;margin:0}
+.rc-stat{display:flex;flex-direction:column;gap:6px;padding:18px 20px;background:var(--color-bg);border:var(--border-thick) solid var(--color-ink);outline:var(--border-thin) solid var(--color-heading-shadow);outline-offset:-10px;box-shadow:var(--shadow-card) var(--color-ink)}
+.rc-stat dt{font-family:var(--font-display);font-size:var(--fs-12);letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-dim)}
+.rc-stat dd{margin:0;font-size:var(--fs-14);line-height:1.5;color:var(--color-text)}
+.rc-stat-outcome dd{color:var(--color-heading)}
+.theme-light .rc-stat-outcome dd{color:var(--color-accent-text)}
+.rc-detail-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:8px;padding-top:24px;border-top:var(--border-thin) solid var(--color-surface)}
+.rc-detail-link{display:flex;align-items:center;gap:16px;padding:14px 18px;background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-card) var(--color-ink);color:var(--color-text);text-decoration:none}
+.rc-detail-link[rel=next]{justify-content:flex-end;text-align:right}
+.rc-detail-link:focus-visible{outline:var(--border-thin) solid var(--color-heading);outline-offset:var(--border-thin)}
+.rc-detail-arrow{flex:none;color:var(--color-accent-text)}
+.rc-detail-link-text{display:flex;flex-direction:column;gap:4px;min-width:0}
+.rc-detail-link-dir{font-family:var(--font-display);font-size:var(--fs-11);letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-dim)}
+.rc-detail-link-name{font-family:var(--font-display);font-size:var(--fs-16);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* Responsive layout. One breakpoint, the same (max-width:860px) useIsMobile
    reads — that hook now only swaps markup (the project filter). Living
@@ -161,7 +183,6 @@
 .rc-detail-top{padding:40px 56px 0}
 .rc-detail-body{padding:40px 56px 96px}
 .rc-notfound{padding:0 56px}
-.rc-back-float{padding:8px 14px}
 .rc-mobile-only{display:none}
 /* Hotbar (NavRail), slim: one black frame, the headshot and the link cells
    split by thin gaps, fixed bottom-centre. Each cell has its name under the
@@ -248,8 +269,9 @@
   .rc-footer-bar{padding:24px 20px 108px}
   .rc-detail-top{padding:24px 20px 0}
   .rc-detail-body{padding:24px 20px 72px}
+  .rc-detail-stats{grid-auto-flow:row}
+  .rc-detail-nav{grid-template-columns:1fr}
   .rc-notfound{padding:0 20px}
-  .rc-back-float{padding:10px}
   .rc-mobile-only{display:inline}
   .rc-desktop-only{display:none}
 }

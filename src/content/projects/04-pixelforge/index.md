@@ -7,6 +7,7 @@ blurb: "A browser sprite editor with onion-skinning, built to learn how canvas r
 tags: ["React", "JavaScript", "HTML"]
 role: "Solo developer"
 stack: "React, Canvas 2D, IndexedDB"
+outcome: "Archived once Aseprite shipped the two features I wanted"
 slotHint: "Drop an editor screenshot"
 cta: "View Source"
 ---

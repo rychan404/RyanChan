@@ -25,8 +25,8 @@
 /* project card — line 251 */
 .rc-project-card:hover{transform:var(--raise-card);box-shadow:var(--shadow-card-hover) var(--color-border)}
 .rc-project-card:active{transform:var(--press-card);box-shadow:0 0 0 var(--color-border)}
-.rc-roster-tile:hover{transform:var(--raise-card);box-shadow:var(--shadow-card-hover) var(--color-ink)}
-.rc-roster-tile:active{transform:var(--press-card);box-shadow:0 0 0 var(--color-ink)}
+.rc-roster-tile:hover,.rc-detail-link:hover{transform:var(--raise-card);box-shadow:var(--shadow-card-hover) var(--color-ink)}
+.rc-roster-tile:active,.rc-detail-link:active{transform:var(--press-card);box-shadow:0 0 0 var(--color-ink)}
 
 /* "Send Another" ghost button — line 426 */
 .rc-ghost-btn:active{transform:var(--press-control);box-shadow:0 0 0 var(--color-border)}

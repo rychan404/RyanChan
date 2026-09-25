@@ -2,17 +2,24 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { loadProjects, type ProjectEntry } from '../../content/load';
-import { ProjectDetailIsland } from '../../routes/ProjectDetail';
+import { ProjectDetailIsland, type Props } from '../../routes/ProjectDetail';
 
 export async function getStaticPaths() {
-  return (await loadProjects()).map((p) => ({ params: { id: p.project.id }, props: p }));
+  const all = await loadProjects();
+  // Previous / next in roster order (newest first), wrapping at the ends.
+  // Only what the cards draw is passed on, so each page ships two fields per neighbour.
+  const link = ({ project: { id, title } }: ProjectEntry) => ({ id, title });
+  return all.map((p, i) => ({
+    params: { id: p.project.id },
+    props: { ...p, prev: link(all.at(i - 1)!), next: link(all[(i + 1) % all.length]) },
+  }));
 }
 
-const { entry, project } = Astro.props as ProjectEntry;
+const { entry, project, prev, next } = Astro.props as ProjectEntry & Pick<Props, 'prev' | 'next'>;
 const { Content } = await render(entry);
 ---
 <Base title={`${project.title} — Ryan Chan`} description={project.blurb} path={`/projects/${project.id}`}>
-  <ProjectDetailIsland client:load project={project}>
+  <ProjectDetailIsland client:load project={project} prev={prev} next={next}>
     <Content />
   </ProjectDetailIsland>
 </Base>

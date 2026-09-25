@@ -7,6 +7,7 @@ blurb: "A nine-minute sci-fi short. I cut picture, built the sound design, and g
 tags: ["Premiere Pro", "After Effects", "DaVinci Resolve"]
 role: "Editor / colourist"
 stack: "Premiere Pro, After Effects, DaVinci"
+outcome: "Official selection at two regional student festivals"
 slotHint: "Drop a still from the film"
 cta: "Watch On YouTube"
 ---

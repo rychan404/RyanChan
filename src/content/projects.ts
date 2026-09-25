@@ -12,8 +12,9 @@ export type ProjectData = {
   status: 'Completed' | 'In Progress';
   blurb: string;
   tags: string[];
-  role: string;            // real content, currently unrendered
-  stack: string;           // real content, currently unrendered
+  role: string;
+  stack: string;
+  outcome?: string;
   slotHint: string;
   cta: string;
   ctaUrl?: string;         // absent -> the CTA preventDefaults, as the prototype does

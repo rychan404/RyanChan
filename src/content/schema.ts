@@ -20,6 +20,8 @@ export const projectSchema = ({ image }: { image: () => z.ZodType<{ src: string 
     tags: z.array(z.string()),
     role: z.string(),
     stack: z.string(),
+    // The headline result, shown beside role and stack on the detail page.
+    outcome: z.string().min(1).optional(),
     slotHint: z.string().min(1),
     cta: z.string().min(1),
     ctaUrl: z.url().optional(),

@@ -7,6 +7,7 @@ blurb: "Twelve episodes documenting a game from empty repo to launch day. Writte
 tags: ["YouTube", "Motion", "Writing"]
 role: "Writer / editor"
 stack: "Premiere Pro, After Effects"
+outcome: "Episode seven crossed 90k views and doubled the channel"
 slotHint: "Drop a devlog thumbnail"
 cta: "Watch The Series"
 ---

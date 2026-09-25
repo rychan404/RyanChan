@@ -7,6 +7,7 @@ blurb: "A CLI task runner that watches your project and reruns only what actuall
 tags: ["Docker", "GitHub"]
 role: "Maintainer"
 stack: "Rust, tokio, notify"
+outcome: "Cut the build loop from 40s to under 3s; 190 stars on GitHub"
 slotHint: "Drop a terminal screenshot"
 cta: "View Source"
 ---

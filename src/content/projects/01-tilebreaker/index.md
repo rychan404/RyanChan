@@ -7,6 +7,7 @@ blurb: "A 2D puzzle-platformer about rewinding your own mistakes. Built solo in 
 tags: ["GitHub"]
 role: "Solo developer"
 stack: "Godot 4, GDScript"
+outcome: "Placed 12th of 340 entries in a month-long game jam"
 slotHint: "Drop a gameplay screenshot"
 cta: "Play On Itch"
 image: "./umd-coffee-pic.png"

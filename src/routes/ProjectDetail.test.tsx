@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { TEST_PROJECTS } from '../test-projects';
@@ -38,10 +38,19 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByText(/A CLI task runner/)).toBeInTheDocument();
   });
 
-  it('renders the tags', () => {
+  it('renders role, stack and outcome as stat cards, and no tags', () => {
     renderDetail();
-    expect(screen.getByText('Docker')).toBeInTheDocument();
-    expect(screen.getByText('GitHub')).toBeInTheDocument();
+    const stat = (k: string) => screen.getByText(k).closest('.rc-stat');
+    expect(stat('Role')).toHaveTextContent('Maintainer');
+    expect(stat('Stack')).toHaveTextContent('Rust, tokio, notify');
+    expect(stat('Outcome')).toHaveTextContent(loopline.outcome!);
+    expect(screen.queryByText('Docker')).toBeNull();
+  });
+
+  it('leaves the outcome card out when the project has none', () => {
+    render(<ThemeProvider><ProjectDetail project={{ ...loopline, outcome: undefined }} /></ThemeProvider>);
+    expect(screen.queryByText('Outcome')).toBeNull();
+    expect(screen.getByText('Role')).toBeInTheDocument();
   });
 
   it('renders the body inside the PATCH NOTES block', () => {
@@ -63,15 +72,27 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByText('Drop a terminal screenshot')).toBeInTheDocument();
   });
 
-  it('links back to #projects on the home route from three places', () => {
+  it('links back to #projects beside the CTA', () => {
     renderDetail();
-    const backs = screen.getAllByRole('link').filter((a) => a.getAttribute('href') === '/#projects');
-    expect(backs.length).toBeGreaterThanOrEqual(2);   // the overlay back button and EXPLORE MORE
+    expect(screen.getByRole('link', { name: /BACK TO PROJECTS/ })).toHaveAttribute('href', '/#projects');
   });
 
-  it('hides the back button label on mobile', () => {
+  it('links to the previous and next projects, with no EXPLORE MORE', () => {
+    const [prev, next] = [TEST_PROJECTS[0], TEST_PROJECTS[2]];
+    render(<ThemeProvider><ProjectDetail project={loopline} prev={prev} next={next} /></ThemeProvider>);
+    const nav = screen.getByRole('navigation', { name: 'More projects' });
+    const links = within(nav).getAllByRole('link');
+    expect(links.map((a) => [a.getAttribute('rel'), a.getAttribute('href')])).toEqual([
+      ['prev', `/projects/${prev.id}`], ['next', `/projects/${next.id}`],
+    ]);
+    expect(links[0]).toHaveTextContent(prev.title);
+    expect(nav.querySelector('.rc-detail-kind')).toBeNull();
+    expect(screen.queryByText(/EXPLORE MORE/)).toBeNull();
+  });
+
+  it('draws no neighbour cards without neighbours', () => {
     renderDetail();
-    expect(screen.getByText('BACK TO PROJECTS')).toHaveClass('rc-desktop-only');
+    expect(screen.queryByRole('navigation', { name: 'More projects' })).toBeNull();
   });
 
   it('pins the nav cursor on Projects', () => {
