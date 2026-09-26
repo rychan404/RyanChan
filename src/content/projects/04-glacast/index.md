@@ -6,6 +6,7 @@ blurb: "Explore glacier retreat through real satellite data with machine learnin
 tags: ["React", "TypeScript", "FastAPI", "Figma"]
 role: "Frontend Developer"
 outcome: "Shipped all three ML features in 36 hours"
+image: "./glacast-thumbnail.png"
 links:
     github: "https://github.com/Andrewg314/Glacast"
     devpost: "https://devpost.com/software/glacast"

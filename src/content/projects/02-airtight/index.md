@@ -6,6 +6,7 @@ blurb: "An AI-powered simulator that grills presenters with realistic federal pa
 tags: ["React", "TypeScript", "Tailwind CSS", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
 role: "Full Stack Developer"
 outcome: "Presented to CTG company employees"
+image: "./airtight-thumbnail.png"
 links:
     github: "https://github.com/capitaltg/si26-airtight-ryan"
     slides: "/slides/airtight-presentation.pdf"

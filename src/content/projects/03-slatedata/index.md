@@ -4,7 +4,7 @@ title: "SlateData"
 year: "JUN 2026"
 blurb: "An AI analytics tool that turns a plain-language question about your data into validated charts and an editable PowerPoint for leadership"
 tags: ["React", "TypeScript", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
-role: "Solo developer"
+role: "Software Engineer Intern"
 outcome: "Built the presentation-mode toolbar and new chart options"
 image: "./slatedata-thumbnail.png"
 links:
