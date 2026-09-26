@@ -8,6 +8,7 @@ role: "Full Stack Developer"
 outcome: "Presented to CTG company employees"
 links:
     github: "https://github.com/capitaltg/si26-airtight-ryan"
+    slides: "/slides/airtight-presentation.pdf"
 ---
 
 # Overview
