@@ -23,7 +23,6 @@ beforeEach(() => {
 
 const renderAbout = () => render(<ThemeProvider><About /></ThemeProvider>);
 const bubble = () => document.querySelector('.rc-bubble-text') as HTMLElement;
-const next = () => userEvent.click(screen.getByRole('button', { name: 'Next line' }));
 const ask = (label: string) => userEvent.click(screen.getByRole('button', { name: label }));
 
 describe('About layout', () => {
@@ -64,47 +63,33 @@ describe('About layout', () => {
 });
 
 describe('About speech bubble', () => {
-  it('pages through the bio and wraps back to the start', async () => {
+  it('shows the whole bio at once, link included', () => {
     renderAbout();
     expect(bubble()).toHaveTextContent('aspiring software engineer and video editor in the DMV');
-    await next();
     expect(bubble()).toHaveTextContent('problem solver at heart');
-    expect(screen.getByRole('link', { name: 'my projects' })).toHaveAttribute('href', '#projects');
-    await next();
     expect(bubble()).toHaveTextContent('Computer science sophomore at the University of Maryland');
-    await next();
-    expect(bubble()).toHaveTextContent('aspiring software engineer');
+    expect(screen.getByRole('link', { name: 'my projects' })).toHaveAttribute('href', '#projects');
   });
 
-  it('turns the page on a click anywhere in the bubble, but not on its link', async () => {
+  it('switches topic from the menu and shows all its lines', async () => {
     renderAbout();
-    await userEvent.click(bubble());
-    expect(bubble()).toHaveTextContent('problem solver at heart');
-    await userEvent.click(screen.getByRole('link', { name: 'my projects' }));
-    expect(bubble()).toHaveTextContent('problem solver at heart');
-  });
-
-  it('switches topic from the menu and starts it on its first line', async () => {
-    renderAbout();
-    await next();
     await ask('Quest log');
     expect(screen.getByRole('button', { name: 'Quest log' })).toHaveAttribute('aria-pressed', 'true');
-    expect(bubble()).toHaveTextContent('Software Engineer Intern @ Capital Technology Group');
-    await next();
-    expect(bubble()).toHaveTextContent('Videographer for Black Rocket Productions');
-    await next();
-    expect(bubble()).toHaveTextContent('Hack4Impact @ UMD');
-    await next();
-    expect(bubble()).toHaveTextContent('On the internship grind...');
-    const icon = bubble().querySelector('.pixel-icon') as HTMLElement;
-    expect(icon.style.maskImage).toContain('clock-solid');
-    expect(icon.style.color).toBe('var(--color-warning)');
+    expect(bubble()).not.toHaveTextContent('problem solver at heart');
+    for (const line of [
+      'Software Engineer Intern @ Capital Technology Group',
+      'Videographer for Black Rocket Productions',
+      'Hack4Impact @ UMD',
+      'On the internship grind...',
+    ]) expect(bubble()).toHaveTextContent(line);
+    const icons = bubble().querySelectorAll('.pixel-icon') as NodeListOf<HTMLElement>;
+    const last = icons[icons.length - 1];
+    expect(last.style.maskImage).toContain('clock-solid');
+    expect(last.style.color).toBe('var(--color-warning)');
   });
 
-  it('hides the next control on a one-line topic', async () => {
+  it('has no paging control', () => {
     renderAbout();
-    await ask('Off the clock');
-    expect(bubble()).toHaveTextContent('chasing down shots on the tennis court');
     expect(screen.queryByRole('button', { name: 'Next line' })).toBeNull();
   });
 });
@@ -141,32 +126,28 @@ describe('About sprite panel', () => {
 });
 
 describe('About fun facts', () => {
-  it('shows one fact per page, each with its term', async () => {
+  it('shows every fact at once, each with its term', async () => {
     renderAbout();
     await ask('Fun facts');
-    expect(screen.getByText('barns')).toBeInTheDocument();
-    await next();
-    expect(screen.getByText('cook eggs')).toBeInTheDocument();
-    await next();
-    expect(screen.getByText('sing')).toBeInTheDocument();
+    for (const term of ['barns', 'cook eggs', 'sing']) expect(screen.getByText(term)).toBeInTheDocument();
   });
 
-  it('opens a popover without turning the page', async () => {
+  it('opens one popover at a time', async () => {
     renderAbout();
     await ask('Fun facts');
     await userEvent.click(screen.getByText('barns'));
     expect(screen.getByText("It's an ancient relic!")).toBeInTheDocument();
-    expect(screen.getByText('barns')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('cook eggs'));
+    expect(screen.queryByText("It's an ancient relic!")).toBeNull();
+    expect(screen.getByText('I love eggs in 4 ways')).toBeInTheDocument();
   });
 
-  it('closes the popover when the page turns', async () => {
+  it('closes the popover when the topic changes', async () => {
     renderAbout();
     await ask('Fun facts');
     await userEvent.click(screen.getByText('barns'));
-    await next();
+    await ask('Quest log');
     expect(screen.queryByText("It's an ancient relic!")).toBeNull();
-    await userEvent.click(screen.getByText('cook eggs'));
-    expect(screen.getByText('I love eggs in 4 ways')).toBeInTheDocument();
   });
 
   it('closes on an outside mousedown', async () => {

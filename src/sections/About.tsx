@@ -1,4 +1,4 @@
-import { memo, type MouseEvent as ReactMouseEvent, type ReactNode, useEffect, useRef, useState } from 'react';
+import { memo, type ReactNode, useEffect, useRef, useState } from 'react';
 import { FACTS, type FactId } from '../content/facts';
 import { useSpriteSheet } from '../hooks/useSpriteSheet';
 import { DitherFade } from '../layout/DitherFade';
@@ -33,7 +33,7 @@ const BIO: ReactNode[] = [
     Also, I'm a problem solver at heart, fixing bugs in systems before adding more features. See this in{' '}
     <a href="#projects" className="rc-fact-term">my projects</a>.
   </>,
-  'Computer science sophomore at the University of Maryland with junior-level credits, focused on full-stack development.',
+  'Computer science sophomore at the University of Maryland, focused on full-stack development.',
 ];
 
 const OFF: ReactNode[] = [
@@ -53,7 +53,6 @@ function AboutImpl() {
   const { panelRef, spriteRef, playing, toggle } = useSpriteSheet();
 
   const [topic, setTopic] = useState<Topic>('bio');
-  const [page, setPage] = useState(0);
   const [openFact, setOpenFact] = useState<FactId | null>(null);
   const bubbleRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +72,7 @@ function AboutImpl() {
     };
   }, [openFact]);
 
-  const pages: ReactNode[] =
+  const lines: ReactNode[] =
     topic === 'bio' ? BIO
     : topic === 'off' ? OFF
     : topic === 'quests' ? QUEST_LOG.map((q) => <Line key={q.text} icon={q.icon} color={q.color}>{q.text}</Line>)
@@ -88,22 +87,9 @@ function AboutImpl() {
       </Line>
     ));
 
-  const advance = () => {
-    setOpenFact(null);
-    setPage((p) => (p + 1) % pages.length);
-  };
-
-  // A click anywhere on the bubble turns the page, except on the links and
-  // fact terms inside it, which do their own thing.
-  const onBubbleClick = (e: ReactMouseEvent) => {
-    if ((e.target as Element).closest('a,button,[role="button"]')) return;
-    advance();
-  };
-
   const pick = (id: Topic) => {
     setOpenFact(null);
     setTopic(id);
-    setPage(0);
   };
 
   return (
@@ -188,22 +174,11 @@ function AboutImpl() {
             </dl>
           </aside>
 
-          {/* Speech bubble: one line of the current topic at a time */}
-          <div ref={bubbleRef} className="rc-bubble" onClick={onBubbleClick}>
-            <p className="rc-bubble-text" aria-live="polite">
-              {pages[page % pages.length]}
-            </p>
-            {pages.length > 1 && (
-              <>
-                <span className="rc-bubble-hint" aria-hidden="true">
-                  <span className="rc-desktop-only">CLICK</span>
-                  <span className="rc-mobile-only">TAP</span> TO CONTINUE
-                </span>
-                <button type="button" className="rc-bubble-next" aria-label="Next line" onClick={advance}>
-                  <PixelIcon name="ui/chevron-down-solid" size={18} />
-                </button>
-              </>
-            )}
+          {/* Speech bubble: every line of the current topic */}
+          <div ref={bubbleRef} className="rc-bubble">
+            <div className="rc-bubble-text" aria-live="polite">
+              {lines.map((line, i) => <div key={i}>{line}</div>)}
+            </div>
             <span className="rc-bubble-tail" aria-hidden="true" />
           </div>
 
