@@ -19,14 +19,16 @@ function Probe() {
   );
 }
 
-const renderProbe = () => render(<ThemeProvider><Probe /></ThemeProvider>);
+const renderProbe = (intro = false) => render(<ThemeProvider intro={intro}><Probe /></ThemeProvider>);
+const stubSystem = (dark: boolean) =>
+  vi.stubGlobal('matchMedia', (q: string) => ({ matches: q.includes(dark ? 'dark' : 'light') }));
 
 beforeEach(() => {
   localStorage.clear();
   document.documentElement.className = '';
   vi.useFakeTimers({ shouldAdvanceTime: true });
 });
-afterEach(() => vi.useRealTimers());
+afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
 
 describe('ThemeProvider', () => {
   it('defaults to dark', () => {
@@ -94,5 +96,34 @@ describe('ThemeProvider', () => {
     expect(() => renderProbe()).not.toThrow();
     expect(screen.getByTestId('theme')).toHaveTextContent('dark');
     spy.mockRestore();
+  });
+
+  it('intro: opens opposite the OS theme, tapes into it, and does not persist', () => {
+    stubSystem(true);
+    renderProbe(true);
+    expect(screen.getByTestId('theme')).toHaveTextContent('light');
+    act(() => { vi.advanceTimersByTime(400); });
+    expect(screen.getByTestId('theme')).toHaveTextContent('dark');
+    expect(screen.getByTestId('phase')).toHaveTextContent('moving');
+    expect(localStorage.getItem('rc-theme')).toBeNull();
+  });
+
+  it('intro plays on every load, into the stored pick over the OS theme', () => {
+    stubSystem(true);
+    localStorage.setItem('rc-theme', 'light');
+    renderProbe(true);
+    expect(screen.getByTestId('theme')).toHaveTextContent('dark');
+    act(() => { vi.advanceTimersByTime(400); });
+    expect(screen.getByTestId('theme')).toHaveTextContent('light');
+  });
+
+  it('intro does not undo a toggle the reader made first', async () => {
+    stubSystem(false);
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    renderProbe(true);
+    expect(screen.getByTestId('theme')).toHaveTextContent('dark');
+    await user.click(screen.getByRole('button'));
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(screen.getByTestId('theme')).toHaveTextContent('light');
   });
 });

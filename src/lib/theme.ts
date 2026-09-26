@@ -6,7 +6,18 @@ export type TransPhase = 'idle' | 'moving';
 export const TAPE_DUR = 620;
 export const THEME_KEY = 'rc-theme';
 
+/** Beat between page load and the first-visit intro tape, so the start scene registers. */
+export const INTRO_DELAY = 400;
+
 const EASE = 'cubic-bezier(.45,0,.2,1)';
+
+/** The home page opens on the opposite of the reader's theme and tapes into
+ *  it; under reduced motion it opens on their theme and stays. The boot script
+ *  in Base.astro repeats this so the pre-hydration paint matches. */
+export function introStartTheme(target: Theme, reducedMotion: boolean): Theme {
+  if (reducedMotion) return target;
+  return target === 'dark' ? 'light' : 'dark';
+}
 
 export function themeClass(theme: Theme, phase: TransPhase): string {
   return (theme === 'dark' ? '' : 'theme-light') + (phase !== 'idle' ? ' theme-transitioning' : '');

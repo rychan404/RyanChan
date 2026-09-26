@@ -84,7 +84,7 @@ export function Home({ projects }: { projects: Project[] }) {
 export function HomeIsland({ projects }: { projects: Project[] }) {
   return (
     <StrictMode>
-      <ThemeProvider><Home projects={projects} /></ThemeProvider>
+      <ThemeProvider intro><Home projects={projects} /></ThemeProvider>
     </StrictMode>
   );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TAPE_DUR, fadeStyle, groupStyle, moonGlowStyle, themeClass } from './theme';
+import { TAPE_DUR, fadeStyle, groupStyle, introStartTheme, moonGlowStyle, themeClass } from './theme';
 
 const ANIM = (name: string) => `${name} ${TAPE_DUR}ms cubic-bezier(.45,0,.2,1) forwards`;
 
@@ -65,5 +65,14 @@ describe('themeClass', () => {
   it('adds theme-transitioning while moving', () => {
     expect(themeClass('dark', 'moving')).toBe(' theme-transitioning');
     expect(themeClass('light', 'moving')).toBe('theme-light theme-transitioning');
+  });
+});
+
+describe('introStartTheme', () => {
+  it('opens opposite the target, or on it under reduced motion', () => {
+    expect(introStartTheme('dark', false)).toBe('light');
+    expect(introStartTheme('light', false)).toBe('dark');
+    expect(introStartTheme('dark', true)).toBe('dark');
+    expect(introStartTheme('light', true)).toBe('light');
   });
 });

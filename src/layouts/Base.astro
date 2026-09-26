@@ -23,11 +23,17 @@ const url = site ? new URL(path, site).href : path;
     <link rel="canonical" href={url} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <script is:inline>
+    <script is:inline define:vars={{ intro: path === '/' }}>
       try {
-        if ((localStorage.getItem('rc-theme') || 'dark') === 'light') {
-          document.documentElement.classList.add('theme-light');
+        var theme = localStorage.getItem('rc-theme');
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = intro && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
+        // Home opens on the opposite and tapes in: mirrors introStartTheme() in src/lib/theme.ts.
+        if (intro && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          theme = theme === 'dark' ? 'light' : 'dark';
+        }
+        if (theme === 'light') document.documentElement.classList.add('theme-light');
       } catch (e) {}
     </script>
   </head>
