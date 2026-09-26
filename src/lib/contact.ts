@@ -2,8 +2,8 @@ export type ContactPayload = { name: string; email: string; message: string };
 
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
-/** The address the Contact section's EMAIL slot opens a mail to. TODO: the real address. */
-export const CONTACT_EMAIL = '[your email]';
+/** The address the Contact section's EMAIL slot opens a mail to. */
+export const CONTACT_EMAIL = 'rychanrc@outlook.com';
 
 /** The only place the contact-form vendor is named (decision D4).
  *  Resolves on success; throws with a message the UI can show otherwise. */

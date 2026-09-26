@@ -2,9 +2,9 @@ import { PixelIcon } from '../components/PixelIcon';
 import { DitherFade } from './DitherFade';
 
 export const SOCIALS = [
-  { title: 'LinkedIn', href: 'https://linkedin.com', icon: 'brands/linkedin' },
-  { title: 'GitHub', href: 'https://github.com', icon: 'brands/github' },
-  { title: 'YouTube', href: 'https://youtube.com', icon: 'brands/youtube' },
+  { title: 'LinkedIn', href: 'https://www.linkedin.com/in/ryanchan404/', icon: 'brands/linkedin' },
+  { title: 'GitHub', href: 'https://github.com/rychan404', icon: 'brands/github' },
+  { title: 'YouTube', href: 'https://www.youtube.com/@rychan404', icon: 'brands/youtube' },
 ] as const;
 
 /** marginTop is '80px' below the Contact section and 'auto' on the detail

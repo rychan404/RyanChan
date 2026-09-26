@@ -90,7 +90,7 @@ describe('Contact link slots', () => {
     const { container } = renderContact();
     const slots = Array.from(container.querySelectorAll('.rc-contact-slots > .rc-inv-slot'));
     expect(slots.map((s) => s.textContent)).toEqual(['EMAIL', 'LINKEDIN', 'GITHUB', 'YOUTUBE']);
-    expect(slots[2]).toHaveAttribute('href', 'https://github.com');
+    expect(slots[2]).toHaveAttribute('href', 'https://github.com/rychan404');
     expect(screen.queryByText(/find me on/i)).toBeNull();
   });
 
