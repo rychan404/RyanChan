@@ -5,9 +5,7 @@ year: "FEB 2026"
 blurb: "One of the largest social clubs at UMD dedicated to showcasing our mission values, events, collaborations, and of course, coffee!"
 tags: ["React", "TypeScript", "Vercel"]
 role: "Tech Lead Developer"
-stack: "React, TypeScript, Vercel"
 outcome: "Leading 10+ developers on the rebuild"
-slotHint: "Drop a gameplay screenshot"
 links:
     site: "https://umdcoffee.vercel.app/"
     github: "https://github.com/Open-Sourcery-UMD/umdcoffee"

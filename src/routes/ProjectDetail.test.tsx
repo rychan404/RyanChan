@@ -16,8 +16,8 @@ function setViewport(isMobile: boolean) {
 const loopline: Project = {
   id: 'loopline', order: 2, kind: 'code', title: 'Loopline', year: 'JUN 2026',
   blurb: 'A CLI task runner that watches your project and reruns only what actually changed.',
-  tags: ['Docker'], role: 'Maintainer', stack: 'Rust, tokio, notify',
-  outcome: 'Cut the build loop from 40s to under 3s', slotHint: 'Drop a terminal screenshot',
+  tags: ['Rust', 'Docker'], role: 'Maintainer',
+  outcome: 'Cut the build loop from 40s to under 3s',
 };
 const neighbour = (id: string, title: string): Project => ({ ...loopline, id, title });
 
@@ -44,13 +44,12 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByText(/A CLI task runner/)).toBeInTheDocument();
   });
 
-  it('renders role, stack and outcome as stat cards, and no tags', () => {
+  it('renders role, the tags as the stack, and outcome as stat cards', () => {
     renderDetail();
     const stat = (k: string) => screen.getByText(k).closest('.rc-stat');
     expect(stat('Role')).toHaveTextContent('Maintainer');
-    expect(stat('Stack')).toHaveTextContent('Rust, tokio, notify');
+    expect(stat('Stack')).toHaveTextContent('Rust, Docker');
     expect(stat('Outcome')).toHaveTextContent(loopline.outcome!);
-    expect(screen.queryByText('Docker')).toBeNull();
   });
 
   it('leaves the outcome card out when the project has none', () => {
@@ -73,9 +72,10 @@ describe('ProjectDetail — found', () => {
     expect(region.style.background).toBe('var(--color-bg-alt)');
   });
 
-  it('shows the slot hint when the project has no image', () => {
-    renderDetail();
-    expect(screen.getByText('Drop a terminal screenshot')).toBeInTheDocument();
+  it('shows the empty image slot, with no hint, when the project has no image', () => {
+    const { container } = renderDetail();
+    expect(container.querySelector('[data-slot-placeholder]')).not.toBeNull();
+    expect(container.querySelector('.rc-slot-hint')).toBeNull();
   });
 
   it('links to the previous and next projects, with no EXPLORE MORE', () => {

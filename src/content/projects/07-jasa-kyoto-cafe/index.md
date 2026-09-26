@@ -5,9 +5,7 @@ year: "SEP 2026"
 blurb: "One of the largest social events at UMD Japanese American Student Association through a fancy Japanese jazz-styled cafe"
 tags: ["DaVinci Resolve"]
 role: "Director & Editor"
-stack: "DaVinci Resolve"
 outcome: "Wishlists went up 4x in the launch week"
-slotHint: "Drop a trailer still"
 ---
 
 - Beat-matched every cut to the licensed track before touching the visuals.

@@ -5,8 +5,6 @@ year: "NOV 2025"
 blurb: "A Rocket Recommends pick for gamers who love hand-crafted 2D art, a spooky atmosphere and haunting music."
 tags: ["DaVinci Resolve"]
 role: "Editor"
-stack: "DaVinci Resolve"
-slotHint: "Drop a video still"
 image: "./silksong-rocket-recommends-thumbnail.jpg"
 links:
     video: "https://www.youtube.com/watch?v=Ef57_5-NiSY"

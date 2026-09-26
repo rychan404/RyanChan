@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
           background: 'var(--color-bg-alt)',
         }}
       >
-        <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
+        <ImageSlot src={project.image} alt={project.title} />
         <DitherFade ink="var(--color-surface)" height={64} className="dither-fade--up rc-media-fade" />
       </div>
 

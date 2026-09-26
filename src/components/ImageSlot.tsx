@@ -1,9 +1,8 @@
 import type { CSSProperties } from 'react';
-import { PixelIcon } from './PixelIcon';
 
 type Props = {
-  /** Caption shown in the empty state. */
-  placeholder: string;
+  /** Caption shown in the empty state, in development only. */
+  placeholder?: string;
   src?: string;
   alt?: string;
   style?: CSSProperties;
@@ -22,7 +21,7 @@ const FILL: CSSProperties = {
 
 /** Replaces the prototype's <image-slot> (D3). An empty slot is what visitors
  *  see until a project has its image, so it is drawn in the site's own
- *  language: a light dither over the frame's fill and a pixel picture glyph.
+ *  language: a light dither over the frame's fill.
  *  The placeholder hint ("Drop a gameplay screenshot") is a note to the owner,
  *  so it only renders in development. */
 export function ImageSlot({ placeholder, src, alt = '', style }: Props) {
@@ -31,8 +30,7 @@ export function ImageSlot({ placeholder, src, alt = '', style }: Props) {
   return (
     <span data-slot-placeholder="true" aria-hidden="true" className="rc-slot-empty" style={style}>
       <span className="dither-12 rc-slot-dither" />
-      <PixelIcon name="custom/image-solid" size={32} color="var(--color-text-dim)" />
-      {import.meta.env.DEV && <span className="rc-slot-hint">{placeholder}</span>}
+      {import.meta.env.DEV && placeholder && <span className="rc-slot-hint">{placeholder}</span>}
     </span>
   );
 }

@@ -146,13 +146,6 @@ describe('ProjectCard', () => {
     expect(card.querySelector('.rc-tag-slots')).toBeNull();
   });
 
-  it('shows the slot hint when there is no image', async () => {
-    renderProjects();
-    await pick('Loopline');
-    const card = screen.getByRole('heading', { name: 'Loopline' }).closest('.pixel-card') as HTMLElement;
-    expect(within(card).getByText('Drop a terminal screenshot')).toBeInTheDocument();
-  });
-
   it('gives the image region its height class and dithers it into the card, with no border', () => {
     renderProjects();
     const card = screen.getByRole('heading', { name: 'UMD Coffee Website' }).closest('.pixel-card') as HTMLElement;

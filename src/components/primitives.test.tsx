@@ -44,7 +44,8 @@ describe('ImageSlot', () => {
     try {
       const { container } = render(<ImageSlot placeholder="Drop a gameplay screenshot" />);
       expect(screen.queryByText('Drop a gameplay screenshot')).toBeNull();
-      expect(container.querySelector('.rc-slot-empty .pixel-icon')).not.toBeNull();
+      expect(container.querySelector('.rc-slot-empty')).not.toBeNull();
+      expect(container.querySelector('.rc-slot-empty .pixel-icon')).toBeNull();
     } finally {
       vi.unstubAllEnvs();
     }

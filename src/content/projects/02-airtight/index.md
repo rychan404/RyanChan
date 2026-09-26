@@ -5,9 +5,7 @@ year: "JUN 2026"
 blurb: "An AI-powered simulator that grills presenters with realistic federal panel questions to prepare them for the real presentation"
 tags: ["React", "TypeScript", "Tailwind CSS", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
 role: "Full Stack Developer"
-stack: "React, TypeScript, Tailwind CSS, FastAPI, Python, PostgreSQL, AWS, Docker"
 outcome: "Presented to CTG company employees"
-slotHint: "Drop a screenshot of a rehearsal"
 links:
     github: "https://github.com/capitaltg/si26-airtight-ryan"
 ---

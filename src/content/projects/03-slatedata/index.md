@@ -5,9 +5,7 @@ year: "JUN 2026"
 blurb: "AI presentation generator designed to combine decks with data visualization"
 tags: ["React", "TypeScript", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
 role: "Solo developer"
-stack: "React, TypeScript, FastAPI, Python, PostgreSQL, AWS, Docker"
 outcome: "Runs 1,200 scheduled jobs a week for a 4,000-member server"
-slotHint: "Drop a bot UI screenshot"
 image: "./slatedata-thumbnail.png"
 links:
     site: "https://slatedata.ai/"

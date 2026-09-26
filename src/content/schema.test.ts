@@ -26,8 +26,6 @@ const validData = {
   blurb: 'A 2D puzzle-platformer about rewinding your own mistakes. Built solo in eight weeks.',
   tags: ['Docker'],
   role: 'Solo developer',
-  stack: 'Godot 4, GDScript',
-  slotHint: 'Drop a gameplay screenshot',
   links: { github: 'https://github.com/rychan404/tilebreaker' },
 };
 

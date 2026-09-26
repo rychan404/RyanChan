@@ -8,7 +8,7 @@ const find = (id: string) => PROJECTS.find((p) => p.id === id)!;
 
 describe('the nine seed projects', () => {
   it('all load', () => {
-    expect(PROJECTS).toHaveLength(18);
+    expect(PROJECTS).toHaveLength(19);
   });
 
   it('sort newest first by year, not by directory prefix', () => {
@@ -28,7 +28,6 @@ describe('the nine seed projects', () => {
     expect(p.year).toBe('JUN 2026');
     expect(p.tags).toEqual(['Docker']);
     expect(p.role).toBe('Maintainer');
-    expect(p.stack).toBe('Rust, tokio, notify');
     expect(p.links).toBeUndefined();
     expect(p.image).toBeUndefined();
   });
@@ -48,7 +47,7 @@ describe('toProject', () => {
 
 describe('filterProjects', () => {
   it('returns everything for "all"', () => {
-    expect(filterProjects(PROJECTS, 'all')).toHaveLength(18);
+    expect(filterProjects(PROJECTS, 'all')).toHaveLength(19);
   });
 
   it('splits the nine seed projects 4 / 3 / 2', () => {

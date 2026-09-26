@@ -5,8 +5,6 @@ year: "MAY 2025"
 blurb: "What if the water we drink could slowly poison us? A documentary short on water contamination and the Flint water crisis."
 tags: ["DaVinci Resolve"]
 role: "Director & Editor"
-stack: "DaVinci Resolve"
-slotHint: "Drop a video still"
 image: "./toxic-tap-thumbnail.jpg"
 links:
     video: "https://www.youtube.com/watch?v=S8JbWmsxKiY"

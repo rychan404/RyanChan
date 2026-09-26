@@ -13,9 +13,7 @@ export type ProjectData = {
   blurb: string;
   tags: string[];
   role: string;
-  stack: string;
   outcome?: string;
-  slotHint: string;
   links?: Partial<Record<LinkKind, string>>;
   image?: string;
 };

@@ -5,8 +5,6 @@ year: "DEC 2025"
 blurb: "A short film told partly through Minecraft footage."
 tags: ["DaVinci Resolve"]
 role: "Director & Editor"
-stack: "DaVinci Resolve"
-slotHint: "Drop a video still"
 image: "./hypotheticals-thumbnail.jpg"
 links:
     video: "https://www.youtube.com/watch?v=4Cpv8dyrCYc"

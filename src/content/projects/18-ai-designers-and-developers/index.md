@@ -5,8 +5,6 @@ year: "MAY 2026"
 blurb: "The announcement trailer for Black Rocket's newest summer camp, teaching kids AI, critical thinking and the ethics of AI."
 tags: ["DaVinci Resolve"]
 role: "Editor"
-stack: "DaVinci Resolve"
-slotHint: "Drop a video still"
 image: "./ai-designers-and-developers-thumbnail.jpg"
 links:
     video: "https://www.youtube.com/watch?v=sxjChUh8TQ0"

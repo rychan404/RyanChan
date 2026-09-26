@@ -50,7 +50,7 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
             border: 'var(--border-thick) solid var(--edge-on-surface)',
           }}
         >
-          <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
+          <ImageSlot src={project.image} alt={project.title} />
         </div>
       </div>
 
@@ -88,7 +88,7 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
 
         <dl className="rc-detail-stats">
           <div className="rc-stat"><dt>Role</dt><dd>{project.role}</dd></div>
-          <div className="rc-stat"><dt>Stack</dt><dd>{project.stack}</dd></div>
+          <div className="rc-stat"><dt>Stack</dt><dd>{project.tags.join(', ')}</dd></div>
           {project.outcome ? <div className="rc-stat rc-stat-outcome"><dt>Outcome</dt><dd>{project.outcome}</dd></div> : null}
         </dl>
 

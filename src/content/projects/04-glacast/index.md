@@ -5,9 +5,7 @@ year: "APR 2026"
 blurb: "Explore glacier retreat through real satellite data with machine learning."
 tags: ["React", "TypeScript", "FastAPI", "Figma"]
 role: "Frontend Developer"
-stack: "React, TypeScript, FastAPI, Figma"
 outcome: "Shipped all three ML features in 36 hours"
-slotHint: "Drop an editor screenshot"
 links:
     github: "https://github.com/Andrewg314/Glacast"
     devpost: "https://devpost.com/software/glacast"

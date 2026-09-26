@@ -18,10 +18,8 @@ export const projectSchema = ({ image }: { image: () => z.ZodType<{ src: string 
     blurb: z.string().min(1),
     tags: z.array(z.string()),
     role: z.string(),
-    stack: z.string(),
     // The headline result, shown beside role and stack on the detail page.
     outcome: z.string().min(1).optional(),
-    slotHint: z.string().min(1),
     // One button per link on the project page, in this order; none set, no buttons.
     links: z.object({
       site: z.url().optional(),

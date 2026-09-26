@@ -5,9 +5,7 @@ year: "SEP 2025"
 blurb: "Five tips for Minecrafters looking to build something new."
 tags: ["DaVinci Resolve"]
 role: "Editor"
-stack: "DaVinci Resolve"
 outcome: "1,200+ views on YouTube"
-slotHint: "Drop a video still"
 image: "./minecraft-building-tips-thumbnail.jpg"
 links:
     video: "https://www.youtube.com/watch?v=uWuBaAqG58s"
