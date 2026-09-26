@@ -12,7 +12,7 @@ links:
 
 # Overview
 
-Data analysts are constantly querying data, check the numbers, rebuild every chart in slides, and hope nobody asks where a figure came from. SlateData turns that week into an afternoon. You connect a data source, ask a question in plain language, check the answer with your team, and export a deck leadership can read on their own. I worked on building its features during my internship at Capital Technology Group.
+Data analysts constantly query data, check the numbers, rebuild every chart in slides, and hope nobody asks where a figure came from. SlateData turns that week into an afternoon. You connect a data source, ask a question in plain language, check the answer with your team, and export a deck leadership can read on their own. I worked on building its features during my internship at Capital Technology Group.
 
 # How it works
 
@@ -32,4 +32,8 @@ Data analysts are constantly querying data, check the numbers, rebuild every cha
 - **Tickets that were too big**: I wrote backlog tickets for SlateData, and each one touched a lot of the codebase, which led to tons of merge conflicts. Now I split large features into small ones before they reach the backlog.
 
 # Takeaways
-I learned how to work on a real world engineering team with tech leads and product managers. I developed and created backlog tickets for the site, suggesting features and bug fixes the team might have not caught. Notable contributions include adding a toolbar for presentation mode and allowing for different data visualization options when selecting a visualization.
+I learned how to work on a real-world engineering team with tech leads and product managers. I developed and created backlog tickets for the site, suggesting features and bug fixes the team might not have caught.
+
+# Result
+- Added a toolbar for presentation mode.
+- Added more data visualization options when choosing a visualization.
