@@ -41,11 +41,28 @@ describe('Projects on desktop', () => {
     expect(screen.getByText(/Things I love to tinker with/)).toBeInTheDocument();
   });
 
-  it('opens on All, with every project in the roster', () => {
+  it('opens on All, with the first nine projects in the roster', () => {
     renderProjects();
     expect(screen.getByRole('button', { name: 'All' })).toHaveClass('pixel-tab--active');
     expect(screen.getByRole('button', { name: 'Code' })).not.toHaveClass('pixel-tab--active');
-    expect(cardTitles()).toHaveLength(20);
+    expect(cardTitles()).toEqual(TEST_PROJECTS.slice(0, 9).map((p) => p.title));
+  });
+
+  it('pages through the roster nine at a time, and back to page one on a new filter', async () => {
+    renderProjects();
+    const pages = Math.ceil(TEST_PROJECTS.length / 9);
+    const prev = screen.getByRole('button', { name: 'Previous page' });
+    const next = screen.getByRole('button', { name: 'Next page' });
+    expect(prev).toBeDisabled();
+    expect(screen.getByText(`1 / ${pages}`)).toBeInTheDocument();
+    await userEvent.click(next);
+    expect(cardTitles()).toEqual(TEST_PROJECTS.slice(9, 18).map((p) => p.title));
+    expect(prev).toBeEnabled();
+    for (let i = 2; i < pages; i++) await userEvent.click(next);
+    expect(next).toBeDisabled();
+    await userEvent.click(screen.getByRole('button', { name: 'Code' }));
+    await userEvent.click(screen.getByRole('button', { name: 'All' }));
+    expect(screen.getByText(`1 / ${pages}`)).toBeInTheDocument();
   });
 
   it('switches the visible set when a tab is clicked', async () => {
@@ -55,7 +72,7 @@ describe('Projects on desktop', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Misc' }));
     expect(cardTitles()).toEqual(['Piano Covers', '3D Origami Sculptures']);
     await userEvent.click(screen.getByRole('button', { name: 'All' }));
-    expect(cardTitles()).toHaveLength(20);
+    expect(cardTitles()).toHaveLength(9);
   });
 
   it('shows the first tile card, and swaps it when another tile is pressed', async () => {
@@ -172,8 +189,8 @@ describe('Projects on mobile', () => {
     await userEvent.click(trigger);
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-    await userEvent.click(screen.getByRole('button', { name: 'Misc' }));
-    expect(cardTitles()).toEqual(['Piano Covers', '3D Origami Sculptures']);
-    expect(screen.getByRole('button', { expanded: false })).toHaveTextContent('Misc');
+    await userEvent.click(screen.getByRole('button', { name: 'Code' }));
+    expect(cardTitles()).toEqual(TEST_PROJECTS.filter((p) => p.kind === 'code').map((p) => p.title));
+    expect(screen.getByRole('button', { expanded: false })).toHaveTextContent('Code');
   });
 });

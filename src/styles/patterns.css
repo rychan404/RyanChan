@@ -49,6 +49,10 @@
 .rc-card-title{font-size:var(--fs-34)}
 .rc-card-blurb{font-size:var(--fs-19)}
 .rc-roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+/* The roster's pager: 9 tiles a page, the page count between two pixel arrow buttons. */
+.rc-roster-pager{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text)}
+.rc-roster-pager > .rc-pixel-back{padding:10px 14px}
+.rc-roster-pager > .rc-pixel-back:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:var(--shadow-control) var(--color-ink)}
 .rc-roster-tile{--tile-bar:var(--pixel-neutral-1);--tile-fill:var(--pixel-teal-1);--tile-ink:var(--pixel-teal-4);position:relative;aspect-ratio:1 / 1;display:flex;flex-direction:column;padding:0;background:var(--tile-fill);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-card) var(--color-ink);color:var(--tile-ink);cursor:pointer;text-align:left}
 .rc-roster-tile--video{--tile-fill:var(--pixel-violet-2);--tile-ink:var(--pixel-violet-6)}
 .rc-roster-tile--misc{--tile-fill:var(--pixel-tan-1);--tile-ink:var(--pixel-tan-4)}
@@ -275,7 +279,8 @@
   .rc-card-title{font-size:var(--fs-26)}
   .rc-card-blurb{font-size:var(--fs-16)}
   .rc-roster{grid-template-columns:1fr;gap:24px}
-  .rc-roster-grid{order:-1;gap:10px}
+  .rc-roster-list{order:-1}
+  .rc-roster-grid{gap:10px}
   .rc-roster-name{padding:5px 6px;font-size:var(--fs-11)}
   /* 100% only resolves in the desktop grid's stretched row. */
   .rc-contact-scene{flex:none;height:340px}

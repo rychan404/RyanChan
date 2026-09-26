@@ -8,7 +8,7 @@ const find = (id: string) => PROJECTS.find((p) => p.id === id)!;
 
 describe('the nine seed projects', () => {
   it('all load', () => {
-    expect(PROJECTS).toHaveLength(20);
+    expect(PROJECTS).toHaveLength(18);
   });
 
   it('sort newest first by year, not by directory prefix', () => {
@@ -48,7 +48,7 @@ describe('toProject', () => {
 
 describe('filterProjects', () => {
   it('returns everything for "all"', () => {
-    expect(filterProjects(PROJECTS, 'all')).toHaveLength(20);
+    expect(filterProjects(PROJECTS, 'all')).toHaveLength(18);
   });
 
   it('splits the nine seed projects 4 / 3 / 2', () => {
