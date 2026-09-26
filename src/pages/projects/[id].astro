@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { entry, project, prev, next } = Astro.props as ProjectEntry & Pick<Props, 'prev' | 'next'>;
 const { Content } = await render(entry);
 ---
-<Base title={`${project.title} — Ryan Chan`} description={project.blurb} path={`/projects/${project.id}`}>
+<Base title={`${project.title} ■ Ryan Chan`} description={project.blurb} path={`/projects/${project.id}`}>
   <ProjectDetailIsland client:load project={project} prev={prev} next={next}>
     <Content />
   </ProjectDetailIsland>
