@@ -22,7 +22,14 @@ export const projectSchema = ({ image }: { image: () => z.ZodType<{ src: string 
     // The headline result, shown beside role and stack on the detail page.
     outcome: z.string().min(1).optional(),
     slotHint: z.string().min(1),
-    cta: z.string().min(1),
-    ctaUrl: z.url().optional(),
+    // One button per link on the project page, in this order; none set, no buttons.
+    links: z.object({
+      site: z.url().optional(),
+      github: z.url().optional(),
+      video: z.url().optional(),
+      // A file in public/ ('/slides/airtight.pdf') or a full URL.
+      slides: z.url().or(z.string().regex(/^\/\S+$/, 'slides must be a URL or a path like /slides/x.pdf')).optional(),
+      devpost: z.url().optional(),
+    }).strict().optional(),
     image: image().optional(),
   }).strict();

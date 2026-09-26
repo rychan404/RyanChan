@@ -119,6 +119,7 @@ function ProjectsImpl({ projects }: { projects: Project[] }) {
                   {p.image
                     ? <img src={p.image} alt="" />
                     : <PixelIcon name={KIND_ICON[p.kind]} size={40} />}
+                  <DitherFade ink="var(--tile-bar)" height={32} className="dither-fade--up rc-media-fade" />
                 </span>
                 <span className="rc-roster-name">{p.title}</span>
               </button>

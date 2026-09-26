@@ -8,7 +8,6 @@ role: "Just for fun"
 stack: "—"
 outcome: "Working through a Studio Ghibli songbook, about twenty minutes a day"
 slotHint: "Drop a piano photo/video still"
-cta: "Watch On YouTube"
 ---
 
 - About twenty minutes a day, most days.

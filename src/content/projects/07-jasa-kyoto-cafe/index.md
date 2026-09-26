@@ -1,14 +1,13 @@
 ---
 kind: "video"
-title: "Terra Nova Trailer"
-year: "JUL 2025"
-blurb: "A 75-second launch trailer for an indie colony sim. Client work, cut to a fixed music bed."
-tags: ["Trailer", "Sound", "Client"]
-role: "Editor"
-stack: "Premiere Pro, Audition"
+title: "Kyoto Cafe Trailer"
+year: "SEP 2026"
+blurb: "One of the largest social events at UMD Japanese American Student Association through a fancy Japanese jazz-styled cafe"
+tags: ["DaVinci Resolve"]
+role: "Director & Editor"
+stack: "DaVinci Resolve"
 outcome: "Wishlists went up 4x in the launch week"
 slotHint: "Drop a trailer still"
-cta: "Watch Trailer"
 ---
 
 - Beat-matched every cut to the licensed track before touching the visuals.

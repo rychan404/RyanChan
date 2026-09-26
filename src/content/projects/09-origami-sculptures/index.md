@@ -8,7 +8,6 @@ role: "Just for fun"
 stack: "—"
 outcome: "Largest piece so far used just over 700 paper units"
 slotHint: "Drop a photo of a finished piece"
-cta: "See More Photos"
 ---
 
 - Largest piece so far used just over 700 paper units.

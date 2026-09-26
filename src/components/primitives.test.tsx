@@ -80,4 +80,11 @@ describe('DitherFade', () => {
     expect(fade.style.height).toBe('64px');
     expect((fade.children[0] as HTMLElement).style.height).toBe('16px');
   });
+
+  it('takes extra classes, for the flipped fade over a photo', () => {
+    const { container } = render(<DitherFade ink="var(--tile-bar)" height={32} className="dither-fade--up rc-media-fade" />);
+    const fade = container.firstElementChild as HTMLElement;
+    expect(fade).toHaveClass('dither-fade', 'dither-fade--up', 'rc-media-fade');
+    expect((fade.children[0] as HTMLElement).style.height).toBe('8px');
+  });
 });

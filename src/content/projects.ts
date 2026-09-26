@@ -3,6 +3,7 @@
  *  src/content.config.ts holds the frontmatter schema. */
 export type ProjectKind = 'code' | 'video' | 'misc';
 export type Filter = 'all' | ProjectKind;
+export type LinkKind = 'site' | 'github' | 'video' | 'slides' | 'devpost';
 
 /** Validated frontmatter, with `image` already resolved to a URL. */
 export type ProjectData = {
@@ -15,8 +16,7 @@ export type ProjectData = {
   stack: string;
   outcome?: string;
   slotHint: string;
-  cta: string;
-  ctaUrl?: string;         // absent -> the CTA preventDefaults, as the prototype does
+  links?: Partial<Record<LinkKind, string>>;
   image?: string;
 };
 

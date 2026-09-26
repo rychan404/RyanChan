@@ -2,13 +2,15 @@
 kind: "code"
 title: "SlateData"
 year: "JUN 2026"
-blurb: "A scheduling bot for a 4,000-member game-dev server. Handles timezones so nobody has to."
+blurb: "AI presentation generator designed to combine decks with data visualization"
 tags: ["React", "TypeScript", "FastAPI", "Python", "PostgreSQL", "AWS", "Docker"]
 role: "Solo developer"
-stack: "TypeScript, discord.js, Postgres"
+stack: "React, TypeScript, FastAPI, Python, PostgreSQL, AWS, Docker"
 outcome: "Runs 1,200 scheduled jobs a week for a 4,000-member server"
 slotHint: "Drop a bot UI screenshot"
-cta: "View Source"
+image: "./slatedata-thumbnail.png"
+links:
+    site: "https://slatedata.ai/"
 ---
 
 - Runs 1,200 scheduled jobs a week with a single worker process.

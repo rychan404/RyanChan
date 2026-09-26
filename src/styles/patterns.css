@@ -43,22 +43,25 @@
 .rc-roster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
 /* The card: on a wide screen the text grows and the image gets more room. */
 .rc-card-media{height:240px}
+/* The photo dithers into what sits under it: the card's text, or a roster tile's name bar
+   (--tile-bar, so the fade turns green with the selection). Flipped, so the dense end is at the bottom. */
+.rc-media-fade{position:absolute;left:0;right:0;bottom:0}
 .rc-card-title{font-size:var(--fs-34)}
 .rc-card-blurb{font-size:var(--fs-19)}
 .rc-roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.rc-roster-tile{--tile-fill:var(--pixel-teal-1);--tile-ink:var(--pixel-teal-4);position:relative;aspect-ratio:1 / 1;display:flex;flex-direction:column;padding:0;background:var(--tile-fill);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-card) var(--color-ink);color:var(--tile-ink);cursor:pointer;text-align:left}
+.rc-roster-tile{--tile-bar:var(--pixel-neutral-1);--tile-fill:var(--pixel-teal-1);--tile-ink:var(--pixel-teal-4);position:relative;aspect-ratio:1 / 1;display:flex;flex-direction:column;padding:0;background:var(--tile-fill);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-card) var(--color-ink);color:var(--tile-ink);cursor:pointer;text-align:left}
 .rc-roster-tile--video{--tile-fill:var(--pixel-violet-2);--tile-ink:var(--pixel-violet-6)}
 .rc-roster-tile--misc{--tile-fill:var(--pixel-tan-1);--tile-ink:var(--pixel-tan-4)}
-.theme-light .rc-roster-tile{--tile-fill:var(--pixel-teal-4);--tile-ink:var(--pixel-teal-1)}
+.theme-light .rc-roster-tile{--tile-bar:var(--color-surface);--tile-fill:var(--pixel-teal-4);--tile-ink:var(--pixel-teal-1)}
 .theme-light .rc-roster-tile--video{--tile-fill:var(--pixel-violet-6);--tile-ink:var(--pixel-violet-1)}
 .theme-light .rc-roster-tile--misc{--tile-fill:var(--pixel-tan-4);--tile-ink:var(--pixel-tan-1)}
 .rc-roster-portrait{position:relative;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 /* A project image fills the portrait; smooth scaling, since it is a photo, not pixel art. */
 .rc-roster-portrait > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:auto}
-.rc-roster-name{padding:8px 10px;background:var(--pixel-neutral-1);border-top:var(--border-thick) solid var(--color-ink);font-family:var(--font-display);font-size:var(--fs-14);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:var(--pixel-neutral-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.theme-light .rc-roster-name{background:var(--color-surface);color:var(--color-text-muted)}
-.rc-roster-tile[aria-pressed=true]{border-color:var(--pixel-green-4)}
-.rc-roster-tile[aria-pressed=true] .rc-roster-name{background:var(--pixel-green-4);color:var(--pixel-black)}
+.rc-roster-name{padding:8px 10px;background:var(--tile-bar);font-family:var(--font-display);font-size:var(--fs-14);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;color:var(--pixel-neutral-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme-light .rc-roster-name{color:var(--color-text-muted)}
+.rc-roster-tile[aria-pressed=true]{--tile-bar:var(--pixel-green-4);border-color:var(--pixel-green-4)}
+.rc-roster-tile[aria-pressed=true] .rc-roster-name{color:var(--pixel-black)}
 /* A caret before the picked name; empty alt text so screen readers skip it. */
 .rc-roster-tile[aria-pressed=true] .rc-roster-name::before{content:'> ' / ''}
 .rc-roster-tile:focus-visible{outline:var(--border-thin) solid var(--pixel-green-4);outline-offset:var(--border-thin)}
@@ -135,15 +138,23 @@
 
 /* Project PATCH NOTES — the rendered MDX body. Descendant selectors, because
    Astro wraps island children in <astro-slot> (display:contents). */
-.rc-patch-notes{display:flex;flex-direction:column;gap:10px}
+/* Blocks sit one blank line apart (16px text at 1.75 line height), as the empty lines in the markdown read. */
+.rc-patch-notes{display:flex;flex-direction:column;gap:28px}
+/* # and ## headings in a project's markdown (# at 28px, ## at 22px). The negative bottom margin
+   pulls the heading's own paragraph up to 10px below it, so each heading stays with its section. */
+.rc-patch-notes :is(h1,h2){margin:0 0 -18px;font-family:var(--font-display);font-size:var(--fs-22);font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:var(--color-text)}
+.rc-patch-notes h1{font-size:var(--fs-28)}
 .rc-patch-notes p{font-size:var(--fs-16);line-height:1.75;color:var(--color-text-muted);margin:0}
 .rc-patch-notes ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .rc-patch-notes li{position:relative;padding-left:22px;font-size:var(--fs-16);line-height:1.65;color:var(--color-text-muted)}
 .rc-patch-notes li::before{content:'';position:absolute;left:0;top:8px;width:10px;height:10px;background:var(--color-primary)}
 
-/* Pixel back button — the BACK TO PROJECTS links on the detail and not-found pages. Padding and
+/* Pixel back button — the not-found page's BACK TO PROJECTS link, and the project page's
+   secondary link buttons. Padding and
    placement stay inline; hover and press live in interactions.css. */
 .rc-pixel-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text);background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-control) var(--color-ink);text-decoration:none;cursor:pointer}
+/* The project page's first link button: the green .pixel-btn, edged in a darker green. */
+.rc-link-primary{--color-border:var(--edge-primary);text-decoration:none}
 
 /* Project detail: role / stack / outcome as framed cards (the skills detail's inner
    green ring), then previous / next cards. */
@@ -265,7 +276,7 @@
   .rc-card-blurb{font-size:var(--fs-16)}
   .rc-roster{grid-template-columns:1fr;gap:24px}
   .rc-roster-grid{order:-1;gap:10px}
-  .rc-roster-name{padding:5px 6px;border-top-width:var(--border-mid);font-size:var(--fs-11)}
+  .rc-roster-name{padding:5px 6px;font-size:var(--fs-11)}
   /* 100% only resolves in the desktop grid's stretched row. */
   .rc-contact-scene{flex:none;height:340px}
   .rc-contact-slots{gap:8px}

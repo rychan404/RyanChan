@@ -28,7 +28,7 @@ const validData = {
   role: 'Solo developer',
   stack: 'Godot 4, GDScript',
   slotHint: 'Drop a gameplay screenshot',
-  cta: 'Play On Itch',
+  links: { github: 'https://github.com/rychan404/tilebreaker' },
 };
 
 describe('projectSchema', () => {
@@ -55,7 +55,15 @@ describe('projectSchema', () => {
     expect(schema.safeParse(rest).success).toBe(false);
   });
 
-  it('rejects a ctaUrl that is not a url', () => {
-    expect(schema.safeParse({ ...validData, ctaUrl: 'not a url' }).success).toBe(false);
+  it('rejects a link that is not a url, or of an unknown kind', () => {
+    expect(schema.safeParse({ ...validData, links: { github: 'not a url' } }).success).toBe(false);
+    expect(schema.safeParse({ ...validData, links: { twitter: 'https://x.com' } }).success).toBe(false);
+  });
+
+  it('takes slides as a site path or a URL, but not a bare filename', () => {
+    const ok = (slides: string) => schema.safeParse({ ...validData, links: { slides } }).success;
+    expect(ok('/slides/airtight.pdf')).toBe(true);
+    expect(ok('https://example.com/deck.pdf')).toBe(true);
+    expect(ok('airtight.pdf')).toBe(false);
   });
 });

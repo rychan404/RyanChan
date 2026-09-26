@@ -1,6 +1,7 @@
 import type { Project } from '../content/projects';
 import { tagIcon } from '../content/tags';
 import { ImageSlot } from './ImageSlot';
+import { DitherFade } from '../layout/DitherFade';
 import { SkillIcon } from './SkillIcon';
 
 export function ProjectCard({ project }: { project: Project }) {
@@ -21,11 +22,11 @@ export function ProjectCard({ project }: { project: Project }) {
         className="rc-card-media"
         style={{
           position: 'relative',
-          borderBottom: 'var(--border-thick) solid var(--edge-on-bg-alt)',
           background: 'var(--color-bg-alt)',
         }}
       >
         <ImageSlot placeholder={project.slotHint} src={project.image} alt={project.title} />
+        <DitherFade ink="var(--color-surface)" height={64} className="dither-fade--up rc-media-fade" />
       </div>
 
       <div style={{ padding: '20px 20px 24px', display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>

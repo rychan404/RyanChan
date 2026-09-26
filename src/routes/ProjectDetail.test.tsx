@@ -1,7 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { TEST_PROJECTS } from '../test-projects';
+import type { Project } from '../content/projects';
 import { ThemeProvider } from '../hooks/useTheme';
 import { ProjectDetail } from './ProjectDetail';
 
@@ -13,7 +12,14 @@ function setViewport(isMobile: boolean) {
   }));
 }
 
-const loopline = TEST_PROJECTS.find((p) => p.id === 'loopline')!;
+// A fixed project, not one from src/content/projects, so editing real content never breaks these.
+const loopline: Project = {
+  id: 'loopline', order: 2, kind: 'code', title: 'Loopline', year: 'JUN 2026',
+  blurb: 'A CLI task runner that watches your project and reruns only what actually changed.',
+  tags: ['Docker'], role: 'Maintainer', stack: 'Rust, tokio, notify',
+  outcome: 'Cut the build loop from 40s to under 3s', slotHint: 'Drop a terminal screenshot',
+};
+const neighbour = (id: string, title: string): Project => ({ ...loopline, id, title });
 
 const renderDetail = () =>
   render(
@@ -72,13 +78,8 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByText('Drop a terminal screenshot')).toBeInTheDocument();
   });
 
-  it('links back to #projects beside the CTA', () => {
-    renderDetail();
-    expect(screen.getByRole('link', { name: /BACK TO PROJECTS/ })).toHaveAttribute('href', '/#projects');
-  });
-
   it('links to the previous and next projects, with no EXPLORE MORE', () => {
-    const [prev, next] = [TEST_PROJECTS[0], TEST_PROJECTS[2]];
+    const [prev, next] = [neighbour('tilebreaker', 'Tilebreaker'), neighbour('nightshift', 'Nightshift')];
     render(<ThemeProvider><ProjectDetail project={loopline} prev={prev} next={next} /></ThemeProvider>);
     const nav = screen.getByRole('navigation', { name: 'More projects' });
     const links = within(nav).getAllByRole('link');
@@ -100,21 +101,28 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByRole('link', { name: 'PROJECTS' })).toHaveAttribute('aria-current', 'true');
   });
 
-  it('renders the CTA as a no-op anchor when there is no ctaUrl', async () => {
-    renderDetail();
-    const cta = screen.getByRole('link', { name: /View Source/ });
-    expect(cta).toHaveAttribute('href', '#');
-    expect(cta).not.toHaveAttribute('target');
-    const clicked = await userEvent.click(cta).then(() => true);
-    expect(clicked).toBe(true);   // preventDefault, so no navigation
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Loopline');
+  it('draws one button per link, in site / github / video / slides / devpost order, each in a new tab', () => {
+    const links = { devpost: 'https://devpost.com/x', slides: '/slides/x.pdf', github: 'https://github.com/x', site: 'https://x.dev' };
+    render(<ThemeProvider><ProjectDetail project={{ ...loopline, links }} /></ThemeProvider>);
+    const buttons = ['LIVE SITE', 'GITHUB', 'SLIDES', 'DEVPOST'].map((name) => screen.getByRole('link', { name }));
+    expect(buttons.map((a) => a.getAttribute('href'))).toEqual([links.site, links.github, links.slides, links.devpost]);
+    for (const a of buttons) {
+      expect(a).toHaveAttribute('target', '_blank');
+      expect(a).toHaveAttribute('rel', 'noopener noreferrer');
+    }
+    expect(buttons[0]).toHaveClass('pixel-btn', 'rc-link-primary');
+    expect(buttons[1]).toHaveClass('rc-pixel-back');
+    expect(screen.queryByRole('link', { name: 'WATCH VIDEO' })).toBeNull();
   });
 
-  it('applies the primary edge colour to the CTA button', () => {
-    renderDetail();
-    const cta = screen.getByRole('link', { name: /View Source/ }) as HTMLElement;
-    // Check that custom properties are set (they exist in the element's style)
-    expect(cta.style.getPropertyValue('--color-border')).toBeTruthy();
+  it('makes the first link present the primary one', () => {
+    render(<ThemeProvider><ProjectDetail project={{ ...loopline, links: { video: 'https://youtu.be/x' } }} /></ThemeProvider>);
+    expect(screen.getByRole('link', { name: 'WATCH VIDEO' })).toHaveClass('pixel-btn');
+  });
+
+  it('draws no link buttons and no back button when the project has no links', () => {
+    const { container } = renderDetail();
+    expect(container.querySelector('.pixel-btn, .rc-pixel-back')).toBeNull();
   });
 
   it('constrains the image region wrapper to max-width 860px and centers it', () => {

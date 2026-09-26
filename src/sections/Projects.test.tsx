@@ -45,7 +45,7 @@ describe('Projects on desktop', () => {
     renderProjects();
     expect(screen.getByRole('button', { name: 'All' })).toHaveClass('pixel-tab--active');
     expect(screen.getByRole('button', { name: 'Code' })).not.toHaveClass('pixel-tab--active');
-    expect(cardTitles()).toHaveLength(9);
+    expect(cardTitles()).toHaveLength(20);
   });
 
   it('switches the visible set when a tab is clicked', async () => {
@@ -55,7 +55,7 @@ describe('Projects on desktop', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Misc' }));
     expect(cardTitles()).toEqual(['Piano Covers', '3D Origami Sculptures']);
     await userEvent.click(screen.getByRole('button', { name: 'All' }));
-    expect(cardTitles()).toHaveLength(9);
+    expect(cardTitles()).toHaveLength(20);
   });
 
   it('shows the first tile card, and swaps it when another tile is pressed', async () => {
@@ -86,6 +86,11 @@ describe('Projects on desktop', () => {
     expect(withImage.querySelector('img')).toHaveAttribute('src', '/shot.png');
     expect(without.querySelector('img')).toBeNull();
     expect(without.querySelector('.pixel-icon')).not.toBeNull();
+    for (const tile of [withImage, without]) {
+      const fade = tile.querySelector('.rc-roster-portrait > .dither-fade') as HTMLElement;
+      expect(fade.style.getPropertyValue('--dither-ink')).toBe('var(--tile-bar)');
+      expect(fade.style.height).toBe('32px');
+    }
   });
 
   it('tints each tile by kind', async () => {
@@ -131,12 +136,16 @@ describe('ProjectCard', () => {
     expect(within(card).getByText('Drop a terminal screenshot')).toBeInTheDocument();
   });
 
-  it('gives the image region its height class and a 4px bottom border', () => {
+  it('gives the image region its height class and dithers it into the card, with no border', () => {
     renderProjects();
     const card = screen.getByRole('heading', { name: 'UMD Coffee Website' }).closest('.pixel-card') as HTMLElement;
     const region = card.firstElementChild as HTMLElement;
     expect(region).toHaveClass('rc-card-media');
-    expect(region.style.borderBottom).toContain('var(--border-thick) solid');
+    expect(region.style.borderBottom).toBe('');
+    const fade = region.querySelector('.dither-fade') as HTMLElement;
+    expect(fade).toHaveClass('dither-fade--up', 'rc-media-fade');
+    expect(fade.style.getPropertyValue('--dither-ink')).toBe('var(--color-surface)');
+    expect(fade.style.height).toBe('64px');
   });
 
   it('links to the project page', async () => {

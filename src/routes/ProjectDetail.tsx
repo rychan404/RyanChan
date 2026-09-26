@@ -3,8 +3,18 @@ import { NavRail } from '../layout/NavRail';
 import { Footer } from '../layout/Footer';
 import { ImageSlot } from '../components/ImageSlot';
 import { PixelIcon } from '../components/PixelIcon';
-import type { Project } from '../content/projects';
+import type { LinkKind, Project } from '../content/projects';
 import { ThemeProvider, useTheme } from '../hooks/useTheme';
+
+/** The project's link buttons, in this order. The first one a project has is
+ *  the green primary; the rest share the back link's secondary style. */
+const LINKS: { kind: LinkKind; label: string; icon: string }[] = [
+  { kind: 'site', label: 'LIVE SITE', icon: 'ui/globe-solid' },
+  { kind: 'github', label: 'GITHUB', icon: 'brands/github' },
+  { kind: 'video', label: 'WATCH VIDEO', icon: 'ui/play-solid' },
+  { kind: 'slides', label: 'SLIDES', icon: 'ui/chart-line-solid' },
+  { kind: 'devpost', label: 'DEVPOST', icon: 'ui/trophy-solid' },
+];
 
 /** A neighbouring project, as the previous / next cards draw it. */
 type Neighbour = Pick<Project, 'id' | 'title'>;
@@ -26,6 +36,7 @@ function NeighbourLink({ to, rel }: { to: Neighbour; rel: 'prev' | 'next' }) {
 }
 
 function Found({ project, prev, next, children }: { project: Project; prev?: Neighbour; next?: Neighbour; children: ReactNode }) {
+  const links = LINKS.filter((l) => project.links?.[l.kind]);
   return (
     <>
       {/* Image region wrapper */}
@@ -89,30 +100,24 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
           <div className="rc-patch-notes">{children}</div>
         </div>
 
-        {/* CTA row */}
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap' }}>
-          <a
-            {...(project.ctaUrl
-              ? { href: project.ctaUrl, target: '_blank', rel: 'noopener noreferrer' }
-              : { href: '#', onClick: (e: React.MouseEvent) => e.preventDefault() })}
-            className="pixel-btn"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              '--color-border': 'var(--edge-primary)',
-              textDecoration: 'none',
-              cursor: 'pointer',
-            } as React.CSSProperties}
-          >
-            <PixelIcon name="ui/external-link-solid" size={18} />
-            {project.cta}
-          </a>
-          <a href="/#projects" className="rc-pixel-back" style={{ padding: '16px 24px' }}>
-            <PixelIcon name="ui/arrow-left-solid" size={16} />
-            BACK TO PROJECTS
-          </a>
-        </div>
+        {/* Link buttons; the nav rail's PROJECTS is the way back */}
+        {links.length ? (
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap' }}>
+            {links.map((l, i) => (
+              <a
+                key={l.kind}
+                href={project.links![l.kind]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={i === 0 ? 'pixel-btn rc-link-primary' : 'rc-pixel-back'}
+                style={{ padding: '16px 24px' }}
+              >
+                <PixelIcon name={l.icon} size={18} />
+                {l.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
 
         {prev && next ? (
           <nav className="rc-detail-nav" aria-label="More projects">
