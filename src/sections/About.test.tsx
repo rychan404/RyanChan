@@ -77,10 +77,13 @@ describe('About speech bubble', () => {
     expect(screen.getByRole('button', { name: 'Quest log' })).toHaveAttribute('aria-pressed', 'true');
     expect(bubble()).not.toHaveTextContent('problem solver at heart');
     for (const line of [
-      'Software Engineer Intern @ Capital Technology Group',
-      'Videographer for Black Rocket Productions',
-      'Hack4Impact @ UMD',
-      'On the internship grind...',
+      'Previous Software Engineer Intern @ Capital Technology Group',
+      'Tech Lead Developer @ UMD Coffee',
+      'Geospatial Undergraduate Researcher @ UMD Gestalt',
+      'Social Media Manager @ UMD Hack4Impact',
+      'Social Media Content Creator @ Black Rocket Productions',
+      'Videographer @ UMD Japanese American Student Association',
+      'Seeking internships/job experience!',
     ]) expect(bubble()).toHaveTextContent(line);
     const icons = bubble().querySelectorAll('.pixel-icon') as NodeListOf<HTMLElement>;
     const last = icons[icons.length - 1];

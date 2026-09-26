@@ -12,10 +12,13 @@ const STATS = [
 ];
 
 const QUEST_LOG = [
-  { text: 'Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
-  { text: 'Videographer for Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
-  { text: 'Hack4Impact @ UMD', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
-  { text: 'On the internship grind...', icon: 'ui/clock-solid', color: 'var(--color-warning)' },
+  { text: 'Previous Software Engineer Intern @ Capital Technology Group', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Tech Lead Developer @ UMD Coffee', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Geospatial Undergraduate Researcher @ UMD Gestalt', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Social Media Manager @ UMD Hack4Impact', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Social Media Content Creator @ Black Rocket Productions', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Videographer @ UMD Japanese American Student Association', icon: 'ui/check-box-solid', color: 'var(--color-primary)' },
+  { text: 'Seeking internships/job experience!', icon: 'ui/clock-solid', color: 'var(--color-warning)' },
 ];
 
 type Topic = 'bio' | 'facts' | 'quests' | 'off';
