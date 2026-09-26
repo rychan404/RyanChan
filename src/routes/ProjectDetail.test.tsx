@@ -121,9 +121,16 @@ describe('ProjectDetail — found', () => {
     expect(screen.getByRole('link', { name: 'WATCH VIDEO' })).toHaveClass('pixel-btn');
   });
 
-  it('draws no link buttons and no back button when the project has no links', () => {
+  it('draws no link buttons when the project has no links', () => {
     const { container } = renderDetail();
-    expect(container.querySelector('.pixel-btn, .rc-pixel-back')).toBeNull();
+    expect(container.querySelector('.pixel-btn, .rc-pixel-back:not(.rc-detail-back)')).toBeNull();
+  });
+
+  it('puts a BACK TO PROJECTS link at the top of the page', () => {
+    const { container } = renderDetail();
+    const back = screen.getByRole('link', { name: 'Back to projects' });
+    expect(back).toHaveAttribute('href', '/#projects');
+    expect(container.querySelector('.rc-main a')).toBe(back);
   });
 
   it('constrains the image region wrapper to max-width 860px and centers it', () => {

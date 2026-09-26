@@ -39,6 +39,11 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
   const links = LINKS.filter((l) => project.links?.[l.kind]);
   return (
     <>
+      <a href="/#projects" className="rc-pixel-back rc-detail-back" aria-label="Back to projects">
+        <PixelIcon name="ui/arrow-left-solid" size={16} />
+        <span className="rc-detail-back-label">BACK TO PROJECTS</span>
+      </a>
+
       {/* Image region wrapper */}
       <div className="rc-detail-top" style={{ maxWidth: '860px', margin: '0 auto', width: '100%' }}>
         <div
@@ -100,7 +105,7 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
           <div className="rc-patch-notes">{children}</div>
         </div>
 
-        {/* Link buttons; the nav rail's PROJECTS is the way back */}
+        {/* Link buttons */}
         {links.length ? (
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap' }}>
             {links.map((l, i) => (

@@ -151,8 +151,8 @@
 .rc-patch-notes li{position:relative;padding-left:22px;font-size:var(--fs-16);line-height:1.65;color:var(--color-text-muted)}
 .rc-patch-notes li::before{content:'';position:absolute;left:0;top:8px;width:10px;height:10px;background:var(--color-primary)}
 
-/* Pixel back button — the not-found page's BACK TO PROJECTS link, and the project page's
-   secondary link buttons. Padding and
+/* Pixel back button — the BACK TO PROJECTS link (project page top-left, not-found page),
+   and the project page's secondary link buttons. Padding and
    placement stay inline; hover and press live in interactions.css. */
 .rc-pixel-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:var(--fs-15);letter-spacing:.05em;color:var(--color-text);background:var(--color-surface);border:var(--border-thick) solid var(--color-ink);box-shadow:var(--shadow-control) var(--color-ink);text-decoration:none;cursor:pointer}
 /* The project page's first link button: the green .pixel-btn, edged in a darker green. */
@@ -197,6 +197,10 @@
 .rc-contact-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .rc-contact-slots > .rc-inv-slot{aspect-ratio:auto;height:88px;text-decoration:none}
 .rc-footer-bar{padding:24px 56px 120px}
+/* In the left margin, level with the image top; once the margin is too narrow for it,
+   it moves onto the image's top-left corner (the design mock's spot). */
+.rc-detail-back{position:absolute;z-index:1;top:40px;left:56px;padding:8px 14px}
+@media (max-width:1320px){.rc-detail-back{top:60px;left:calc(max(0px,(100% - 860px) / 2) + 76px)}}
 .rc-detail-top{padding:40px 56px 0}
 .rc-detail-body{padding:40px 56px 96px}
 .rc-notfound{padding:0 56px}
@@ -283,6 +287,8 @@
   .rc-contact-slots{gap:8px}
   .rc-contact-slots > .rc-inv-slot{height:72px}
   .rc-footer-bar{padding:24px 20px 108px}
+  .rc-detail-back{top:40px;left:36px;padding:8px}
+  .rc-detail-back-label{display:none}
   .rc-detail-top{padding:24px 20px 0}
   .rc-detail-body{padding:24px 20px 72px}
   .rc-detail-stats{grid-auto-flow:row}
