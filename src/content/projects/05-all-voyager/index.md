@@ -3,7 +3,7 @@ kind: "code"
 title: "All Voyager"
 year: "JAN 2026"
 blurb: "Travel recommendation application designed for first time and experienced travellers"
-tags: ["React", "TypeScript", "FastAPI", "Python", "Tailwind CSS"]
+tags: ["React", "TypeScript", "FastAPI", "Python", "Pandas", "Tailwind CSS"]
 role: "Full Stack Developer"
 outcome: "Winner stipend at Career Launch 2026: Computing Catalyst"
 image: "./all-voyager-thumbnail.png"
