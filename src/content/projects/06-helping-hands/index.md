@@ -25,7 +25,7 @@ Maryland high school students need 75+ student service learning (SSL) hours to g
 
 - High school and college students tracking SSL or application hours.
 - Community organizations and corporate social responsibility teams tracking volunteer engagement.
-- Anyone who needs a record of their service, including court-mandated volunteers.
+- Anyone who needs a record of their service.
 
 # Future plans
 
