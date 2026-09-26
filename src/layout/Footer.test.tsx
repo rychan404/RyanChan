@@ -11,9 +11,10 @@ beforeEach(() => {
 });
 
 describe('Footer', () => {
-  it('renders the copyright and three brand links', () => {
+  it('renders the copyright, an email link and three brand links', () => {
     render(<Footer marginTop="80px" />);
     expect(screen.getByText('© 2026 RYAN CHAN')).toBeInTheDocument();
+    expect(screen.getByTitle('Email')).toHaveAttribute('href', 'mailto:rychanrc@outlook.com');
     expect(screen.getByTitle('LinkedIn')).toHaveAttribute('href', 'https://www.linkedin.com/in/ryanchan404/');
     expect(screen.getByTitle('GitHub')).toHaveAttribute('href', 'https://github.com/rychan404');
     expect(screen.getByTitle('YouTube')).toHaveAttribute('href', 'https://www.youtube.com/@rychan404');

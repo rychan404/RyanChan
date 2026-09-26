@@ -1,7 +1,10 @@
 import { PixelIcon } from '../components/PixelIcon';
+import { CONTACT_EMAIL } from '../lib/contact';
 import { DitherFade } from './DitherFade';
 
+/** Email, then the socials: the footer's icons and the Contact section's slots. */
 export const SOCIALS = [
+  { title: 'Email', href: `mailto:${CONTACT_EMAIL}`, icon: 'ui/envelope-solid' },
   { title: 'LinkedIn', href: 'https://www.linkedin.com/in/ryanchan404/', icon: 'brands/linkedin' },
   { title: 'GitHub', href: 'https://github.com/rychan404', icon: 'brands/github' },
   { title: 'YouTube', href: 'https://www.youtube.com/@rychan404', icon: 'brands/youtube' },

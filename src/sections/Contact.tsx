@@ -3,7 +3,7 @@ import { DitherFade } from '../layout/DitherFade';
 import { Footer, SOCIALS } from '../layout/Footer';
 import { BeachScene } from '../scenes/BeachScene';
 import { PixelIcon } from '../components/PixelIcon';
-import { CONTACT_EMAIL, submitContactForm } from '../lib/contact';
+import { submitContactForm } from '../lib/contact';
 
 export type ContactStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -64,11 +64,11 @@ function Result({ kind, message, action, onAction }: {
   );
 }
 
-/** Email, then the socials, as labelled slots under the beach. Static, so it is
+/** The email and social links, as labelled slots under the beach. Static, so it is
  *  built once here rather than on every render of the form. */
 const LINK_SLOTS = (
   <div className="rc-contact-slots">
-    {[{ title: 'Email', href: `mailto:${CONTACT_EMAIL}`, icon: 'ui/envelope-solid' }, ...SOCIALS].map((s) => (
+    {SOCIALS.map((s) => (
       <a key={s.title} href={s.href} className="rc-inv-slot">
         <PixelIcon name={s.icon} size={24} color="var(--color-text)" />
         <span className="rc-inv-caption">{s.title.toUpperCase()}</span>
