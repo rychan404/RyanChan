@@ -35,9 +35,12 @@ describe('FACTS', () => {
     expect(sentence(2)).toBe('Would drop everything to sing my heart out to pop songs on the radio');
   });
 
-  it('gives only the eggs fact an image', () => {
-    expect(FACTS.filter((f) => f.image).map((f) => f.id)).toEqual(['eggs']);
-    expect(FACTS[1].image).toBe('/assets/about/fact-eggs.webp');
+  it('gives every fact an image', () => {
+    expect(FACTS.map((f) => f.image)).toEqual([
+      '/assets/about/fact-barns.jpg',
+      '/assets/about/fact-eggs.webp',
+      '/assets/about/fact-sing.webp',
+    ]);
   });
 
   it('carries the prototype\'s captions and slot hints', () => {

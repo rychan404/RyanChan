@@ -24,6 +24,7 @@ export const FACTS: Fact[] = [
     after: ' and horses in my hometown',
     caption: "It's an ancient relic!",
     slotHint: 'Drop a hometown photo',
+    image: '/assets/about/fact-barns.jpg',
   },
   {
     id: 'eggs',
@@ -43,5 +44,6 @@ export const FACTS: Fact[] = [
     after: ' my heart out to pop songs on the radio',
     caption: 'Riptide by Vance Joy!',
     slotHint: 'Drop a singing photo',
+    image: '/assets/about/fact-sing.webp',
   },
 ];

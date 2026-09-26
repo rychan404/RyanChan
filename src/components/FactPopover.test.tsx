@@ -21,7 +21,7 @@ describe('FactPopover', () => {
   });
 
   it('shows the caption, a slot and a close button when open', () => {
-    render(<FactPopover fact={barns} open onToggle={vi.fn()} onClose={vi.fn()} />);
+    render(<FactPopover fact={{ ...barns, image: undefined }} open onToggle={vi.fn()} onClose={vi.fn()} />);
     expect(screen.getByText("It's an ancient relic!")).toBeInTheDocument();
     expect(screen.getByText('Drop a hometown photo')).toBeInTheDocument();
     expect(screen.getByTitle('Close')).toBeInTheDocument();
