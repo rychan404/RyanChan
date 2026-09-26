@@ -23,6 +23,14 @@ export type Project = ProjectData & {
   order: number;           // from the directory prefix
 };
 
+/** The icon for each kind: a roster tile's portrait, and an empty thumbnail's
+ *  centre. The tile tints live in patterns.css. */
+export const KIND_ICON: Record<ProjectKind, string> = {
+  code: 'ui/code-solid',
+  video: 'ui/video-camera-solid',
+  misc: 'ui/seedlings-solid',
+};
+
 const DIR_RE = /^(\d+)-(.+)$/;
 
 export function toProject(dir: string, data: ProjectData): Project {

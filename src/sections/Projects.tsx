@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { PixelIcon } from '../components/PixelIcon';
 import { ProjectCard } from '../components/ProjectCard';
 import {
-  DEFAULT_FILTER, FILTER_LABELS, filterProjects, type Filter, type Project, type ProjectKind,
+  DEFAULT_FILTER, FILTER_LABELS, KIND_ICON, filterProjects, type Filter, type Project,
 } from '../content/projects';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import { DitherFade } from '../layout/DitherFade';
@@ -11,13 +11,6 @@ const FILTERS: Filter[] = ['all', 'code', 'video', 'misc'];
 
 /** Roster tiles per page: a 3 x 3 grid, about the card's height. */
 const PAGE_SIZE = 9;
-
-/** Roster portrait icon per kind; the tile tints live in patterns.css. */
-const KIND_ICON: Record<ProjectKind, string> = {
-  code: 'ui/code-solid',
-  video: 'ui/video-camera-solid',
-  misc: 'ui/seedlings-solid',
-};
 
 const DROPDOWN_ITEM = {
   textAlign: 'left' as const, padding: '12px 24px', background: 'none',

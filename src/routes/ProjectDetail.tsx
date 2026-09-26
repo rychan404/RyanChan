@@ -3,7 +3,7 @@ import { NavRail } from '../layout/NavRail';
 import { Footer } from '../layout/Footer';
 import { ImageSlot } from '../components/ImageSlot';
 import { PixelIcon } from '../components/PixelIcon';
-import type { LinkKind, Project } from '../content/projects';
+import { KIND_ICON, type LinkKind, type Project } from '../content/projects';
 import { ThemeProvider, useTheme } from '../hooks/useTheme';
 
 /** The project's link buttons, in this order. The first one a project has is
@@ -50,7 +50,7 @@ function Found({ project, prev, next, children }: { project: Project; prev?: Nei
             border: 'var(--border-thick) solid var(--edge-on-surface)',
           }}
         >
-          <ImageSlot src={project.image} alt={project.title} />
+          <ImageSlot icon={KIND_ICON[project.kind]} src={project.image} alt={project.title} />
         </div>
       </div>
 

@@ -72,9 +72,10 @@ describe('ProjectDetail — found', () => {
     expect(region.style.background).toBe('var(--color-bg-alt)');
   });
 
-  it('shows the empty image slot, with no hint, when the project has no image', () => {
+  it('shows the empty image slot with the kind icon, and no hint, when the project has no image', () => {
     const { container } = renderDetail();
-    expect(container.querySelector('[data-slot-placeholder]')).not.toBeNull();
+    const icon = container.querySelector('[data-slot-placeholder] .pixel-icon') as HTMLElement;
+    expect(icon.style.maskImage).toBe('url(/icons/ui/code-solid.svg)');
     expect(container.querySelector('.rc-slot-hint')).toBeNull();
   });
 

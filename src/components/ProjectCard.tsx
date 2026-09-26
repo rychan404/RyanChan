@@ -1,4 +1,4 @@
-import type { Project } from '../content/projects';
+import { KIND_ICON, type Project } from '../content/projects';
 import { tagIcon } from '../content/tags';
 import { ImageSlot } from './ImageSlot';
 import { DitherFade } from '../layout/DitherFade';
@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
           background: 'var(--color-bg-alt)',
         }}
       >
-        <ImageSlot src={project.image} alt={project.title} />
+        <ImageSlot icon={KIND_ICON[project.kind]} src={project.image} alt={project.title} />
         <DitherFade ink="var(--color-surface)" height={64} className="dither-fade--up rc-media-fade" />
       </div>
 
