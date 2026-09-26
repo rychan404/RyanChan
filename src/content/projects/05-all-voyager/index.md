@@ -5,7 +5,8 @@ year: "JAN 2026"
 blurb: "Travel recommendation application designed for first time and experienced travellers"
 tags: ["React", "TypeScript", "FastAPI", "Python", "Tailwind CSS"]
 role: "Full Stack Developer"
-outcome: "Winner Stipend at Career Launch 2026: Computing Catalyst"
+outcome: "Winner stipend at Career Launch 2026: Computing Catalyst"
+image: "./all-voyager-thumbnail.png"
 links:
     github: "https://github.com/rychan404/All-Voyager"
     devpost: "https://devpost.com/software/all-voyager"
