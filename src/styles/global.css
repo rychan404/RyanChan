@@ -13,8 +13,6 @@ section{scroll-margin-top:0}
 .pixel-badge{border-color:var(--pixel-green-1)}
 .pixel-badge--warning{border-color:var(--pixel-tan-3)}
 
-@media (orientation:landscape) and (max-height:500px){ .px-hero-content{transform:translateY(0) !important;margin-top:56px !important} }
-
 /* Reduced motion. The scenes are decoration — 20-odd infinite animations —
    so they park on their first frame. .rc-tape is the one exception: the theme
    transition is a `forwards` animation that has to reach 100% or a scene group

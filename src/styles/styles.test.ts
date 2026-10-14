@@ -61,9 +61,20 @@ describe('global.css', () => {
     expect(css).toContain(':root{--tag-tint-pct:60%;--tag-border-pct:45%}');
   });
 
-  it('keeps the landscape hero override', () => {
-    expect(css).toContain('@media (orientation:landscape) and (max-height:500px)');
-  });
+});
+
+describe('the phone and short-landscape hero', () => {
+  it.each([
+    ['@media (max-width:860px){', '24px'],
+    ['@media (orientation:landscape) and (max-height:500px){', '4px'],
+  ])(
+    'top-aligns the content and sets the CTA gap (%s)',
+    (query, gap) => {
+      const block = read('./patterns.css').split(query)[1].split(/\r?\n\}/)[0];
+      expect(block).toContain('align-items:flex-start');
+      expect(block).toContain(`.rc-hero-cta{margin-top:${gap}}`);
+    },
+  );
 });
 
 describe('the mobile breakpoint', () => {

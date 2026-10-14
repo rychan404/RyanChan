@@ -1,14 +1,5 @@
-import { CSSProperties, memo } from 'react';
+import { memo } from 'react';
 import { HeroScene } from '../scenes/HeroScene';
-
-const EYEBROW: CSSProperties = {
-  fontFamily: 'var(--font-display)',
-  fontSize: 'var(--fs-hero-tagline)',
-  letterSpacing: '.06em',
-  color: 'var(--color-heading)',
-  textTransform: 'uppercase',
-  textShadow: '-2px -2px 0 var(--color-heading-shadow),2px -2px 0 var(--color-heading-shadow),-2px 2px 0 var(--color-heading-shadow),2px 2px 0 var(--color-heading-shadow)',
-};
 
 function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
   return (
@@ -18,13 +9,12 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
       style={{
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
       }}
     >
       <HeroScene />
 
-      {/* .px-hero-content is the hook for global.css's landscape /
-          short-viewport override. Do not rename it. */}
+      {/* .px-hero-content is the hook for patterns.css's short-landscape
+          override. Do not rename it. */}
       <div
         className="px-hero-content"
         style={{
@@ -32,38 +22,22 @@ function HeroImpl({ onNavigate }: { onNavigate: () => void }) {
           textAlign: 'center', margin: '0 auto',
         }}
       >
-        <p className="rc-hero-eyebrow" style={EYEBROW}>
-          Software Engineer <br className="rc-mobile-only" />and Video Editor
-        </p>
-
-        <h1
-          className="rc-hero-name"
-          style={{
-            fontSize: 'var(--fs-hero-name)',
-            lineHeight: '.9',
-            wordSpacing: '-0.25em',
-            color: 'var(--color-heading)',
-            margin: 0,
-          }}
-        >
-          RYAN CHAN
+        <h1 style={{ margin: 0 }}>
+          <img
+            className="rc-hero-logo"
+            src="/assets/brand/ryan-chan-hero-logo.png"
+            alt="Ryan Chan — Software Engineer and Video Editor. Building tech around what people want."
+            width={750}
+            height={250}
+          />
         </h1>
-
-        <p
-          style={{
-            fontSize: 'var(--fs-17)', lineHeight: '1.15', maxWidth: '32ch',
-            color: 'var(--color-text-muted)', margin: '8px auto 0', ...({ textWrap: 'pretty' } as CSSProperties),
-          }}
-        >
-          Building technology around what people actually want.
-        </p>
 
         <a
           href="#about"
           onClick={onNavigate}
           className="rc-hero-cta"
           style={{
-            margin: '20px auto 0', zIndex: 3, display: 'flex', alignItems: 'center',
+            zIndex: 3, display: 'flex', alignItems: 'center',
             justifyContent: 'center', gap: '12px', fontFamily: 'var(--font-display)',
             fontSize: 'var(--fs-16)', letterSpacing: '.08em', cursor: 'pointer',
           }}

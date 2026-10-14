@@ -28,21 +28,13 @@ describe('Hero', () => {
     expect(section).toHaveClass('px-hero');
   });
 
-  it('renders the name, tagline and eyebrow', () => {
-    renderHero();
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('RYAN CHAN');
-    expect(screen.getByText('Building technology around what people actually want.')).toBeInTheDocument();
-    expect(screen.getByText('Software Engineer and Video Editor')).toBeInTheDocument();
-  });
-
-  it('sizes and shadows the name exactly as the prototype', () => {
+  it('renders the logo as the h1, carrying the name, eyebrow and tagline in its alt', () => {
     renderHero();
     const h1 = screen.getByRole('heading', { level: 1 });
-    expect(h1.style.fontSize).toBe('var(--fs-hero-name)');
-    expect(h1.style.lineHeight).toBe('0.9');
-    expect(h1.style.wordSpacing).toBe('-0.25em');
-    expect(h1.style.color).toBe('var(--color-heading)');
-    expect(h1).toHaveClass('rc-hero-name');
+    const logo = h1.querySelector('img') as HTMLImageElement;
+    expect(logo).toHaveAttribute('src', '/assets/brand/ryan-chan-hero-logo.png');
+    expect(logo).toHaveClass('rc-hero-logo');
+    expect(h1).toHaveAccessibleName(/Ryan Chan.*Software Engineer and Video Editor/);
   });
 
   it('keeps the media-query hook class', () => {
@@ -73,14 +65,5 @@ describe('Hero', () => {
   it('mounts the scene', () => {
     const { container } = renderHero();
     expect(container.querySelectorAll('img[src^="/assets/hero/"]').length).toBe(31);
-  });
-});
-
-describe('Hero eyebrow', () => {
-  it('carries a line break that only shows on mobile', () => {
-    const { container } = renderHero();
-    const eyebrow = container.querySelector('.px-hero-content p') as HTMLElement;
-    expect(eyebrow).toHaveClass('rc-hero-eyebrow');
-    expect(eyebrow.querySelector('br')).toHaveClass('rc-mobile-only');
   });
 });
